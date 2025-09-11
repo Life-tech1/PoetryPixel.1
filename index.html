@@ -99,7 +99,7 @@ h2{margin:0 0 12px 6px; font-size:20px; font-weight:800}
   position:absolute; top:40%; transform:translateY(-50%);
   background:var(--chip-bg); color:var(--txt); padding:8px 12px; border-radius:14px;
   backdrop-filter:blur(8px) saturate(160%); border:0.5px solid var(--glass-border); cursor:pointer;
-  z-index:10;}
+ z-index:10;}
 .nav-btn.left{left:6px} .nav-btn.right{right:6px}
 
 /* Contact & About */
@@ -110,7 +110,7 @@ h2{margin:0 0 12px 6px; font-size:20px; font-weight:800}
   border:0.5px solid var(--glass-border);
 }
 
-/* Liquid Glass Circle + Theme buttons */
+/* Theme & Glass buttons */
 #liquidGlass{
   position:fixed; width:50px; height:50px; border-radius:50%;
   pointer-events:none; display:none; z-index:70;
@@ -123,14 +123,16 @@ h2{margin:0 0 12px 6px; font-size:20px; font-weight:800}
   content:""; position:absolute; top:16%; left:20%; width:50%; height:34%;
   border-radius:50%; background:rgba(255,255,255,.35); filter:blur(6px); opacity:.6;
 }
-#toggleGlass{
-  position:fixed; left:16px; bottom:16px; z-index:80;
-  width:46px; height:46px; border:none; border-radius:50%;
+#toggleGlass, #toggleMobile {
+  position:fixed; width:46px; height:46px; border:none; border-radius:50%;
   background:var(--chip-bg); color:var(--txt); cursor:pointer;
-  backdrop-filter:blur(8px) saturate(160%); border:0.5px solid var(--glass-border);
-  box-shadow:inset 0 1px 1px rgba(255,255,255,.3), 0 1px 3px rgba(0,0,0,.2);
-  font-size:20px;
+  backdrop-filter:blur(8px) saturate(160%);
+  border:0.5px solid var(--glass-border);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.3),0 1px 3px rgba(0,0,0,.2);
+  font-size:20px; z-index:80;
 }
+#toggleGlass { left:16px; bottom:16px; }
+#toggleMobile { right:16px; bottom:16px; }
 #theme-buttons{
   position:fixed; left:16px; bottom:80px; z-index:80;
   display:flex; flex-direction:column; gap:12px;
@@ -144,15 +146,13 @@ h2{margin:0 0 12px 6px; font-size:20px; font-weight:800}
 #theme-buttons button:hover{transform:translateY(-1px)}
 #theme-buttons button.active{outline:2px solid rgba(120,180,255,.6)}
 
-/* ✅ Mobile layout แก้ล่าสุด */
-@media (max-width: 600px) and (orientation: portrait) {
-  .hero { padding:24px 16px; margin:0 auto; text-align:center; }
-  .hero h1 { font-size:24px; }
-  .hero p { font-size:14px; }
-  .nav-inner { flex-direction:column; align-items:center; gap:12px; }
-  .nav-actions { display:grid; grid-template-columns:repeat(2,minmax(120px,1fr)); gap:8px; justify-items:center; width:100%; }
-  .chip { width:90%; font-size:14px; padding:10px; border-radius:12px; text-align:center; }
-}
+/* ✅ Force Mobile Layout toggle */
+body.force-mobile .hero { padding:24px 16px; margin:0 auto; text-align:center; }
+body.force-mobile .hero h1 { font-size:24px; }
+body.force-mobile .hero p { font-size:14px; }
+body.force-mobile .nav-inner { flex-direction:column; align-items:center; gap:12px; }
+body.force-mobile .nav-actions { display:grid; grid-template-columns:repeat(2,minmax(120px,1fr)); gap:8px; justify-items:center; width:100%; }
+body.force-mobile .chip { width:90%; font-size:14px; padding:10px; border-radius:12px; text-align:center; }
 </style>
 </head>
 <body>
@@ -225,14 +225,17 @@ h2{margin:0 0 12px 6px; font-size:20px; font-weight:800}
   </div>
 </section>
 
+<!-- Theme & Mode buttons -->
 <div id="theme-buttons">
   <button data-set-theme="light" title="Light">☀️</button>
   <button data-set-theme="dark"  title="Dark">🌙</button>
 </div>
 <button id="toggleGlass" title="Toggle Liquid Glass">🔍</button>
+<button id="toggleMobile" title="Toggle Mobile Layout">📱</button>
 <div id="liquidGlass"></div>
 
 <script>
+/* Theme switch */
 document.querySelectorAll('#theme-buttons button').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.documentElement.setAttribute('data-theme', btn.dataset.setTheme);
@@ -240,6 +243,7 @@ document.querySelectorAll('#theme-buttons button').forEach(btn=>{
   });
 });
 
+/* Liquid glass cursor */
 const glass=document.getElementById('liquidGlass');
 document.getElementById('toggleGlass').onclick=()=>{glass.style.display=glass.style.display==='block'?'none':'block'};
 document.addEventListener('mousemove', e=>{
@@ -248,18 +252,24 @@ document.addEventListener('mousemove', e=>{
   }
 });
 
+/* Force Mobile Layout toggle */
+document.getElementById('toggleMobile').onclick=()=>{
+  document.body.classList.toggle('force-mobile');
+};
+
+/* Parallax glow */
 (function(){
   const layer=document.querySelector('.bg-layer'); let tx=0,ty=0,cx=0,cy=0,sp=.06;
   addEventListener('pointermove',e=>{tx=(e.clientX/innerWidth-.5)*20;ty=(e.clientY/innerHeight-.5)*20},{passive:true});
   (function raf(){cx+=(tx-cx)*sp;cy+=(ty-cy)*sp; layer.style.transform=`translate(${cx}px,${cy}px)`; requestAnimationFrame(raf)}());
 })();
 
+/* Helpers & Video lists */
 const isMobile=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 function ytId(u){try{const x=new URL(u);
   if(x.hostname.includes('youtu.be')) return x.pathname.slice(1);
   if(x.pathname.startsWith('/shorts/')) return x.pathname.split('/')[2]||x.pathname.split('/')[1];
   return x.searchParams.get('v');}catch(e){return null}}
-
 function makeYouTubeCard(u,label){
   const id=ytId(u); const c=document.createElement('div'); c.className='card';
   const t=document.createElement('div'); t.className='tile';
@@ -285,6 +295,7 @@ function makeTikTokCard(u,label){
   c.appendChild(t); c.appendChild(b); a.appendChild(c); return a;
 }
 
+/* Video lists */
 const HIGHLIGHT=["https://youtu.be/Znybs8YddeU","https://youtu.be/LPFEhuNYmIA","https://youtu.be/OpwSI3ov7NI"];
 const COMMERCIAL=[
   "https://youtu.be/Znybs8YddeU","https://youtu.be/BP-v3Qacqkk","https://youtu.be/ZefDXXIjz8g","https://youtu.be/AQETlaYZiIY","https://youtu.be/Vic8NoGLrDA",
@@ -304,6 +315,7 @@ const FILM=["https://youtu.be/BSN5My9DLbA","https://youtu.be/b2jZQe3A8EI","https
 const GRAPHIC=["https://www.youtube.com/shorts/DDCfIg6Vq7o","https://youtu.be/b2jZQe3A8EI","https://youtu.be/OpwSI3ov7NI"];
 const TIKTOK=["https://vt.tiktok.com/ZS6qTRsKo/","https://vt.tiktok.com/ZS6q3sE1F/","https://vt.tiktok.com/ZS6q3bSBf/","https://vt.tiktok.com/ZS6q3cDLu/","https://vt.tiktok.com/ZS6q3wRUa/","https://vt.tiktok.com/ZS6q3GG1r/"];
 
+/* Render */
 HIGHLIGHT.forEach(u => document.getElementById('row-highlight').appendChild(makeYouTubeCard(u,"Highlight")));
 COMMERCIAL.forEach(u => document.getElementById('row-commercial').appendChild(makeYouTubeCard(u,"Commercial")));
 SHORTFORM.forEach(u => document.getElementById('row-shortform').appendChild(u.includes("drive.google")?makeDriveCard(u,"Short-form"):makeYouTubeCard(u,"Short-form")));
@@ -311,6 +323,7 @@ FILM.forEach(u => document.getElementById('row-film').appendChild(makeYouTubeCar
 GRAPHIC.forEach(u => document.getElementById('row-graphic').appendChild(makeYouTubeCard(u,"Graphic & Motion")));
 TIKTOK.forEach((u,i)=> document.getElementById('row-tiktok').appendChild(makeTikTokCard(u,`TikTok #${i+1}`)));
 
+/* Carousel nav */
 document.querySelectorAll('.carousel').forEach(sec=>{
   const row=sec.querySelector('.row');
   sec.querySelector('.nav-btn.left').onclick=()=>row.scrollBy({left:-420,behavior:'smooth'});
