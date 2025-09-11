@@ -146,38 +146,43 @@ h2{margin:0 0 12px 6px; font-size:20px; font-weight:800}
    <style>
   /* … CSS เดิมทั้งหมด … */
 
-@media (max-width: 600px) and (orientation: portrait) {
-  /* ปรับส่วน hero (แค่ h1+p+ปุ่ม About) */
-  .hero {
-    padding: 24px 16px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .hero h1 { font-size: 24px; }
-  .hero p { font-size: 14px; }
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" ... />
+  <title>Lifemotion | Portfolio</title>
+  <meta name="description" ...>
+  <meta name="theme-color" content="#0d0f12">
+  <style>
+    :root { ... }
+    html[data-theme="light"] { ... }
+    ...
+    #theme-buttons button.active { outline:2px solid rgba(120,180,255,.6); }
 
-  /* ✅ จัดเมนูหลักด้านบน */
-  .nav-inner {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-  .nav-actions {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(120px, 1fr));
-    gap: 8px;
-    justify-items: center;
-    width: 100%;
-  }
-  .chip {
-    width: 90%;
-    font-size: 14px;
-    padding: 10px;
-    border-radius: 12px;
-    text-align: center;
-  }
-}
-</style>
+    @media (max-width: 600px) and (orientation: portrait) {
+      .hero { padding:24px 16px; margin:0 auto; text-align:center; }
+      .hero h1 { font-size:24px; }
+      .hero p { font-size:14px; }
+      .nav-inner {
+        flex-direction:column;
+        align-items:center;
+        gap:12px;
+      }
+      .nav-actions {
+        display:grid;
+        grid-template-columns:repeat(2,minmax(120px,1fr));
+        gap:8px;
+        justify-items:center;
+        width:100%;
+      }
+      .chip {
+        width:90%;
+        font-size:14px;
+        padding:10px;
+        border-radius:12px;
+        text-align:center;
+      }
+    }
+  </style>
 </head>
 <body>
 
