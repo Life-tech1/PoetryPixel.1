@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="auto">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Lifemotion | Portfolio</title>
+<meta name="description" content="Lifemotion—รวมผลงานรีวิวสินค้า โฆษณา คอนเทนต์สั้น สารคดี ภาพยนตร์สั้น กราฟิก และ TikTok">
+<meta name="theme-color" content="#0d0f12">
+<style>
+:root{
+  --bg:#0d0f12; --txt:#f5f5f7; --muted:#cfd3dc;
+  --glass-bg:rgba(255,255,255,.06); --glass-border:rgba(255,255,255,.4);
+  --chip-bg:rgba(255,255,255,.05); --card-bg:rgba(255,255,255,.06);
+  --overlay:rgba(0,0,0,.4); --maxw:1240px;
+}
+html[data-theme="light"]{
+  --bg:#f3f4f7; --txt:#0a0b0d; --muted:#4b5563;
+  --glass-bg:rgba(255,255,255,.55); --glass-border:rgba(0,0,0,.15);
+  --chip-bg:rgba(255,255,255,.6); --card-bg:rgba(255,255,255,.6);
+  --overlay:rgba(0,0,0,.2);
+}
+html[data-theme="dark"]{ --bg:#0d0f12; --txt:#f5f5f7; --muted:#cfd3dc; }
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; color:var(--txt);
+  font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans Thai",system-ui,sans-serif;
+  background:
+    radial-gradient(1200px 900px at 80% -10%, rgba(120,180,255,.25), transparent 65%),
+    radial-gradient(1000px 700px at -10% 100%, rgba(255,150,200,.25), transparent 60%),
+    var(--bg);
+  background-size:cover; background-position:center; background-repeat:no-repeat;
+  overflow-x:hidden; scroll-behavior:smooth;
+}
+.bg-layer{
+  position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(1400px 900px at 85% -10%, rgba(120,180,255,.20), transparent 65%),
+    radial-gradient(1200px 800px at -10% 110%, rgba(255,150,200,.18), transparent 60%);
+  background-size:cover; background-position:center;
+}
+footer{
+  position:relative; text-align:center; padding:80px 20px; color:#fff;
+  background:url('footer-bg.jpg') center/cover no-repeat;
+}
+footer::before{content:""; position:absolute; inset:0; background:var(--overlay); z-index:0}
+footer>*{position:relative; z-index:1}
+
+/* Nav */
+.nav{position:sticky; top:0; z-index:50; padding:10px}
+.nav-inner{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  max-width:var(--maxw); margin:auto; padding:10px 16px; border-radius:999px;
+  background:var(--chip-bg); backdrop-filter:blur(10px) saturate(180%);
+  border:0.5px solid var(--glass-border);
+}
+.brand{font-weight:800}
+.nav-actions{display:flex; gap:8px; flex-wrap:wrap}
+.chip{
+  padding:8px 14px; border-radius:999px; text-decoration:none; color:var(--txt);
+  background:var(--chip-bg); backdrop-filter:blur(10px) saturate(180%);
+  border:0.5px solid var(--glass-border); font-size:14px;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.35), 0 1px 2px rgba(0,0,0,.2);
+}
+.chip:hover{transform:translateY(-1px)}
+
+/* Hero */
+.hero{text-align:center; padding:60px 24px; max-width:1000px; margin:24px auto}
+.hero h1{font-size:clamp(28px,4vw,42px); margin:0; font-weight:900}
+.hero p{max-width:800px; margin:10px auto}
+.btn{
+  display:inline-block; margin:10px; padding:12px 18px; border-radius:14px;
+  text-decoration:none; color:var(--txt);
+  background:var(--chip-bg); backdrop-filter:blur(10px) saturate(180%);
+  border:0.5px solid var(--glass-border); font-weight:700;
+}
+
+/* Sections & Cards */
+.section{padding:30px 20px; max-width:var(--maxw); margin:auto}
+h2{margin:0 0 12px 6px; font-size:20px; font-weight:800}
+.carousel{position:relative}
+.row{
+  display:flex; gap:16px; overflow-x:auto; padding:0 20px 16px;
+  scroll-snap-type:x mandatory; scrollbar-width:none;
+}
+.row::-webkit-scrollbar{display:none}
+.card{
+  flex:0 0 clamp(260px,35vw,400px); scroll-snap-align:start;
+  border-radius:18px; overflow:hidden; position:relative;
+  background:var(--card-bg); backdrop-filter:blur(10px) saturate(180%);
+  border:0.5px solid var(--glass-border);
+}
+.tile{aspect-ratio:16/9; background:#000; overflow:hidden; position:relative}
+.tile img{width:100%; height:100%; object-fit:cover; display:block; transition:opacity .3s}
+.tile iframe{position:absolute; inset:0; width:100%; height:100%; opacity:0; transition:opacity .3s}
+.card:hover .tile iframe{opacity:1} .card:hover .tile img{opacity:0}
+.card-body{padding:10px; font-size:14px; color:var(--muted)}
+.card-title{font-weight:700; color:var(--txt)}
+.nav-btn{
+  position:absolute; top:40%; transform:translateY(-50%);
+  background:var(--chip-bg); color:var(--txt); padding:8px 12px; border-radius:14px;
+  backdrop-filter:blur(8px) saturate(160%); border:0.5px solid var(--glass-border); cursor:pointer;
+ z-index:10;}
+.nav-btn.left{left:6px} .nav-btn.right{right:6px}
+
+/* Contact & About */
+.contact-container{display:flex; flex-wrap:wrap; gap:24px; justify-content:center}
+.contact-box,.about-box{
+  flex:1 1 320px; min-width:280px; padding:24px; border-radius:22px;
+  background:var(--card-bg); backdrop-filter:blur(10px) saturate(180%);
+  border:0.5px solid var(--glass-border);
+}
+
+/* Liquid Glass Circle + Theme buttons */
+#liquidGlass{
+  position:fixed; width:50px; height:50px; border-radius:50%;
+  pointer-events:none; display:none; z-index:70;
+  background: var(--glass-bg); backdrop-filter: blur(3px) saturate(160%);
+  border:0.5px solid var(--glass-border);
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.4),0 1px 3px rgba(0,0,0,.18);
+  transform: translate(-50%, -50%);
+}
+#liquidGlass::before{
+  content:""; position:absolute; top:16%; left:20%; width:50%; height:34%;
+  border-radius:50%; background:rgba(255,255,255,.35); filter:blur(6px); opacity:.6;
+}
+#toggleGlass{
+  position:fixed; left:16px; bottom:16px; z-index:80;
+  width:46px; height:46px; border:none; border-radius:50%;
+  background:var(--chip-bg); color:var(--txt); cursor:pointer;
+  backdrop-filter:blur(8px) saturate(160%); border:0.5px solid var(--glass-border);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.3), 0 1px 3px rgba(0,0,0,.2);
+  font-size:20px;
+}
+#theme-buttons{
+  position:fixed; left:16px; bottom:80px; z-index:80;
+  display:flex; flex-direction:column; gap:12px;
+}
+#theme-buttons button{
+  width:46px; height:46px; border:none; border-radius:50%; cursor:pointer; color:var(--txt);
+  background:var(--chip-bg); backdrop-filter:blur(8px) saturate(160%); border:0.5px solid var(--glass-border);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.3), 0 1px 3px rgba(0,0,0,.2);
+  font-size:20px; transition:transform .18s ease;
+}
+#theme-buttons button:hover{transform:translateY(-1px)}
+#theme-buttons button.active{outline:2px solid rgba(120,180,255,.6)}
+</style>
+</head>
+<body>
+
+<div class="bg-layer" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">Lifemotion</div>
+    <div class="nav-actions">
+      <a class="chip" href="#highlight">✨ Highlight</a>
+      <a class="chip" href="#commercial">📦 Commercial</a>
+      <a class="chip" href="#shortform">🎵 Short-form</a>
+      <a class="chip" href="#film">🎬 Film & Documentary</a>
+      <a class="chip" href="#graphic">🎨 Graphic & Motion</a>
+      <a class="chip" href="#tiktok">🎵 TikTok</a>
+      <a class="chip" href="#contact">📩 Contact & About</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>Lifemotion</h1>
+  <p>รวมผลงานรีวิวสินค้า โฆษณา คอนเทนต์สั้น สารคดี ภาพยนตร์สั้น กราฟิก และ TikTok</p>
+  <a class="btn" href="#contact">ℹ️ เกี่ยวกับ / About</a>
+</header>
+
+<section id="highlight" class="section"><h2>✨ Highlight</h2>
+  <div class="carousel"><button class="nav-btn left">◀</button>
+    <div class="row" id="row-highlight"></div>
+  <button class="nav-btn right">▶</button></div>
+</section>
+<section id="commercial" class="section"><h2>📦 Commercial</h2>
+  <div class="carousel"><button class="nav-btn left">◀</button>
+    <div class="row" id="row-commercial"></div>
+  <button class="nav-btn right">▶</button></div>
+</section>
+<section id="shortform" class="section"><h2>🎵 Short-form</h2>
+  <div class="carousel"><button class="nav-btn left">◀</button>
+    <div class="row" id="row-shortform"></div>
+  <button class="nav-btn right">▶</button></div>
+</section>
+<section id="film" class="section"><h2>🎬 Film & Documentary</h2>
+  <div class="carousel"><button class="nav-btn left">◀</button>
+    <div class="row" id="row-film"></div>
+  <button class="nav-btn right">▶</button></div>
+</section>
+<section id="graphic" class="section"><h2>🎨 Graphic & Motion</h2>
+  <div class="carousel"><button class="nav-btn left">◀</button>
+    <div class="row" id="row-graphic"></div>
+  <button class="nav-btn right">▶</button></div>
+</section>
+<section id="tiktok" class="section"><h2>🎵 TikTok Aiman Studio</h2>
+  <div class="carousel"><button class="nav-btn left">◀</button>
+    <div class="row" id="row-tiktok"></div>
+  <button class="nav-btn right">▶</button></div>
+</section>
+
+<section id="contact" class="section">
+  <div class="contact-container">
+    <div class="contact-box">
+      <h2>📩 Contact</h2>
+      <p><strong>Facebook:</strong> Lifemotion</p>
+      <p><strong>Email:</strong> lifemotion3894@gmail.com</p>
+    </div>
+    <div class="about-box">
+      <h2>ℹ️ About Lifemotion</h2>
+      <p>รวมผลงานรีวิวสินค้า โฆษณา คอนเทนต์สั้น สารคดี ภาพยนตร์สั้น และกราฟิกโมชั่น เราเชื่อในการสื่อสารทั้งอารมณ์และข้อมูลให้เข้าถึงผู้ชมได้จริง</p>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Theme buttons + Glass -->
+<div id="theme-buttons">
+  <button data-set-theme="light" title="Light">☀️</button>
+  <button data-set-theme="dark"  title="Dark">🌙</button>
+</div>
+<button id="toggleGlass" title="Toggle Liquid Glass">🔍</button>
+<div id="liquidGlass"></div>
+
+<script>
+/* Theme buttons (bottom-left) */
+document.querySelectorAll('#theme-buttons button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.documentElement.setAttribute('data-theme', btn.dataset.setTheme);
+    document.querySelectorAll('#theme-buttons button').forEach(b=>b.classList.toggle('active',b===btn));
+  });
+});
+
+/* Liquid glass cursor */
+const glass=document.getElementById('liquidGlass');
+document.getElementById('toggleGlass').onclick=()=>{glass.style.display=glass.style.display==='block'?'none':'block'};
+document.addEventListener('mousemove', e=>{
+  if(glass.style.display==='block'){
+    glass.style.left=e.clientX+'px'; glass.style.top=e.clientY+'px';
+  }
+});
+
+/* Parallax glow (subtle) */
+(function(){
+  const layer=document.querySelector('.bg-layer'); let tx=0,ty=0,cx=0,cy=0,sp=.06;
+  addEventListener('pointermove',e=>{tx=(e.clientX/innerWidth-.5)*20;ty=(e.clientY/innerHeight-.5)*20},{passive:true});
+  (function raf(){cx+=(tx-cx)*sp;cy+=(ty-cy)*sp; layer.style.transform=`translate(${cx}px,${cy}px)`; requestAnimationFrame(raf)}());
+})();
+
+/* Helpers */
+const isMobile=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+function ytId(u){try{const x=new URL(u);
+  if(x.hostname.includes('youtu.be')) return x.pathname.slice(1);
+  if(x.pathname.startsWith('/shorts/')) return x.pathname.split('/')[2]||x.pathname.split('/')[1];
+  return x.searchParams.get('v');}catch(e){return null}}
+
+function makeYouTubeCard(u,label){
+  const id=ytId(u); const c=document.createElement('div'); c.className='card';
+  const t=document.createElement('div'); t.className='tile';
+  const img=new Image(); img.loading='lazy'; img.alt=label; img.src=`https://i.ytimg.com/vi/${id}/hqdefault.jpg`; t.appendChild(img);
+  const iframe=document.createElement('iframe'); iframe.loading='lazy'; iframe.allow='autoplay; fullscreen'; iframe.setAttribute('playsinline',''); iframe.setAttribute('muted','');
+  iframe.src=`https://www.youtube.com/embed/${id}?mute=1&controls=0&loop=1&playlist=${id}`; t.appendChild(iframe);
+  if(isMobile){ c.addEventListener('click',()=>open(u,'_blank'),{passive:true}); }
+  const b=document.createElement('div'); b.className='card-body'; const title=document.createElement('span'); title.className='card-title'; title.textContent=label; b.appendChild(title);
+  c.appendChild(t); c.appendChild(b); return c;
+}
+function makeDriveCard(u,label){
+  const c=document.createElement('div'); c.className='card'; const t=document.createElement('div'); t.className='tile';
+  const iframe=document.createElement('iframe'); iframe.loading='lazy'; iframe.allow='autoplay'; iframe.setAttribute('playsinline',''); iframe.setAttribute('muted','');
+  iframe.src=u.replace('/view','/preview'); t.appendChild(iframe);
+  const b=document.createElement('div'); b.className='card-body'; const title=document.createElement('span'); title.className='card-title'; title.textContent=label; b.appendChild(title);
+  c.appendChild(t); c.appendChild(b); if(isMobile){ c.addEventListener('click',()=>open(u,'_blank'),{passive:true}); } return c;
+}
+function makeTikTokCard(u,label){
+  const a=document.createElement('a'); a.href=u; a.target='_blank'; a.rel='noopener'; a.style.textDecoration='none'; a.style.color='inherit';
+  const c=document.createElement('div'); c.className='card'; const t=document.createElement('div'); t.className='tile';
+  const img=new Image(); img.loading='lazy'; img.alt='TikTok'; img.src='https://www.tiktok.com/favicon.ico'; t.appendChild(img);
+  const b=document.createElement('div'); b.className='card-body'; const title=document.createElement('span'); title.className='card-title'; title.textContent=label; b.appendChild(title);
+  c.appendChild(t); c.appendChild(b); a.appendChild(c); return a;
+}
+
+/* ===== Video Lists (full) ===== */
+const HIGHLIGHT=["https://youtu.be/Znybs8YddeU","https://youtu.be/LPFEhuNYmIA","https://youtu.be/OpwSI3ov7NI"];
+const COMMERCIAL=[
+  "https://youtu.be/Znybs8YddeU","https://youtu.be/BP-v3Qacqkk","https://youtu.be/ZefDXXIjz8g","https://youtu.be/AQETlaYZiIY","https://youtu.be/Vic8NoGLrDA",
+  "https://youtu.be/1TR0l4mr0Rc","https://youtu.be/3SmEJ2zJMV4","https://youtu.be/7TEaiz9yt_Y","https://youtu.be/awtQeg38xCE","https://youtu.be/MElFZeqGNAY","https://youtu.be/8Am5o_wBrFI"
+];
+const SHORTFORM=[
+  "https://youtu.be/LPFEhuNYmIA",
+  "https://drive.google.com/file/d/1Bw9gd9U1zM5f-c_g8tiqC1L9_zlXVXl9/view",
+  "https://drive.google.com/file/d/1gcDRS4EGI56z3uCiiD6-5LjCbWvwPqXO/view",
+  "https://drive.google.com/file/d/1XlY2PiMiPRKv_PVI1CDz1E0K4j6ycoCk/view",
+  "https://drive.google.com/file/d/1JKrP8bd0MiVHuSbSISaR1BDA3OYELgH5/view",
+  "https://drive.google.com/file/d/1jBjAo907zXcIu2rib9q4pMpMV07uJ-WH/view",
+  "https://drive.google.com/file/d/1PFht0iLXpMPuewLjCOi-ZATK-BfVud1z/view",
+  "https://drive.google.com/file/d/1AEZfYjzOsAPP0QrvPPCSr1dPW45Yri29/view"
+];
+const FILM=["https://youtu.be/BSN5My9DLbA","https://youtu.be/b2jZQe3A8EI","https://youtu.be/T9xEJFWqB6A","https://youtu.be/H5ji14AhWX4","https://youtu.be/bn2VJz-cLYs","https://youtu.be/FNoIhoD39zY","https://youtu.be/zIb9URSqiFQ","https://youtu.be/zOdS71eQBpY"];
+const GRAPHIC=["https://www.youtube.com/shorts/DDCfIg6Vq7o","https://youtu.be/b2jZQe3A8EI","https://youtu.be/OpwSI3ov7NI"];
+const TIKTOK=["https://vt.tiktok.com/ZS6qTRsKo/","https://vt.tiktok.com/ZS6q3sE1F/","https://vt.tiktok.com/ZS6q3bSBf/","https://vt.tiktok.com/ZS6q3cDLu/","https://vt.tiktok.com/ZS6q3wRUa/","https://vt.tiktok.com/ZS6q3GG1r/"];
+
+/* Render */
+HIGHLIGHT.forEach(u => document.getElementById('row-highlight').appendChild(makeYouTubeCard(u,"Highlight")));
+COMMERCIAL.forEach(u => document.getElementById('row-commercial').appendChild(makeYouTubeCard(u,"Commercial")));
+SHORTFORM.forEach(u => document.getElementById('row-shortform').appendChild(u.includes("drive.google")?makeDriveCard(u,"Short-form"):makeYouTubeCard(u,"Short-form")));
+FILM.forEach(u => document.getElementById('row-film').appendChild(makeYouTubeCard(u,"Film & Documentary")));
+GRAPHIC.forEach(u => document.getElementById('row-graphic').appendChild(makeYouTubeCard(u,"Graphic & Motion")));
+TIKTOK.forEach((u,i)=> document.getElementById('row-tiktok').appendChild(makeTikTokCard(u,`TikTok #${i+1}`)));
+
+/* Carousel nav */
+document.querySelectorAll('.carousel').forEach(sec=>{
+  const row=sec.querySelector('.row');
+  sec.querySelector('.nav-btn.left').onclick=()=>row.scrollBy({left:-420,behavior:'smooth'});
+  sec.querySelector('.nav-btn.right').onclick=()=>row.scrollBy({left:420,behavior:'smooth'});
+});
+</script>
+</body>
+</html>
