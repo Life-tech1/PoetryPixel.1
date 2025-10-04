@@ -2,7 +2,7 @@
 <html lang="th" data-theme="dark">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Poetry Pixel — Creative Studio</title>
   <meta name="description" content="Poetry Pixel: pixels that speak like poetry — video editing, motion graphics, branding, AI-age visuals." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +30,7 @@
       --ai-blue: #0088cc;
     }
     *{box-sizing:border-box; margin:0; padding:0}
-    body{margin:0; font:400 16px/1.6 'Geist', 'LINE Seed Sans TH', system-ui, sans-serif; color:var(--text); background:var(--bg); transition:background .25s ease,color .25s ease; overflow-x:hidden}
+    body{margin:0; font:400 16px/1.6 'Geist', 'LINE Seed Sans TH', system-ui, sans-serif; color:var(--text); background:var(--bg); transition:background .25s ease,color .25s ease; overflow-x:hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
 
     @keyframes borderflow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
     @keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
@@ -49,7 +49,8 @@
     .wrap{max-width:1400px;margin-inline:auto;padding:14px 22px}
     .navgrid{display:flex;align-items:center;justify-content:space-between}
     .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:40px;aspect-ratio:1;border-radius:12px;position:relative;background:var(--ai-rainbow);background-size:400% 400%;animation:borderflow 12s linear infinite}
+    .logo{width:40px;aspect-ratio:1;border-radius:12px;position:relative;overflow:hidden}
+    .logo-img{width:100%;height:100%;object-fit:contain;display:block}
     .title{font-weight:800;font-family: 'Geist', sans-serif;font-size:1.3rem;letter-spacing:-0.02em}
     .subtle{color:var(--muted);font-size:.9rem;font-weight:400}
     .navlinks{display:flex;gap:12px;align-items:center}
@@ -142,6 +143,9 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
       font-family: 'Geist', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      border: none;
+      cursor: pointer;
     }
     
     .btn:hover {
@@ -158,7 +162,24 @@
     .btn-secondary:hover {
       background: var(--ai-blue);
     }
-    
+
+    /* FIX FOR MOBILE ICONS */
+    .btn span:first-child,
+    .btn-secondary span:first-child,
+    .contact-btn span:first-child {
+      font-size: 1.2em;
+      display: inline-block;
+      min-width: 24px;
+      text-align: center;
+      -webkit-text-stroke: 0.5px transparent;
+    }
+
+    /* Specific icon fixes */
+    .btn span:first-child:contains("▶"),
+    .contact-btn span:first-child:contains("▶") {
+      font-size: 1.1em;
+    }
+
     .scroll-indicator {
       position: absolute;
       bottom: 30px;
@@ -365,6 +386,7 @@
       transform: translateY(10px);
       z-index: 5;
       font-family: 'Geist', sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
     
     .portfolio-card:hover .card-link {
@@ -553,6 +575,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      -webkit-tap-highlight-color: transparent;
     }
     
     .scroll-btn:hover {
@@ -659,6 +682,8 @@
       transition: all 0.3s ease;
       animation: blue-glow 2s ease-in-out infinite;
       font-family: 'Geist', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      border: none;
     }
     
     .contact-btn:hover {
@@ -675,7 +700,7 @@
       font-weight: 400;
     }
 
-    /* RESPONSIVE DESIGN */
+    /* RESPONSIVE DESIGN - IMPROVED FOR MOBILE */
     @media (max-width: 768px) {
       .navlinks {
         display: none;
@@ -713,17 +738,63 @@
       .cta-buttons {
         flex-direction: column;
         align-items: center;
+        gap: 15px;
       }
       
-      .btn {
-        width: 250px;
+      .btn, .contact-btn {
+        width: 280px;
         justify-content: center;
+        padding: 18px 24px;
+        font-size: 1rem;
+      }
+      
+      /* Mobile icon fixes */
+      .btn span:first-child,
+      .contact-btn span:first-child {
+        font-size: 1.3em;
+        min-width: 28px;
       }
       
       .tiktok-badge,
       .tiktok-green-badge {
         font-size: 0.7rem;
         padding: 4px 10px;
+      }
+      
+      .hero-description {
+        font-size: 1.1rem;
+        padding: 0 15px;
+      }
+    }
+
+    /* Additional mobile optimizations */
+    @media (max-width: 480px) {
+      .btn, .contact-btn {
+        width: 260px;
+        padding: 16px 20px;
+        font-size: 0.95rem;
+      }
+      
+      .btn span:first-child,
+      .contact-btn span:first-child {
+        font-size: 1.2em;
+        min-width: 26px;
+      }
+      
+      .hero-title {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+      }
+      
+      .hero-subtitle {
+        font-size: clamp(1rem, 4vw, 1.4rem);
+      }
+    }
+
+    /* Fix for iOS Safari */
+    @supports (-webkit-touch-callout: none) {
+      .btn span:first-child,
+      .contact-btn span:first-child {
+        -webkit-text-stroke: 0.3px currentColor;
       }
     }
   </style>
@@ -733,7 +804,10 @@
   <div class="nav">
     <div class="wrap navgrid">
       <div class="brand">
-        <span class="logo"></span>
+        <!-- โลโก้จาก Google Drive -->
+        <div class="logo">
+          <img src="https://drive.google.com/thumbnail?id=1NIUOIFecbiyyueQtpGq4pdoBLGgE-YYX&sz=w1000" alt="Poetry Pixel Logo" class="logo-img">
+        </div>
         <div>
           <div class="title">POETRY PIXEL</div>
           <div class="subtle">Creative Studio</div>
