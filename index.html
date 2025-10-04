@@ -1,386 +1,1217 @@
 <!DOCTYPE html>
-<html lang="th" data-theme="auto">
+<html lang="th" data-theme="dark">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Lifemotion | Portfolio</title>
-<meta name="description" content="Lifemotion—รวมผลงานรีวิวสินค้า โฆษณา คอนเทนต์สั้น สารคดี ภาพยนตร์สั้น กราฟิก และ TikTok">
-<meta name="theme-color" content="#0d0f12">
-<style>
-:root{
-  --bg:#0d0f12; --txt:#f5f5f7; --muted:#cfd3dc;
-  --glass-bg:rgba(255,255,255,.06); --glass-border:rgba(255,255,255,.4);
-  --chip-bg:rgba(255,255,255,.05); --card-bg:rgba(255,255,255,.06);
-  --overlay:rgba(0,0,0,.4); --maxw:1240px;
-}
-html[data-theme="light"]{
-  --bg:#f3f4f7; --txt:#0a0b0d; --muted:#4b5563;
-  --glass-bg:rgba(255,255,255,.55); --glass-border:rgba(0,0,0,.15);
-  --chip-bg:rgba(255,255,255,.6); --card-bg:rgba(255,255,255,.6);
-  --overlay:rgba(0,0,0,.2);
-}
-html[data-theme="dark"]{ --bg:#0d0f12; --txt:#f5f5f7; --muted:#cfd3dc; }
-*{box-sizing:border-box}
-body{
-  margin:0; min-height:100vh; color:var(--txt);
-  font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Noto Sans Thai",system-ui,sans-serif;
-  background:
-    radial-gradient(1200px 900px at 80% -10%, rgba(120,180,255,.25), transparent 65%),
-    radial-gradient(1000px 700px at -10% 100%, rgba(255,150,200,.25), transparent 60%),
-    var(--bg);
-  background-size:cover; background-position:center; background-repeat:no-repeat;
-  overflow-x:hidden; scroll-behavior:smooth;
-}
-.bg-layer{
-  position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-2; pointer-events:none;
-  background:
-    radial-gradient(1400px 900px at 85% -10%, rgba(120,180,255,.20), transparent 65%),
-    radial-gradient(1200px 800px at -10% 110%, rgba(255,150,200,.18), transparent 60%);
-  background-size:cover; background-position:center;
-}
-footer{
-  position:relative; text-align:center; padding:80px 20px; color:#fff;
-  background:url('footer-bg.jpg') center/cover no-repeat;
-}
-footer::before{content:""; position:absolute; inset:0; background:var(--overlay); z-index:0}
-footer>*{position:relative; z-index:1}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Poetry Pixel — Creative Studio</title>
+  <meta name="description" content="Poetry Pixel: pixels that speak like poetry — video editing, motion graphics, branding, AI-age visuals." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0b0b; --text:#f5f5f5; --muted:#bdbdbd; --line:#262626;
+      --glass:rgba(255,255,255,.06); --glass-strong:rgba(255,255,255,.1);
+      --radius:22px; --blur:14px;
+      --ai-rainbow:linear-gradient(270deg,#ff4d4d,#ff9933,#ffee33,#66ff66,#33ccff,#9966ff,#ff66cc,#ff4d4d);
+      --surface-grad:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+      --nav-bg:rgba(11,11,11,.75);
+      --tiktok-pink: #ff0050;
+      --tiktok-teal: #00f2ea;
+      --ai-blue: #33ccff;
+      --accent-purple: #9966ff;
+      --accent-green: #66ff66;
+    }
+    html[data-theme="light"]{
+      --bg:#f7f9ff; --text:#0a0b0d; --muted:#555b65; --line:#d8deea;
+      --glass:rgba(255,255,255,.7); --surface-grad:linear-gradient(160deg,rgba(255,255,255,.98),rgba(255,255,255,.82));
+      --nav-bg:rgba(255,255,255,.8);
+      --ai-blue: #0088cc;
+    }
+    *{box-sizing:border-box; margin:0; padding:0}
+    body{margin:0; font:400 16px/1.6 'Geist', 'LINE Seed Sans TH', system-ui, sans-serif; color:var(--text); background:var(--bg); transition:background .25s ease,color .25s ease; overflow-x:hidden}
 
-/* Nav */
-.nav{position:sticky; top:0; z-index:50; padding:10px}
-.nav-inner{
-  display:flex; justify-content:space-between; align-items:center; gap:12px;
-  max-width:var(--maxw); margin:auto; padding:10px 16px; border-radius:999px;
-  background:var(--chip-bg); backdrop-filter:blur(10px) saturate(180%);
-  border:0.5px solid var(--glass-border);
-}
-.brand{font-weight:800}
-.nav-actions{display:flex; gap:8px; flex-wrap:wrap}
-.chip{
-  padding:8px 14px; border-radius:999px; text-decoration:none; color:var(--txt);
-  background:var(--chip-bg); backdrop-filter:blur(10px) saturate(180%);
-  border:0.5px solid var(--glass-border); font-size:14px;
-  box-shadow: inset 0 1px 1px rgba(255,255,255,.35), 0 1px 2px rgba(0,0,0,.2);
-}
-.chip:hover{transform:translateY(-1px)}
+    @keyframes borderflow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    @keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    @keyframes tiktok-glow{0%,100%{box-shadow:0 0 20px rgba(255,0,80,0.3)}50%{box-shadow:0 0 30px rgba(255,0,80,0.6),0 0 40px rgba(0,242,234,0.3)}}
+    @keyframes blue-glow{0%,100%{box-shadow:0 0 20px rgba(51,204,255,0.6),0 0 40px rgba(51,204,255,0.4),0 0 60px rgba(51,204,255,0.2)}50%{box-shadow:0 0 25px rgba(51,204,255,0.8),0 0 50px rgba(51,204,255,0.6),0 0 75px rgba(51,204,255,0.3)}}
+    @keyframes text-glow{0%,100%{text-shadow:0 0 20px rgba(255,255,255,0.8),0 0 40px rgba(255,255,255,0.6),0 0 60px rgba(255,255,255,0.4)}50%{text-shadow:0 0 25px rgba(255,255,255,1),0 0 50px rgba(255,255,255,0.8),0 0 75px rgba(255,255,255,0.6)}}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes slideInLeft{from{opacity:0;transform:translateX(-100px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes slideInRight{from{opacity:0;transform:translateX(100px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes tiktok-shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+    @keyframes tiktok-vibrate{0%,100%{transform:translateX(0)}25%{transform:translateX(-1px)}75%{transform:translateX(1px)}}
 
-/* Hero */
-.hero{text-align:center; padding:60px 24px; max-width:1000px; margin:24px auto}
-.hero h1{font-size:clamp(28px,4vw,42px); margin:0; font-weight:900}
-.hero p{max-width:800px; margin:10px auto}
-.btn{
-  display:inline-block; margin:10px; padding:12px 18px; border-radius:14px;
-  text-decoration:none; color:var(--txt);
-  background:var(--chip-bg); backdrop-filter:blur(10px) saturate(180%);
-  border:0.5px solid var(--glass-border); font-weight:700;
-}
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;width:100%;z-index:1000;backdrop-filter:blur(14px);background:var(--nav-bg);border-bottom:1px solid var(--line);transition:all 0.3s ease}
+    .wrap{max-width:1400px;margin-inline:auto;padding:14px 22px}
+    .navgrid{display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:40px;aspect-ratio:1;border-radius:12px;position:relative;background:var(--ai-rainbow);background-size:400% 400%;animation:borderflow 12s linear infinite}
+    .title{font-weight:800;font-family: 'Geist', sans-serif;font-size:1.3rem;letter-spacing:-0.02em}
+    .subtle{color:var(--muted);font-size:.9rem;font-weight:400}
+    .navlinks{display:flex;gap:12px;align-items:center}
+    .navlinks a{padding:8px 16px;border-radius:12px;text-decoration:none;color:var(--text);transition:all 0.3s ease;font-weight:500;font-size:0.95rem}
+    .navlinks a:hover{background:var(--glass);transform:translateY(-1px)}
 
-/* Sections & Cards */
-.section{padding:30px 20px; max-width:var(--maxw); margin:auto}
-h2{margin:0 0 12px 6px; font-size:20px; font-weight:800}
-.carousel{position:relative}
-.row{
-  display:flex; gap:16px; overflow-x:auto; padding:0 20px 16px;
-  scroll-snap-type:x mandatory; scrollbar-width:none;
-}
-.row::-webkit-scrollbar{display:none}
-.card{
-  /* ทำให้การ์ดทุกใบกว้างเท่ากัน */
-  flex:0 0 320px; max-width:320px;
-  scroll-snap-align:start;
-  border-radius:18px; overflow:hidden; position:relative;
-  background:var(--card-bg); backdrop-filter:blur(10px) saturate(180%);
-  border:0.5px solid var(--glass-border);
-}
-@media (max-width:480px){
-  .card{ flex:0 0 260px; max-width:260px; }
-}
-.tile{aspect-ratio:16/9; background:#000; overflow:hidden; position:relative}
-.tile img{width:100%; height:100%; object-fit:cover; display:block; transition:opacity .3s}
-.tile iframe{position:absolute; inset:0; width:100%; height:100%; opacity:0; transition:opacity .3s}
-.card:hover .tile iframe{opacity:1} .card:hover .tile img{opacity:0}
-.card-body{padding:10px; font-size:14px; color:var(--muted)}
-.card-title{font-weight:700; color:var(--txt)}
-.nav-btn{
-  position:absolute; top:40%; transform:translateY(-50%);
-  background:var(--chip-bg); color:var(--txt); padding:8px 12px; border-radius:14px;
-  backdrop-filter:blur(8px) saturate(160%); border:0.5px solid var(--glass-border); cursor:pointer;
- z-index:10;}
-.nav-btn.left{left:6px} .nav-btn.right{right:6px}
+    /* HERO SECTION - FULLSCREEN */
+    .hero-section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(51, 204, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+      z-index: -1;
+    }
+    
+    .hero-content {
+      text-align: center;
+      max-width: 800px;
+      padding: 0 20px;
+      animation: fadeIn 1.5s ease-out;
+    }
+    
+    .hero-title {
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 900;
+      margin-bottom: 20px;
+      color: #ffffff;
+      letter-spacing: -0.03em;
+      line-height: 0.9;
+      font-family: 'Geist', sans-serif;
+      text-transform: uppercase;
+      animation: text-glow 3s ease-in-out infinite;
+    }
+    
+    .hero-subtitle {
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      color: var(--ai-blue);
+      margin-bottom: 40px;
+      line-height: 1.4;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: 'Geist', sans-serif;
+    }
+    
+    .hero-description {
+      font-size: 1.2rem;
+      color: var(--muted);
+      margin-bottom: 50px;
+      line-height: 1.6;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 400;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 16px;
+      background: var(--ai-blue);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      animation: blue-glow 2s ease-in-out infinite;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-family: 'Geist', sans-serif;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      animation: blue-glow 1s ease-in-out infinite;
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid var(--ai-blue);
+      animation: none;
+    }
+    
+    .btn-secondary:hover {
+      background: var(--ai-blue);
+    }
+    
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      animation: float 2s ease-in-out infinite;
+      font-weight: 500;
+    }
+    
+    .scroll-indicator::after {
+      content: "";
+      width: 1px;
+      height: 40px;
+      background: var(--muted);
+      margin-top: 10px;
+    }
 
-/* Contact & About */
-.contact-container{display:flex; flex-wrap:wrap; gap:24px; justify-content:center}
-.contact-box,.about-box{
-  flex:1 1 320px; min-width:280px; padding:24px; border-radius:22px;
-  background:var(--card-bg); backdrop-filter:blur(10px) saturate(180%);
-  border:0.5px solid var(--glass-border);
-}
+    /* PORTFOLIO SECTION - FROM VER01 */
+    .portfolio-showcase {
+      padding: 100px 0;
+      min-height: 100vh;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px;
+      padding: 0 20px;
+    }
+    
+    .section-title {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      font-family: 'Geist', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      background: var(--ai-rainbow);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-weight: 400;
+    }
 
-/* Theme & Glass buttons */
-#liquidGlass{
-  position:fixed; width:50px; height:50px; border-radius:50%;
-  pointer-events:none; display:none; z-index:70;
-  background: var(--glass-bg); backdrop-filter: blur(3px) saturate(160%);
-  border:0.5px solid var(--glass-border);
-  box-shadow:inset 0 1px 2px rgba(255,255,255,.4),0 1px 3px rgba(0,0,0,.18);
-  transform: translate(-50%, -50%);
-}
-#liquidGlass::before{
-  content:""; position:absolute; top:16%; left:20%; width:50%; height:34%;
-  border-radius:50%; background:rgba(255,255,255,.35); filter:blur(6px); opacity:.6;
-}
-#toggleGlass, #toggleNav {
-  position:fixed; width:46px; height:46px; border:none; border-radius:50%;
-  background:var(--chip-bg); color:var(--txt); cursor:pointer;
-  backdrop-filter:blur(8px) saturate(160%);
-  border:0.5px solid var(--glass-border);
-  box-shadow:inset 0 1px 1px rgba(255,255,255,.3),0 1px 3px rgba(0,0,0,.2);
-  font-size:20px; z-index:80;
-}
-#toggleGlass { left:16px; bottom:16px; }
-#toggleNav { right:16px; bottom:16px; }  /* ปุ่มเปิด/ปิด nav-actions */
-body.hide-nav .nav-actions { display:none; }
-#theme-buttons{
-  position:fixed; left:16px; bottom:80px; z-index:80;
-  display:flex; flex-direction:column; gap:12px;
-}
-#theme-buttons button{
-  width:46px; height:46px; border:none; border-radius:50%; cursor:pointer; color:var(--txt);
-  background:var(--chip-bg); backdrop-filter:blur(8px) saturate(160%); border:0.5px solid var(--glass-border);
-  box-shadow:inset 0 1px 1px rgba(255,255,255,.3), 0 1px 3px rgba(0,0,0,.2);
-  font-size:20px; transition:transform .18s ease;
-}
-#theme-buttons button:hover{transform:translateY(-1px)}
-#theme-buttons button.active{outline:2px solid rgba(120,180,255,.6)}
-</style>
+    /* Portfolio Categories from Ver01 */
+    .portfolio-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      padding: 0 5%;
+    }
+    
+    .category-section {
+      margin-bottom: 40px;
+    }
+    
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    
+    .category-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 15px;
+      background: var(--ai-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .category-title {
+      font-size: 2rem;
+      font-weight: 800;
+      font-family: 'Geist', sans-serif;
+      letter-spacing: -0.02em;
+    }
+    
+    .category-description {
+      color: var(--muted);
+      margin-left: 65px;
+      margin-top: -10px;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+    
+    /* Horizontal Scroll Container */
+    .scroll-container {
+      position: relative;
+      margin: 0 -5%;
+      padding: 0 5%;
+    }
+    
+    .scroll-content {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 20px 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--ai-blue) transparent;
+      scroll-behavior: smooth;
+    }
+    
+    .scroll-content::-webkit-scrollbar {
+      height: 8px;
+    }
+    
+    .scroll-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .scroll-content::-webkit-scrollbar-thumb {
+      background: var(--ai-blue);
+      border-radius: 10px;
+    }
+    
+    /* Portfolio Cards with Thumbnail Preview Only */
+    .portfolio-card {
+      flex: 0 0 320px;
+      background: var(--surface-grad);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeIn 0.8s ease forwards;
+      position: relative;
+    }
+    
+    .portfolio-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    }
+    
+    .card-thumbnail {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      background: #000;
+    }
+    
+    .card-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.3s ease;
+    }
+    
+    .card-thumbnail iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .portfolio-card:hover .card-thumbnail iframe {
+      opacity: 1;
+    }
+    
+    .portfolio-card:hover .card-thumbnail img {
+      opacity: 0;
+    }
+    
+    /* Link button positioned over thumbnail */
+    .card-link {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: var(--ai-blue);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      opacity: 0;
+      transform: translateY(10px);
+      z-index: 5;
+      font-family: 'Geist', sans-serif;
+    }
+    
+    .portfolio-card:hover .card-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .card-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(51, 204, 255, 0.3);
+    }
+
+    /* NEW TIKTOK DESIGN - Minimal & Modern */
+    .tiktok-card {
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(135deg, rgba(255, 0, 80, 0.05), rgba(0, 242, 234, 0.03));
+      overflow: hidden;
+    }
+    
+    .tiktok-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 0, 80, 0.1),
+        rgba(0, 242, 234, 0.1),
+        transparent
+      );
+      transition: left 0.6s ease;
+    }
+    
+    .tiktok-card:hover::before {
+      left: 100%;
+    }
+    
+    .tiktok-card:hover {
+      border-color: rgba(255, 0, 80, 0.3);
+      box-shadow: 0 8px 25px rgba(255, 0, 80, 0.15);
+    }
+    
+    .tiktok-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: linear-gradient(45deg, var(--tiktok-pink), var(--tiktok-teal));
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      z-index: 6;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .tiktok-link {
+      background: linear-gradient(45deg, var(--tiktok-pink), var(--tiktok-teal));
+      font-weight: 600;
+      border: none;
+    }
+    
+    .tiktok-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 0, 80, 0.4);
+    }
+    
+    /* TikTok Green - Organic Style */
+    .tiktok-green-card {
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(135deg, rgba(102, 255, 102, 0.05), rgba(51, 204, 255, 0.03));
+      overflow: hidden;
+    }
+    
+    .tiktok-green-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(102, 255, 102, 0.1),
+        rgba(51, 204, 255, 0.1),
+        transparent
+      );
+      transition: left 0.6s ease;
+    }
+    
+    .tiktok-green-card:hover::before {
+      left: 100%;
+    }
+    
+    .tiktok-green-card:hover {
+      border-color: rgba(102, 255, 102, 0.3);
+      box-shadow: 0 8px 25px rgba(102, 255, 102, 0.15);
+    }
+    
+    .tiktok-green-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: linear-gradient(45deg, var(--accent-green), var(--ai-blue));
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      z-index: 6;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .tiktok-green-link {
+      background: linear-gradient(45deg, var(--accent-green), var(--ai-blue));
+      font-weight: 600;
+      border: none;
+    }
+    
+    .tiktok-green-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 255, 102, 0.4);
+    }
+    
+    /* TikTok Thumbnail Overlay */
+    .tiktok-thumbnail {
+      position: relative;
+    }
+    
+    .tiktok-thumbnail::after {
+      content: '🎵';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+    }
+    
+    .tiktok-card:hover .tiktok-thumbnail::after {
+      opacity: 1;
+    }
+    
+    .tiktok-thumbnail::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(255, 0, 80, 0.1), rgba(0, 242, 234, 0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+    
+    .tiktok-card:hover .tiktok-thumbnail::before {
+      opacity: 1;
+    }
+
+    /* Scroll Buttons */
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--glass);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .scroll-btn:hover {
+      background: var(--ai-blue);
+      color: #000;
+    }
+    
+    .scroll-btn.prev {
+      left: 10px;
+    }
+    
+    .scroll-btn.next {
+      right: 10px;
+    }
+
+    /* SERVICES SECTION */
+    .services-section {
+      padding: 100px 0;
+      background: var(--surface-grad);
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 0 5%;
+    }
+    
+    .service-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--ai-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2rem;
+    }
+    
+    .service-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      font-family: 'Geist', sans-serif;
+    }
+    
+    .service-desc {
+      color: var(--muted);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* CONTACT SECTION */
+    .contact-section {
+      padding: 100px 0;
+      text-align: center;
+    }
+    
+    .contact-title {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      font-family: 'Geist', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+    
+    .contact-subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 50px;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+    
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      background: var(--ai-blue);
+      color: white;
+      text-decoration: none;
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      animation: blue-glow 2s ease-in-out infinite;
+      font-family: 'Geist', sans-serif;
+    }
+    
+    .contact-btn:hover {
+      transform: translateY(-3px);
+      animation: blue-glow 1s ease-in-out infinite;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 768px) {
+      .navlinks {
+        display: none;
+      }
+      
+      .portfolio-categories {
+        padding: 0 20px;
+      }
+      
+      .scroll-container {
+        margin: 0 -20px;
+        padding: 0 20px;
+      }
+      
+      .portfolio-card {
+        flex: 0 0 280px;
+      }
+      
+      .category-title {
+        font-size: 1.5rem;
+      }
+      
+      .scroll-btn {
+        display: none;
+      }
+      
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .section-title {
+        font-size: 2.5rem;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .btn {
+        width: 250px;
+        justify-content: center;
+      }
+      
+      .tiktok-badge,
+      .tiktok-green-badge {
+        font-size: 0.7rem;
+        padding: 4px 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<div class="bg-layer" aria-hidden="true"></div>
-
-<nav class="nav">
-  <div class="nav-inner">
-    <div class="brand">Lifemotion</div>
-    <div class="nav-actions">
-      <a class="chip" href="#highlight">✨ Highlight</a>
-      <a class="chip" href="#commercial">📦 Commercial</a>
-      <a class="chip" href="#shortform">🎵 Short-form</a>
-      <a class="chip" href="#film">🎬 Film & Documentary</a>
-      <a class="chip" href="#graphic">🎨 Graphic & Motion</a>
-      <a class="chip" href="#tiktok">🎵 TikTok Aiman Studio</a>
-      <a class="chip" href="#tiktok-green">🌱 TikTok – Green & Organic</a>
-      <a class="chip" href="#contact">📩 Contact & About</a>
+  <!-- NAV -->
+  <div class="nav">
+    <div class="wrap navgrid">
+      <div class="brand">
+        <span class="logo"></span>
+        <div>
+          <div class="title">POETRY PIXEL</div>
+          <div class="subtle">Creative Studio</div>
+        </div>
+      </div>
+      
+      <nav class="navlinks">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
   </div>
-</nav>
 
-<header class="hero">
-  <h1>Lifemotion</h1>
-  <p>รวมผลงานรีวิวสินค้า โฆษณา คอนเทนต์สั้น สารคดี ภาพยนตร์สั้น กราฟิก และ TikTok</p>
-  <a class="btn" href="#contact">ℹ️ เกี่ยวกับ / About</a>
-</header>
-
-<section id="highlight" class="section"><h2>✨ Highlight</h2>
-  <div class="carousel"><button class="nav-btn left">◀</button>
-    <div class="row" id="row-highlight"></div>
-  <button class="nav-btn right">▶</button></div>
-</section>
-<section id="commercial" class="section"><h2>📦 Commercial</h2>
-  <div class="carousel"><button class="nav-btn left">◀</button>
-    <div class="row" id="row-commercial"></div>
-  <button class="nav-btn right">▶</button></div>
-</section>
-<section id="shortform" class="section"><h2>🎵 Short-form</h2>
-  <div class="carousel"><button class="nav-btn left">◀</button>
-    <div class="row" id="row-shortform"></div>
-  <button class="nav-btn right">▶</button></div>
-</section>
-<section id="film" class="section"><h2>🎬 Film & Documentary</h2>
-  <div class="carousel"><button class="nav-btn left">◀</button>
-    <div class="row" id="row-film"></div>
-  <button class="nav-btn right">▶</button></div>
-</section>
-<section id="graphic" class="section"><h2>🎨 Graphic & Motion</h2>
-  <div class="carousel"><button class="nav-btn left">◀</button>
-    <div class="row" id="row-graphic"></div>
-  <button class="nav-btn right">▶</button></div>
-</section>
-<section id="tiktok" class="section"><h2>🎵 TikTok Aiman Studio</h2>
-  <div class="carousel"><button class="nav-btn left">◀</button>
-    <div class="row" id="row-tiktok"></div>
-  <button class="nav-btn right">▶</button></div>
-</section>
-<section id="tiktok-green" class="section"><h2>🌱 TikTok – Green & Organic</h2>
-  <div class="carousel"><button class="nav-btn left">◀</button>
-    <div class="row" id="row-tiktok-green"></div>
-  <button class="nav-btn right">▶</button></div>
-</section>
-
-<section id="contact" class="section">
-  <div class="contact-container">
-    <div class="contact-box">
-      <h2>📩 Contact</h2>
-      <p><strong>Facebook:</strong> Lifemotion</p>
-      <p><strong>Email:</strong> lifemotion3894@gmail.com</p>
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">POETRY PIXEL</h1>
+      <div class="hero-subtitle">PIXELS THAT SPEAK LIKE POETRY</div>
+      <p class="hero-description">บริการครบวงจรด้านการผลิตสื่อครีเอทีฟ - จากแนวคิดสู่ผลงานคุณภาพ ด้วยเทคนิคการเล่าเรื่องที่คมชัดและความคิดสร้างสรรค์แบบยุค AI</p>
+      <div class="cta-buttons">
+        <a href="#portfolio" class="btn">
+          <span>▶</span>
+          <span>View Portfolio</span>
+        </a>
+        <a href="https://www.facebook.com/Poetry.Pixel1/" target="_blank" class="btn btn-secondary">
+          <span>✉️</span>
+          <span>Contact Us</span>
+        </a>
+      </div>
     </div>
-    <div class="about-box">
-      <h2>ℹ️ About Lifemotion</h2>
-      <p>รวมผลงานรีวิวสินค้า โฆษณา คอนเทนต์สั้น สารคดี ภาพยนตร์สั้น และกราฟิกโมชั่น เราเชื่อในการสื่อสารทั้งอารมณ์และข้อมูลให้เข้าถึงผู้ชมได้จริง</p>
+    <div class="scroll-indicator">Scroll</div>
+  </section>
+
+  <!-- PORTFOLIO SHOWCASE - FROM VER01 -->
+  <section class="portfolio-showcase" id="portfolio">
+    <div class="section-header">
+      <h2 class="section-title">Creative Portfolio</h2>
+      <p class="section-subtitle">A collection showcasing diverse creativity and limitless innovation</p>
     </div>
-  </div>
-</section>
+    
+    <div class="portfolio-categories">
+      <!-- Featured Works -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">✨</div>
+          <h3 class="category-title">Featured Works</h3>
+        </div>
+        <p class="category-description">Outstanding projects that represent our best creative achievements</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="featured-works">
+            <!-- Featured works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
 
-<!-- Theme & Mode buttons -->
-<div id="theme-buttons">
-  <button data-set-theme="light" title="Light">☀️</button>
-  <button data-set-theme="dark"  title="Dark">🌙</button>
-</div>
-<button id="toggleGlass" title="Toggle Liquid Glass">🔍</button>
-<button id="toggleNav" title="เปิด/ปิดเมนูหมวดหมู่">📂</button>
-<div id="liquidGlass"></div>
+      <!-- Commercial -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">📦</div>
+          <h3 class="category-title">Commercial</h3>
+        </div>
+        <p class="category-description">Advertising campaigns that drive business results and brand awareness</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="advertising-works">
+            <!-- Advertising works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
 
-<script>
-/* Theme switch */
-document.querySelectorAll('#theme-buttons button').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.documentElement.setAttribute('data-theme', btn.dataset.setTheme);
-    document.querySelectorAll('#theme-buttons button').forEach(b=>b.classList.toggle('active',b===btn));
-  });
-});
+      <!-- Short-form Content -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">🎵</div>
+          <h3 class="category-title">Short-form Content</h3>
+        </div>
+        <p class="category-description">Viral content optimized for social media platforms and digital engagement</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="short-content-works">
+            <!-- Short content works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
 
-/* Toggle nav-actions visibility */
-document.getElementById('toggleNav').onclick = () => {
-  document.body.classList.toggle('hide-nav');
-};
+      <!-- Film & Documentary -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">🎬</div>
+          <h3 class="category-title">Film & Documentary</h3>
+        </div>
+        <p class="category-description">High-quality cinematic productions and documentary storytelling</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="film-works">
+            <!-- Film works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
 
-/* Liquid glass cursor */
-const glass=document.getElementById('liquidGlass');
-document.getElementById('toggleGlass').onclick=()=>{glass.style.display=glass.style.display==='block'?'none':'block'};
-document.addEventListener('mousemove', e=>{
-  if(glass.style.display==='block'){
-    glass.style.left=e.clientX+'px'; glass.style.top=e.clientY+'px';
-  }
-});
+      <!-- Graphic & Motion -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">🎨</div>
+          <h3 class="category-title">Graphic & Motion</h3>
+        </div>
+        <p class="category-description">Creative graphic design and motion graphics solutions</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="graphic-works">
+            <!-- Graphic works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
 
-/* Parallax glow */
-(function(){
-  const layer=document.querySelector('.bg-layer'); let tx=0,ty=0,cx=0,cy=0,sp=.06;
-  addEventListener('pointermove',e=>{tx=(e.clientX/innerWidth-.5)*20;ty=(e.clientY/innerHeight-.5)*20},{passive:true});
-  (function raf(){cx+=(tx-cx)*sp;cy+=(ty-cy)*sp; layer.style.transform=`translate(${cx}px,${cy}px)`; requestAnimationFrame(raf)}());
-})();
+      <!-- TikTok -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">📱</div>
+          <h3 class="category-title">TikTok</h3>
+        </div>
+        <p class="category-description">Creative and viral content optimized for TikTok platform</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="tiktok-works">
+            <!-- TikTok works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
 
-/* Helpers */
-const isMobile=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-function ytId(u){
-  try{
-    const x=new URL(u);
-    if(x.hostname.includes('youtu.be')) return x.pathname.slice(1);
-    if(x.pathname.startsWith('/shorts/')) return x.pathname.split('/')[2]||x.pathname.split('/')[1];
-    return x.searchParams.get('v');
-  }catch(e){return null}
-}
-function extractDriveId(u){
-  // รองรับทั้ง /file/d/ID/view และ uc?id=ID และ open?id=ID
-  const m = (u||"").match(/[-\w]{25,}/);
-  return m ? m[0] : null;
-}
-function makeYouTubeCard(u,label){
-  const id=ytId(u); const c=document.createElement('div'); c.className='card';
-  const t=document.createElement('div'); t.className='tile';
-  const img=new Image(); img.loading='lazy'; img.alt=label; img.src=`https://i.ytimg.com/vi/${id}/hqdefault.jpg`; t.appendChild(img);
-  const iframe=document.createElement('iframe'); iframe.loading='lazy'; iframe.allow='autoplay; fullscreen'; iframe.setAttribute('playsinline',''); iframe.setAttribute('muted','');
-  iframe.src=`https://www.youtube.com/embed/${id}?mute=1&controls=0&loop=1&playlist=${id}`; t.appendChild(iframe);
-  if(isMobile){ c.addEventListener('click',()=>open(u,'_blank'),{passive:true}); }
-  const b=document.createElement('div'); b.className='card-body'; const title=document.createElement('span'); title.className='card-title'; title.textContent=label; b.appendChild(title);
-  c.appendChild(t); c.appendChild(b); return c;
-}
-function makeDriveCard(u,label){
-  const id=extractDriveId(u); const c=document.createElement('div'); c.className='card';
-  const t=document.createElement('div'); t.className='tile';
-  // ใช้รูปตัวอย่างจาก Google Drive โดยตรง
-  const img=new Image(); img.loading='lazy'; img.alt=label; img.src=`https://drive.google.com/thumbnail?id=${id}&sz=w1280`;
-  t.appendChild(img);
-  if(isMobile){ c.addEventListener('click',()=>open(u,'_blank'),{passive:true}); }
-  const b=document.createElement('div'); b.className='card-body'; const title=document.createElement('span'); title.className='card-title'; title.textContent=label; b.appendChild(title);
-  c.appendChild(t); c.appendChild(b); return c;
-}
-function makeTikTokCard(u,label){
-  const a=document.createElement('a'); a.href=u; a.target='_blank'; a.rel='noopener'; a.style.textDecoration='none'; a.style.color='inherit';
-  const c=document.createElement('div'); c.className='card'; const t=document.createElement('div'); t.className='tile';
-  const img=new Image(); img.loading='lazy'; img.alt='TikTok'; img.src='https://www.tiktok.com/favicon.ico'; t.appendChild(img);
-  const b=document.createElement('div'); b.className='card-body'; const title=document.createElement('span'); title.className='card-title'; title.textContent=label; b.appendChild(title);
-  c.appendChild(t); c.appendChild(b); a.appendChild(c); return a;
-}
+      <!-- TikTok Green & Organic -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">🌿</div>
+          <h3 class="category-title">TikTok Green & Organic</h3>
+        </div>
+        <p class="category-description">Nature-focused content and healthy lifestyle inspiration</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="tiktok-green-works">
+            <!-- TikTok Green works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-/* Video lists */
-// อัปเดต Highlight: เพิ่ม 2 MV + 1 Shorts เด่น
-const HIGHLIGHT=[
-  "https://youtu.be/Znybs8YddeU",
-  "https://youtu.be/LPFEhuNYmIA",
-  "https://youtu.be/OpwSI3ov7NI",
-  "https://youtu.be/7pFDqp_cQQY",   // MV ใหม่
-  "https://youtu.be/a0-bkh5uixs",    // MV ใหม่
-  "https://youtube.com/shorts/EKR1n6uQu1Q" // Shorts เด่น
-];
+  <!-- SERVICES SECTION -->
+  <section class="services-section" id="services">
+    <div class="section-header">
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-subtitle">Comprehensive creative solutions for all your media needs</p>
+    </div>
+    
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🎬</div>
+        <h3 class="service-title">Film & Documentary</h3>
+        <p class="service-desc">High-quality film production with powerful storytelling and professional techniques</p>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3 class="service-title">Digital Content</h3>
+        <p class="service-desc">Viral content creation for social media platforms with modern creative approaches</p>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">📺</div>
+        <h3 class="service-title">Advertising & Branding</h3>
+        <p class="service-desc">Complete advertising campaigns and brand content that drive business results</p>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">🎨</div>
+        <h3 class="service-title">Graphic & Animation</h3>
+        <p class="service-desc">Creative graphics and motion design that communicate effectively and memorably</p>
+      </div>
+    </div>
+  </section>
 
-const COMMERCIAL=[
-  "https://youtu.be/Znybs8YddeU","https://youtu.be/BP-v3Qacqkk","https://youtu.be/ZefDXXIjz8g","https://youtu.be/AQETlaYZiIY","https://youtu.be/Vic8NoGLrDA",
-  "https://youtu.be/1TR0l4mr0Rc","https://youtu.be/3SmEJ2zJMV4","https://youtu.be/7TEaiz9yt_Y","https://youtu.be/awtQeg38xCE","https://youtu.be/MElFZeqGNAY","https://youtu.be/8Am5o_wBrFI"
-];
+  <!-- CONTACT SECTION -->
+  <section class="contact-section" id="contact">
+    <h2 class="contact-title">Ready to Create Together?</h2>
+    <p class="contact-subtitle">Let's collaborate to create outstanding and inspiring work</p>
+    <a href="https://www.facebook.com/Poetry.Pixel1/" target="_blank" class="contact-btn">
+      <span>✉️</span>
+      <span>Contact Us</span>
+    </a>
+  </section>
 
-// Short-form: ให้ YouTube มาก่อน จากนั้นจึงเป็น Google Drive
-const SHORTFORM=[
-  // YouTube ก่อน
-  "https://youtu.be/LPFEhuNYmIA",
-  "https://youtube.com/shorts/TVIm8bYkTaE",
-  "https://youtube.com/shorts/71QC2dUJwO8",
-  "https://youtube.com/shorts/2PKldWa3a7c",
-  "https://youtube.com/shorts/5nyjcpFhVJ4",
-  "https://youtube.com/shorts/PVRuioNnGBA",
-  "https://youtube.com/shorts/qsnX7on2NoU",
-  "https://youtube.com/shorts/Xbj_gYgSJfA",
-  // แล้วค่อยตามด้วย Google Drive
-  "https://drive.google.com/file/d/1Bw9gd9U1zM5f-c_g8tiqC1L9_zlXVXl9/view",
-  "https://drive.google.com/file/d/1gcDRS4EGI56z3uCiiD6-5LjCbWvwPqXO/view",
-  "https://drive.google.com/file/d/1XlY2PiMiPRKv_PVI1CDz1E0K4j6ycoCk/view",
-  "https://drive.google.com/file/d/1JKrP8bd0MiVHuSbSISaR1BDA3OYELgH5/view",
-  "https://drive.google.com/file/d/1jBjAo907zXcIu2rib9q4pMpMV07uJ-WH/view",
-  "https://drive.google.com/file/d/1PFht0iLXpMPuewLjCOi-ZATK-BfVud1z/view",
-  "https://drive.google.com/file/d/1AEZfYjzOsAPP0QrvPPCSr1dPW45Yri29/view"
-];
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <p>© <span id="year">2024</span> Poetry Pixel - All rights reserved</p>
+    </div>
+  </footer>
 
-const FILM=[
-  "https://youtu.be/BSN5My9DLbA","https://youtu.be/b2jZQe3A8EI","https://youtu.be/T9xEJFWqB6A","https://youtu.be/H5ji14AhWX4",
-  "https://youtu.be/bn2VJz-cLYs","https://youtu.be/FNoIhoD39zY","https://youtu.be/zIb9URSqiFQ","https://youtu.be/zOdS71eQBpY",
-  "https://youtu.be/7pFDqp_cQQY","https://youtu.be/a0-bkh5uixs"
-];
+  <script>
+    // Helper functions from the reference code
+    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    
+    function ytId(u) {
+      try {
+        const x = new URL(u);
+        if (x.hostname.includes('youtu.be')) return x.pathname.slice(1);
+        if (x.pathname.startsWith('/shorts/')) return x.pathname.split('/')[2] || x.pathname.split('/')[1];
+        return x.searchParams.get('v');
+      } catch(e) { return null; }
+    }
+    
+    function extractDriveId(u) {
+      const m = (u || "").match(/[-\w]{25,}/);
+      return m ? m[0] : null;
+    }
 
-const GRAPHIC=[
-  "https://www.youtube.com/shorts/DDCfIg6Vq7o","https://youtu.be/b2jZQe3A8EI","https://youtu.be/OpwSI3ov7NI"
-];
+    // Video lists from the reference code
+    const HIGHLIGHT = [
+      "https://youtu.be/Znybs8YddeU",
+      "https://youtu.be/LPFEhuNYmIA",
+      "https://youtu.be/OpwSI3ov7NI",
+      "https://youtu.be/7pFDqp_cQQY",   // MV ใหม่
+      "https://youtu.be/a0-bkh5uixs",    // MV ใหม่
+      "https://youtube.com/shorts/EKR1n6uQu1Q" // Shorts เด่น
+    ];
 
-const TIKTOK=[
-  "https://vt.tiktok.com/ZS6qTRsKo/","https://vt.tiktok.com/ZS6q3sE1F/","https://vt.tiktok.com/ZS6q3bSBf/","https://vt.tiktok.com/ZS6q3cDLu/","https://vt.tiktok.com/ZS6q3wRUa/","https://vt.tiktok.com/ZS6q3GG1r/"
-];
+    const COMMERCIAL = [
+      "https://youtu.be/Znybs8YddeU","https://youtu.be/BP-v3Qacqkk","https://youtu.be/ZefDXXIjz8g","https://youtu.be/AQETlaYZiIY","https://youtu.be/Vic8NoGLrDA",
+      "https://youtu.be/1TR0l4mr0Rc","https://youtu.be/3SmEJ2zJMV4","https://youtu.be/7TEaiz9yt_Y","https://youtu.be/awtQeg38xCE","https://youtu.be/MElFZeqGNAY","https://youtu.be/8Am5o_wBrFI"
+    ];
 
-const TIKTOK_GREEN=[
-  "https://vt.tiktok.com/ZSDAGxWdh/","https://vt.tiktok.com/ZSDAGnr21/","https://vt.tiktok.com/ZSDAtdHYm/","https://vt.tiktok.com/ZSDAtRPLb/","https://vt.tiktok.com/ZSDAGTsLo/","https://vt.tiktok.com/ZSDAtkUvR/"
-];
+    const SHORTFORM = [
+      // YouTube ก่อน
+      "https://youtu.be/LPFEhuNYmIA",
+      "https://youtube.com/shorts/TVIm8bYkTaE",
+      "https://youtube.com/shorts/71QC2dUJwO8",
+      "https://youtube.com/shorts/2PKldWa3a7c",
+      "https://youtube.com/shorts/5nyjcpFhVJ4",
+      "https://youtube.com/shorts/PVRuioNnGBA",
+      "https://youtube.com/shorts/qsnX7on2NoU",
+      "https://youtube.com/shorts/Xbj_gYgSJfA",
+      // แล้วค่อยตามด้วย Google Drive
+      "https://drive.google.com/file/d/1Bw9gd9U1zM5f-c_g8tiqC1L9_zlXVXl9/view",
+      "https://drive.google.com/file/d/1gcDRS4EGI56z3uCiiD6-5LjCbWvwPqXO/view",
+      "https://drive.google.com/file/d/1XlY2PiMiPRKv_PVI1CDz1E0K4j6ycoCk/view",
+      "https://drive.google.com/file/d/1JKrP8bd0MiVHuSbSISaR1BDA3OYELgH5/view",
+      "https://drive.google.com/file/d/1jBjAo907zXcIu2rib9q4pMpMV07uJ-WH/view",
+      "https://drive.google.com/file/d/1PFht0iLXpMPuewLjCOi-ZATK-BfVud1z/view",
+      "https://drive.google.com/file/d/1AEZfYjzOsAPP0QrvPPCSr1dPW45Yri29/view"
+    ];
 
-/* Render */
-HIGHLIGHT.forEach(u => document.getElementById('row-highlight').appendChild(makeYouTubeCard(u,"Highlight")));
-COMMERCIAL.forEach(u => document.getElementById('row-commercial').appendChild(makeYouTubeCard(u,"Commercial")));
-SHORTFORM.forEach(u => document.getElementById('row-shortform').appendChild(u.includes("drive.google")?makeDriveCard(u,"Short-form"):makeYouTubeCard(u,"Short-form")));
-FILM.forEach(u => document.getElementById('row-film').appendChild(makeYouTubeCard(u,"Film & Documentary")));
-GRAPHIC.forEach(u => document.getElementById('row-graphic').appendChild(makeYouTubeCard(u,"Graphic & Motion")));
-TIKTOK.forEach((u,i)=> document.getElementById('row-tiktok').appendChild(makeTikTokCard(u,`TikTok #${i+1}`)));
-TIKTOK_GREEN.forEach((u,i)=> document.getElementById('row-tiktok-green').appendChild(makeTikTokCard(u,`Green & Organic #${i+1}`)));
+    const FILM = [
+      "https://youtu.be/BSN5My9DLbA","https://youtu.be/b2jZQe3A8EI","https://youtu.be/T9xEJFWqB6A","https://youtu.be/H5ji14AhWX4",
+      "https://youtu.be/bn2VJz-cLYs","https://youtu.be/FNoIhoD39zY","https://youtu.be/zIb9URSqiFQ","https://youtu.be/zOdS71eQBpY",
+      "https://youtu.be/7pFDqp_cQQY","https://youtu.be/a0-bkh5uixs"
+    ];
 
-/* Carousel nav */
-document.querySelectorAll('.carousel').forEach(sec=>{
-  const row=sec.querySelector('.row');
-  sec.querySelector('.nav-btn.left').onclick=()=>row.scrollBy({left:-420,behavior:'smooth'});
-  sec.querySelector('.nav-btn.right').onclick=()=>row.scrollBy({left:420,behavior:'smooth'});
-});
-</script>
+    const GRAPHIC = [
+      "https://www.youtube.com/shorts/DDCfIg6Vq7o","https://youtu.be/b2jZQe3A8EI","https://youtu.be/OpwSI3ov7NI"
+    ];
+
+    const TIKTOK = [
+      "https://vt.tiktok.com/ZS6qTRsKo/","https://vt.tiktok.com/ZS6q3sE1F/","https://vt.tiktok.com/ZS6q3bSBf/","https://vt.tiktok.com/ZS6q3cDLu/","https://vt.tiktok.com/ZS6q3wRUa/","https://vt.tiktok.com/ZS6q3GG1r/"
+    ];
+
+    const TIKTOK_GREEN = [
+      "https://vt.tiktok.com/ZSDAGxWdh/","https://vt.tiktok.com/ZSDAGnr21/","https://vt.tiktok.com/ZSDAtdHYm/","https://vt.tiktok.com/ZSDAtRPLb/","https://vt.tiktok.com/ZSDAGTsLo/","https://vt.tiktok.com/ZSDAtkUvR/"
+    ];
+
+    // Portfolio data organized by categories - FIXED VERSION
+    const PORTFOLIO_DATA = {
+      "featured-works": HIGHLIGHT.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "advertising-works": COMMERCIAL.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "short-content-works": SHORTFORM.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "film-works": FILM.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "graphic-works": GRAPHIC.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "tiktok-works": TIKTOK.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "tiktok-green-works": TIKTOK_GREEN.map(link => ({ link, thumbnail: getThumbnail(link) }))
+    };
+
+    // Helper function to get thumbnail URL
+    function getThumbnail(link) {
+      if (link.includes('youtu.be') || link.includes('youtube.com')) {
+        const videoId = ytId(link);
+        return videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : 'https://www.tiktok.com/favicon.ico';
+      } else if (link.includes('drive.google.com')) {
+        const driveId = extractDriveId(link);
+        return driveId ? `https://drive.google.com/thumbnail?id=${driveId}&sz=w1280` : 'https://www.tiktok.com/favicon.ico';
+      } else if (link.includes('tiktok.com')) {
+        return 'https://www.tiktok.com/favicon.ico';
+      } else {
+        return 'https://www.tiktok.com/favicon.ico';
+      }
+    }
+
+    // Create portfolio card with thumbnail preview only
+    function createPortfolioCard(item, index) {
+      const card = document.createElement('div');
+      card.className = 'portfolio-card';
+      card.style.animationDelay = `${index * 0.1}s`;
+      
+      // Determine platform and icon based on link
+      let platformIcon = "▶️";
+      let platformText = "View Project";
+      let cardClass = '';
+      let linkClass = '';
+      let badgeText = '';
+      
+      if (item.link.includes('tiktok.com') || item.link.includes('vt.tiktok.com')) {
+        platformIcon = "🎵";
+        platformText = "View on TikTok";
+        
+        // Different styling for regular TikTok vs TikTok Green
+        if (item.link.includes('ZSDAG') || item.link.includes('ZSDAt')) {
+          // TikTok Green
+          cardClass = 'tiktok-green-card';
+          linkClass = 'tiktok-green-link';
+          badgeText = '🌿 Organic';
+        } else {
+          // Regular TikTok
+          cardClass = 'tiktok-card';
+          linkClass = 'tiktok-link';
+          badgeText = '📱 TikTok';
+        }
+      } else if (item.link.includes('drive.google.com')) {
+        platformIcon = "📁";
+        platformText = "View on Drive";
+      } else if (item.link.includes('youtu.be') || item.link.includes('youtube.com')) {
+        platformIcon = "▶️";
+        platformText = "View on YouTube";
+      }
+      
+      // Apply TikTok specific classes
+      if (cardClass) {
+        card.classList.add(cardClass);
+      }
+      
+      // Create thumbnail with preview
+      const thumbnailDiv = document.createElement('div');
+      thumbnailDiv.className = `card-thumbnail ${cardClass ? 'tiktok-thumbnail' : ''}`;
+      
+      const img = new Image();
+      img.loading = 'lazy';
+      img.alt = '';
+      img.src = item.thumbnail;
+      img.onerror = function() {
+        this.src = 'https://www.tiktok.com/favicon.ico';
+      };
+      thumbnailDiv.appendChild(img);
+      
+      // Add TikTok badge
+      if (badgeText) {
+        const badge = document.createElement('div');
+        badge.className = cardClass.includes('green') ? 'tiktok-green-badge' : 'tiktok-badge';
+        badge.textContent = badgeText;
+        card.appendChild(badge);
+      }
+      
+      // Add iframe for YouTube videos only (not for TikTok)
+      if (item.link.includes('youtu.be') || item.link.includes('youtube.com')) {
+        const videoId = ytId(item.link);
+        if (videoId) {
+          const iframe = document.createElement('iframe');
+          iframe.loading = 'lazy';
+          iframe.allow = 'autoplay; fullscreen';
+          iframe.setAttribute('playsinline', '');
+          iframe.setAttribute('muted', '');
+          iframe.src = `https://www.youtube.com/embed/${videoId}?mute=1&controls=0&loop=1&playlist=${videoId}`;
+          thumbnailDiv.appendChild(iframe);
+          
+          // Mobile click handling
+          if (isMobile) {
+            card.addEventListener('click', () => open(item.link, '_blank'), { passive: true });
+          }
+        }
+      }
+      
+      // Create link button
+      const linkButton = document.createElement('a');
+      linkButton.href = item.link;
+      linkButton.target = '_blank';
+      linkButton.className = `card-link ${linkClass}`;
+      linkButton.innerHTML = `
+        <span>${platformIcon}</span>
+        <span>${platformText}</span>
+      `;
+      
+      card.appendChild(thumbnailDiv);
+      card.appendChild(linkButton);
+      
+      return card;
+    }
+
+    // Fill portfolio categories
+    function fillPortfolioCategories() {
+      Object.keys(PORTFOLIO_DATA).forEach(categoryId => {
+        const container = document.getElementById(categoryId);
+        if (container) {
+          PORTFOLIO_DATA[categoryId].forEach((item, index) => {
+            const card = createPortfolioCard(item, index);
+            container.appendChild(card);
+          });
+        }
+      });
+    }
+
+    // Initialize scroll buttons
+    function initScrollButtons() {
+      document.querySelectorAll('.scroll-btn').forEach(button => {
+        button.addEventListener('click', function() {
+          const isNext = this.classList.contains('next');
+          const scrollContainer = this.parentElement.querySelector('.scroll-content');
+          const scrollAmount = 340;
+          
+          scrollContainer.scrollBy({
+            left: isNext ? scrollAmount : -scrollAmount,
+            behavior: 'smooth'
+          });
+        });
+      });
+    }
+
+    // Smooth scrolling for anchor links
+    function initSmoothScroll() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    }
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set current year
+      document.getElementById('year').textContent = new Date().getFullYear();
+      
+      // Fill portfolio categories
+      fillPortfolioCategories();
+      
+      // Initialize scroll buttons
+      initScrollButtons();
+      
+      // Initialize smooth scrolling
+      initSmoothScroll();
+      
+      // Navbar background on scroll
+      window.addEventListener('scroll', function() {
+        const nav = document.querySelector('.nav');
+        if (window.scrollY > 50) {
+          nav.style.background = 'var(--nav-bg)';
+          nav.style.backdropFilter = 'blur(14px)';
+        } else {
+          nav.style.background = 'transparent';
+          nav.style.backdropFilter = 'none';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
