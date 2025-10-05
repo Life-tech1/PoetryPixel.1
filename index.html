@@ -877,6 +877,7 @@
       .scroll-container {
         margin: 0 -20px;
         padding: 0 20px;
+        position: relative;
       }
       
       .portfolio-card {
@@ -887,8 +888,38 @@
         font-size: 1.5rem;
       }
       
+      /* ปรับปรุงปุ่ม scroll สำหรับมือถือ */
       .scroll-btn {
-        display: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--glass);
+        border: 1px solid var(--line);
+        color: var(--text);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+        display: flex !important; /* บังคับให้แสดง */
+        align-items: center;
+        justify-content: center;
+        -webkit-tap-highlight-color: transparent;
+      }
+      
+      .scroll-btn:hover {
+        background: var(--ai-blue);
+        color: #000;
+      }
+      
+      .scroll-btn.prev {
+        left: 5px;
+      }
+      
+      .scroll-btn.next {
+        right: 5px;
       }
       
       .graphic-grid {
@@ -921,12 +952,6 @@
         font-size: 1rem;
       }
       
-      .tiktok-badge,
-      .tiktok-green-badge {
-        font-size: 0.7rem;
-        padding: 4px 10px;
-      }
-      
       .hero-description {
         font-size: 1.1rem;
         padding: 0 15px;
@@ -957,6 +982,49 @@
         flex-direction: column;
         align-items: center;
       }
+
+      /* ปรับปรุงการแสดงผลบนมือถือให้ดีขึ้น */
+      .hero-section {
+        height: 100vh;
+        padding: 0 15px;
+      }
+      
+      .hero-content {
+        padding: 0 10px;
+      }
+      
+      .scroll-content {
+        padding: 15px 0;
+        gap: 15px;
+      }
+      
+      .portfolio-card {
+        flex: 0 0 85vw; /* ปรับขนาดการ์ดให้เหมาะสมกับมือถือ */
+      }
+      
+      .card-thumbnail {
+        height: 200px;
+      }
+      
+      .category-description {
+        margin-left: 0;
+        margin-top: 0;
+        padding: 0 10px;
+      }
+      
+      .category-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .service-card {
+        padding: 30px 20px;
+      }
+      
+      .graphic-card {
+        margin: 0 10px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -977,6 +1045,113 @@
       .graphic-image {
         height: 200px;
       }
+      
+      .portfolio-card {
+        flex: 0 0 90vw; /* ขยายขนาดการ์ดให้ใหญ่ขึ้นบนหน้าจอเล็ก */
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .section-subtitle {
+        font-size: 1rem;
+        padding: 0 15px;
+      }
+      
+      .category-title {
+        font-size: 1.3rem;
+      }
+      
+      .service-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+      
+      .service-title {
+        font-size: 1.3rem;
+      }
+      
+      .contact-title {
+        font-size: 2.2rem;
+      }
+      
+      .contact-subtitle {
+        font-size: 1rem;
+        padding: 0 15px;
+      }
+      
+      /* ปรับปรุงปุ่ม scroll สำหรับหน้าจอเล็กมาก */
+      .scroll-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+      }
+      
+      .scroll-btn.prev {
+        left: 2px;
+      }
+      
+      .scroll-btn.next {
+        right: 2px;
+      }
+      
+      /* ปรับปรุงการ scroll บนมือถือ */
+      .scroll-content {
+        -webkit-overflow-scrolling: touch; /* การ scroll ที่ลื่นบน iOS */
+        scroll-snap-type: x mandatory;
+      }
+      
+      .portfolio-card {
+        scroll-snap-align: start;
+      }
+      
+      /* ปรับปรุงการแสดงป๊อปอัพบนมือถือ */
+      .popup-content {
+        max-width: 98%;
+        max-height: 95%;
+      }
+      
+      .popup-image {
+        max-height: 75vh;
+      }
+      
+      .close-popup {
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+      }
+      
+      /* ปรับปรุงการจัดการโปรโมชั่นบนมือถือ */
+      .manager-panel {
+        width: 98%;
+        padding: 15px;
+      }
+      
+      .upload-area {
+        padding: 20px 15px;
+      }
+      
+      .upload-icon {
+        font-size: 2.5rem;
+      }
+      
+      .promotion-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+      
+      .promotion-thumb {
+        margin-right: 0;
+      }
+      
+      .promotion-actions {
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -987,8 +1162,9 @@
       <img src="https://drive.google.com/thumbnail?id=19roCjQBTvtKP7bxu0-3hsGRRUQgdJHO8&sz=w1000" alt="โปรโมชั่น" class="popup-image" id="popupImage">
       <button class="close-popup" id="closePopup">×</button>
       <div class="popup-controls">
-        <button class="popup-control-btn" id="disablePopup">ไม่แสดงอีก</button>
-        <button class="popup-control-btn" id="remindLater">แสดงในครั้งต่อไป</button>
+        <!-- เอา 2 ปุ่มนี้ออกตามที่สั่ง -->
+        <!-- <button class="popup-control-btn" id="disablePopup">ไม่แสดงอีก</button> -->
+        <!-- <button class="popup-control-btn" id="remindLater">แสดงในครั้งต่อไป</button> -->
       </div>
     </div>
   </div>
@@ -1494,6 +1670,37 @@
       });
     }
 
+    // เพิ่มฟังก์ชันสำหรับจัดการ touch scroll บนมือถือ
+    function initMobileScroll() {
+      if (!isMobile) return;
+      
+      const scrollContainers = document.querySelectorAll('.scroll-content');
+      
+      scrollContainers.forEach(container => {
+        let isScrolling = false;
+        let startX;
+        let scrollLeft;
+        
+        container.addEventListener('touchstart', (e) => {
+          isScrolling = true;
+          startX = e.touches[0].pageX - container.offsetLeft;
+          scrollLeft = container.scrollLeft;
+        }, { passive: true });
+        
+        container.addEventListener('touchmove', (e) => {
+          if (!isScrolling) return;
+          e.preventDefault();
+          const x = e.touches[0].pageX - container.offsetLeft;
+          const walk = (x - startX) * 2;
+          container.scrollLeft = scrollLeft - walk;
+        }, { passive: false });
+        
+        container.addEventListener('touchend', () => {
+          isScrolling = false;
+        }, { passive: true });
+      });
+    }
+
     // Smooth scrolling for anchor links
     function initSmoothScroll() {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1694,8 +1901,6 @@
         const managerPanel = document.getElementById('managerPanel');
         const closeManager = document.getElementById('closeManager');
         const closePopup = document.getElementById('closePopup');
-        const disablePopupBtn = document.getElementById('disablePopup');
-        const remindLaterBtn = document.getElementById('remindLater');
         
         // คลิกพื้นที่อัพโหลด
         uploadArea.addEventListener('click', () => {
@@ -1754,17 +1959,6 @@
         closePopup.addEventListener('click', () => {
           document.getElementById('promotionPopup').classList.remove('active');
         });
-        
-        // ปิดการแสดงป๊อปอัพ
-        disablePopupBtn.addEventListener('click', () => {
-          this.disablePopup();
-          document.getElementById('promotionPopup').classList.remove('active');
-        });
-        
-        // แสดงในครั้งต่อไป
-        remindLaterBtn.addEventListener('click', () => {
-          document.getElementById('promotionPopup').classList.remove('active');
-        });
       }
       
       // ตั้งค่าคีย์ลัดสำหรับแอดมินเท่านั้น
@@ -1804,6 +1998,9 @@
       
       // Initialize scroll buttons
       initScrollButtons();
+      
+      // Initialize mobile scroll
+      initMobileScroll();
       
       // Initialize smooth scrolling
       initSmoothScroll();
