@@ -163,23 +163,6 @@
       background: var(--ai-blue);
     }
 
-    /* FIX FOR MOBILE ICONS */
-    .btn span:first-child,
-    .btn-secondary span:first-child,
-    .contact-btn span:first-child {
-      font-size: 1.2em;
-      display: inline-block;
-      min-width: 24px;
-      text-align: center;
-      -webkit-text-stroke: 0.5px transparent;
-    }
-
-    /* Specific icon fixes */
-    .btn span:first-child:contains("▶"),
-    .contact-btn span:first-child:contains("▶") {
-      font-size: 1.1em;
-    }
-
     .scroll-indicator {
       position: absolute;
       bottom: 30px;
@@ -202,7 +185,7 @@
       margin-top: 10px;
     }
 
-    /* PORTFOLIO SECTION - FROM VER01 */
+    /* PORTFOLIO SECTION */
     .portfolio-showcase {
       padding: 100px 0;
       min-height: 100vh;
@@ -236,7 +219,6 @@
       font-weight: 400;
     }
 
-    /* Portfolio Categories from Ver01 */
     .portfolio-categories {
       display: flex;
       flex-direction: column;
@@ -281,7 +263,6 @@
       font-weight: 400;
     }
     
-    /* Horizontal Scroll Container */
     .scroll-container {
       position: relative;
       margin: 0 -5%;
@@ -312,7 +293,6 @@
       border-radius: 10px;
     }
     
-    /* Portfolio Cards with Thumbnail Preview Only */
     .portfolio-card {
       flex: 0 0 320px;
       background: var(--surface-grad);
@@ -366,7 +346,6 @@
       opacity: 0;
     }
     
-    /* Link button positioned over thumbnail */
     .card-link {
       position: absolute;
       bottom: 20px;
@@ -399,165 +378,6 @@
       box-shadow: 0 5px 15px rgba(51, 204, 255, 0.3);
     }
 
-    /* NEW TIKTOK DESIGN - Minimal & Modern */
-    .tiktok-card {
-      position: relative;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: linear-gradient(135deg, rgba(255, 0, 80, 0.05), rgba(0, 242, 234, 0.03));
-      overflow: hidden;
-    }
-    
-    .tiktok-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 0, 80, 0.1),
-        rgba(0, 242, 234, 0.1),
-        transparent
-      );
-      transition: left 0.6s ease;
-    }
-    
-    .tiktok-card:hover::before {
-      left: 100%;
-    }
-    
-    .tiktok-card:hover {
-      border-color: rgba(255, 0, 80, 0.3);
-      box-shadow: 0 8px 25px rgba(255, 0, 80, 0.15);
-    }
-    
-    .tiktok-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: linear-gradient(45deg, var(--tiktok-pink), var(--tiktok-teal));
-      color: white;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      z-index: 6;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    .tiktok-link {
-      background: linear-gradient(45deg, var(--tiktok-pink), var(--tiktok-teal));
-      font-weight: 600;
-      border: none;
-    }
-    
-    .tiktok-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 0, 80, 0.4);
-    }
-    
-    /* TikTok Green - Organic Style */
-    .tiktok-green-card {
-      position: relative;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: linear-gradient(135deg, rgba(102, 255, 102, 0.05), rgba(51, 204, 255, 0.03));
-      overflow: hidden;
-    }
-    
-    .tiktok-green-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(102, 255, 102, 0.1),
-        rgba(51, 204, 255, 0.1),
-        transparent
-      );
-      transition: left 0.6s ease;
-    }
-    
-    .tiktok-green-card:hover::before {
-      left: 100%;
-    }
-    
-    .tiktok-green-card:hover {
-      border-color: rgba(102, 255, 102, 0.3);
-      box-shadow: 0 8px 25px rgba(102, 255, 102, 0.15);
-    }
-    
-    .tiktok-green-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: linear-gradient(45deg, var(--accent-green), var(--ai-blue));
-      color: white;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      z-index: 6;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    .tiktok-green-link {
-      background: linear-gradient(45deg, var(--accent-green), var(--ai-blue));
-      font-weight: 600;
-      border: none;
-    }
-    
-    .tiktok-green-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(102, 255, 102, 0.4);
-    }
-    
-    /* TikTok Thumbnail Overlay */
-    .tiktok-thumbnail {
-      position: relative;
-    }
-    
-    .tiktok-thumbnail::after {
-      content: '🎵';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 2;
-    }
-    
-    .tiktok-card:hover .tiktok-thumbnail::after {
-      opacity: 1;
-    }
-    
-    .tiktok-thumbnail::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, rgba(255, 0, 80, 0.1), rgba(0, 242, 234, 0.1));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 1;
-    }
-    
-    .tiktok-card:hover .tiktok-thumbnail::before {
-      opacity: 1;
-    }
-
-    /* Scroll Buttons */
     .scroll-btn {
       position: absolute;
       top: 50%;
@@ -589,6 +409,45 @@
     
     .scroll-btn.next {
       right: 10px;
+    }
+
+    /* GRAPHIC DESIGN PORTFOLIO SECTION */
+    .graphic-portfolio {
+      padding: 100px 0;
+      background: var(--surface-grad);
+    }
+    
+    .graphic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      padding: 0 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .graphic-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeIn 0.8s ease forwards;
+    }
+    
+    .graphic-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    
+    .graphic-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
     }
 
     /* SERVICES SECTION */
@@ -775,7 +634,237 @@
       transform: scale(1.1);
     }
 
-    /* RESPONSIVE DESIGN - IMPROVED FOR MOBILE */
+    /* PROMOTION MANAGEMENT SYSTEM - HIDDEN BY DEFAULT */
+    .promotion-manager {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .promotion-manager.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .manager-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--ai-blue);
+      color: white;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(51, 204, 255, 0.4);
+    }
+    
+    .manager-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(51, 204, 255, 0.6);
+    }
+    
+    .manager-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 500px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 30px;
+      z-index: 10001;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    
+    .manager-panel.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .manager-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .manager-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: 'Geist', sans-serif;
+    }
+    
+    .close-manager {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    
+    .close-manager:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .upload-area {
+      border: 2px dashed var(--line);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .upload-area:hover {
+      border-color: var(--ai-blue);
+      background: rgba(51, 204, 255, 0.05);
+    }
+    
+    .upload-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+    
+    .upload-text {
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    
+    .upload-btn {
+      background: var(--ai-blue);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .upload-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(51, 204, 255, 0.4);
+    }
+    
+    .promotion-list {
+      margin-top: 20px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    .promotion-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: var(--glass);
+      transition: all 0.3s ease;
+    }
+    
+    .promotion-item:hover {
+      background: var(--glass-strong);
+    }
+    
+    .promotion-item.active {
+      border: 1px solid var(--ai-blue);
+      background: rgba(51, 204, 255, 0.1);
+    }
+    
+    .promotion-thumb {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+    
+    .promotion-name {
+      flex: 1;
+      font-weight: 500;
+    }
+    
+    .promotion-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .action-btn {
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .action-btn.delete:hover {
+      color: #ff4d4d;
+    }
+    
+    .action-btn.use:hover {
+      color: var(--ai-blue);
+    }
+    
+    .file-input {
+      display: none;
+    }
+
+    /* POPUP CONTROLS */
+    .popup-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+    
+    .popup-control-btn {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Geist', sans-serif;
+    }
+    
+    .popup-control-btn:hover {
+      background: rgba(51, 204, 255, 0.7);
+    }
+
+    /* RESPONSIVE DESIGN */
     @media (max-width: 768px) {
       .navlinks {
         display: none;
@@ -802,6 +891,15 @@
         display: none;
       }
       
+      .graphic-grid {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+      }
+      
+      .graphic-image {
+        height: 250px;
+      }
+      
       .services-grid {
         grid-template-columns: 1fr;
       }
@@ -823,13 +921,6 @@
         font-size: 1rem;
       }
       
-      /* Mobile icon fixes */
-      .btn span:first-child,
-      .contact-btn span:first-child {
-        font-size: 1.3em;
-        min-width: 28px;
-      }
-      
       .tiktok-badge,
       .tiktok-green-badge {
         font-size: 0.7rem;
@@ -841,7 +932,6 @@
         padding: 0 15px;
       }
       
-      /* Mobile popup adjustments */
       .popup-content {
         max-width: 95%;
       }
@@ -851,20 +941,29 @@
         height: 35px;
         font-size: 1.2rem;
       }
+      
+      .manager-panel {
+        width: 95%;
+        padding: 20px;
+      }
+      
+      .manager-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+      }
+      
+      .popup-controls {
+        flex-direction: column;
+        align-items: center;
+      }
     }
 
-    /* Additional mobile optimizations */
     @media (max-width: 480px) {
       .btn, .contact-btn {
         width: 260px;
         padding: 16px 20px;
         font-size: 0.95rem;
-      }
-      
-      .btn span:first-child,
-      .contact-btn span:first-child {
-        font-size: 1.2em;
-        min-width: 26px;
       }
       
       .hero-title {
@@ -874,13 +973,9 @@
       .hero-subtitle {
         font-size: clamp(1rem, 4vw, 1.4rem);
       }
-    }
-
-    /* Fix for iOS Safari */
-    @supports (-webkit-touch-callout: none) {
-      .btn span:first-child,
-      .contact-btn span:first-child {
-        -webkit-text-stroke: 0.3px currentColor;
+      
+      .graphic-image {
+        height: 200px;
       }
     }
   </style>
@@ -889,8 +984,35 @@
   <!-- PROMOTION POPUP -->
   <div class="promotion-popup" id="promotionPopup">
     <div class="popup-content">
-      <img src="https://drive.google.com/thumbnail?id=19roCjQBTvtKP7bxu0-3hsGRRUQgdJHO8&sz=w1000" alt="โปรโมชั่น" class="popup-image">
+      <img src="https://drive.google.com/thumbnail?id=19roCjQBTvtKP7bxu0-3hsGRRUQgdJHO8&sz=w1000" alt="โปรโมชั่น" class="popup-image" id="popupImage">
       <button class="close-popup" id="closePopup">×</button>
+      <div class="popup-controls">
+        <button class="popup-control-btn" id="disablePopup">ไม่แสดงอีก</button>
+        <button class="popup-control-btn" id="remindLater">แสดงในครั้งต่อไป</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROMOTION MANAGEMENT SYSTEM - HIDDEN BY DEFAULT -->
+  <div class="promotion-manager" id="promotionManager">
+    <button class="manager-btn" id="managerBtn" title="จัดการโปรโมชั่น">⚙️</button>
+  </div>
+  
+  <div class="manager-panel" id="managerPanel">
+    <div class="manager-header">
+      <h3 class="manager-title">จัดการภาพโปรโมชั่น</h3>
+      <button class="close-manager" id="closeManager">×</button>
+    </div>
+    
+    <div class="upload-area" id="uploadArea">
+      <span class="upload-icon">📁</span>
+      <p class="upload-text">ลากภาพมาวางที่นี่ หรือคลิกเพื่อเลือกไฟล์</p>
+      <button class="upload-btn">เลือกไฟล์ภาพ</button>
+      <input type="file" id="fileInput" class="file-input" accept="image/*">
+    </div>
+    
+    <div class="promotion-list" id="promotionList">
+      <!-- รายการภาพโปรโมชั่นจะถูกเพิ่มโดย JavaScript -->
     </div>
   </div>
 
@@ -898,7 +1020,6 @@
   <div class="nav">
     <div class="wrap navgrid">
       <div class="brand">
-        <!-- โลโก้จาก Google Drive -->
         <div class="logo">
           <img src="https://drive.google.com/thumbnail?id=1NIUOIFecbiyyueQtpGq4pdoBLGgE-YYX&sz=w1000" alt="Poetry Pixel Logo" class="logo-img">
         </div>
@@ -910,6 +1031,7 @@
       
       <nav class="navlinks">
         <a href="#portfolio">Portfolio</a>
+        <a href="#graphic-design">Graphic Design</a>
         <a href="#services">Services</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -937,7 +1059,7 @@
     <div class="scroll-indicator">Scroll</div>
   </section>
 
-  <!-- PORTFOLIO SHOWCASE - FROM VER01 -->
+  <!-- PORTFOLIO SHOWCASE -->
   <section class="portfolio-showcase" id="portfolio">
     <div class="section-header">
       <h2 class="section-title">Creative Portfolio</h2>
@@ -1055,6 +1177,44 @@
           </div>
           <button class="scroll-btn next">›</button>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRAPHIC DESIGN PORTFOLIO SECTION -->
+  <section class="graphic-portfolio" id="graphic-design">
+    <div class="section-header">
+      <h2 class="section-title">Graphic Design Portfolio</h2>
+      <p class="section-subtitle">Creative visual solutions and brand identity designs</p>
+    </div>
+    
+    <div class="graphic-grid">
+      <div class="graphic-card" style="animation-delay: 0.1s">
+        <img src="https://drive.google.com/thumbnail?id=1-syw9UzN8-CDTWC8YtcMUKIlPy7K3oMM&sz=w1000" alt="Graphic Design Work" class="graphic-image">
+      </div>
+      
+      <div class="graphic-card" style="animation-delay: 0.2s">
+        <img src="https://drive.google.com/thumbnail?id=1Cfbuv8hBu6X0q6XOt8MbtQLJe5mdYkH-&sz=w1000" alt="Graphic Design Work" class="graphic-image">
+      </div>
+      
+      <div class="graphic-card" style="animation-delay: 0.3s">
+        <img src="https://drive.google.com/thumbnail?id=1dDnTB8WPwaPsBfKmZEco3G8WR5NDas8H&sz=w1000" alt="Graphic Design Work" class="graphic-image">
+      </div>
+      
+      <div class="graphic-card" style="animation-delay: 0.4s">
+        <img src="https://drive.google.com/thumbnail?id=1JM1JPhJ6sqJ9NzE-QNWV0wdKPkoJozWX&sz=w1000" alt="Graphic Design Work" class="graphic-image">
+      </div>
+      
+      <div class="graphic-card" style="animation-delay: 0.5s">
+        <img src="https://drive.google.com/thumbnail?id=1ti_ZP2bNVDdTUQunnEO8uHa34QThvEjU&sz=w1000" alt="Graphic Design Work" class="graphic-image">
+      </div>
+      
+      <div class="graphic-card" style="animation-delay: 0.6s">
+        <img src="https://drive.google.com/thumbnail?id=10FryoDiNq2O7YstOaPsO_Tz8v-6FTjMi&sz=w1000" alt="Graphic Design Work" class="graphic-image">
+      </div>
+      
+      <div class="graphic-card" style="animation-delay: 0.7s">
+        <img src="https://drive.google.com/thumbnail?id=1VRMvFj5P8mVtqAhuemwd09u-RSENQHPL&sz=w1000" alt="Graphic Design Work" class="graphic-image">
       </div>
     </div>
   </section>
@@ -1354,36 +1514,284 @@
       });
     }
 
-    // Promotion Popup Functions
-    function initPromotionPopup() {
-      const popup = document.getElementById('promotionPopup');
-      const closeBtn = document.getElementById('closePopup');
+    // PROMOTION MANAGEMENT SYSTEM - FOR ADMIN ONLY
+    class PromotionManager {
+      constructor() {
+        this.promotions = this.loadPromotions();
+        this.currentPromotion = this.loadCurrentPromotion();
+        this.popupDisabled = this.loadPopupDisabled();
+        this.init();
+      }
       
-      // Show popup after page loads
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          popup.classList.add('active');
-        }, 1000); // Show after 1 second
-      });
-      
-      // Close popup when close button is clicked
-      closeBtn.addEventListener('click', function() {
-        popup.classList.remove('active');
-      });
-      
-      // Close popup when clicking outside the image
-      popup.addEventListener('click', function(e) {
-        if (e.target === popup) {
-          popup.classList.remove('active');
+      // โหลดรายการโปรโมชั่นจาก Local Storage
+      loadPromotions() {
+        const saved = localStorage.getItem('poetryPixelPromotions');
+        if (saved) {
+          return JSON.parse(saved);
         }
-      });
+        
+        // เริ่มต้นด้วยภาพจาก Google Drive
+        return [
+          {
+            id: 'default',
+            name: 'โปรโมชั่นเริ่มต้น',
+            url: 'https://drive.google.com/thumbnail?id=19roCjQBTvtKP7bxu0-3hsGRRUQgdJHO8&sz=w1000',
+            timestamp: Date.now()
+          }
+        ];
+      }
       
-      // Close popup with Escape key
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          popup.classList.remove('active');
+      // โหลดโปรโมชั่นปัจจุบันจาก Local Storage
+      loadCurrentPromotion() {
+        return localStorage.getItem('poetryPixelCurrentPromotion') || 'default';
+      }
+      
+      // โหลดสถานะการปิดป๊อปอัพ
+      loadPopupDisabled() {
+        return localStorage.getItem('poetryPixelPopupDisabled') === 'true';
+      }
+      
+      // บันทึกรายการโปรโมชั่น
+      savePromotions() {
+        localStorage.setItem('poetryPixelPromotions', JSON.stringify(this.promotions));
+      }
+      
+      // บันทึกโปรโมชั่นปัจจุบัน
+      saveCurrentPromotion() {
+        localStorage.setItem('poetryPixelCurrentPromotion', this.currentPromotion);
+      }
+      
+      // บันทึกสถานะป๊อปอัพ
+      savePopupDisabled() {
+        localStorage.setItem('poetryPixelPopupDisabled', this.popupDisabled.toString());
+      }
+      
+      // เพิ่มโปรโมชั่นใหม่
+      addPromotion(file) {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const promotion = {
+              id: 'promo_' + Date.now(),
+              name: file.name,
+              url: e.target.result,
+              timestamp: Date.now()
+            };
+            
+            this.promotions.push(promotion);
+            this.savePromotions();
+            this.renderPromotionList();
+            resolve(promotion);
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+      
+      // ลบโปรโมชั่น
+      removePromotion(id) {
+        this.promotions = this.promotions.filter(p => p.id !== id);
+        if (this.currentPromotion === id) {
+          this.currentPromotion = this.promotions.length > 0 ? this.promotions[0].id : 'default';
+          this.saveCurrentPromotion();
+          this.updatePopupImage();
         }
-      });
+        this.savePromotions();
+        this.renderPromotionList();
+      }
+      
+      // ตั้งค่าโปรโมชั่นปัจจุบัน
+      setCurrentPromotion(id) {
+        this.currentPromotion = id;
+        this.saveCurrentPromotion();
+        this.updatePopupImage();
+        this.renderPromotionList();
+      }
+      
+      // ปิดการแสดงป๊อปอัพ
+      disablePopup() {
+        this.popupDisabled = true;
+        this.savePopupDisabled();
+      }
+      
+      // เปิดการแสดงป๊อปอัพ
+      enablePopup() {
+        this.popupDisabled = false;
+        this.savePopupDisabled();
+      }
+      
+      // อัพเดทภาพในป๊อปอัพ
+      updatePopupImage() {
+        const popupImage = document.getElementById('popupImage');
+        const promotion = this.promotions.find(p => p.id === this.currentPromotion) || this.promotions[0];
+        
+        if (promotion && popupImage) {
+          popupImage.src = promotion.url;
+        }
+      }
+      
+      // เรนเดอร์รายการโปรโมชั่น
+      renderPromotionList() {
+        const list = document.getElementById('promotionList');
+        if (!list) return;
+        
+        list.innerHTML = '';
+        
+        this.promotions.forEach(promotion => {
+          const item = document.createElement('div');
+          item.className = `promotion-item ${promotion.id === this.currentPromotion ? 'active' : ''}`;
+          
+          item.innerHTML = `
+            <img src="${promotion.url}" alt="${promotion.name}" class="promotion-thumb">
+            <div class="promotion-name">${promotion.name}</div>
+            <div class="promotion-actions">
+              <button class="action-btn use" title="ใช้ภาพนี้">✅</button>
+              <button class="action-btn delete" title="ลบ">🗑️</button>
+            </div>
+          `;
+          
+          // ปุ่มใช้ภาพ
+          item.querySelector('.action-btn.use').addEventListener('click', () => {
+            this.setCurrentPromotion(promotion.id);
+          });
+          
+          // ปุ่มลบ
+          item.querySelector('.action-btn.delete').addEventListener('click', () => {
+            if (confirm('ต้องการลบภาพนี้ใช่หรือไม่?')) {
+              this.removePromotion(promotion.id);
+            }
+          });
+          
+          list.appendChild(item);
+        });
+      }
+      
+      // เริ่มต้นระบบ
+      init() {
+        this.setupEventListeners();
+        this.renderPromotionList();
+        this.updatePopupImage();
+        this.setupAdminShortcut();
+        this.showPopupIfNeeded();
+      }
+      
+      // แสดงป๊อปอัพถ้าจำเป็น
+      showPopupIfNeeded() {
+        if (!this.popupDisabled) {
+          setTimeout(() => {
+            const popup = document.getElementById('promotionPopup');
+            if (popup) {
+              popup.classList.add('active');
+            }
+          }, 500); // แสดงเร็วขึ้นเหลือ 0.5 วินาที
+        }
+      }
+      
+      // ตั้งค่า Event Listeners
+      setupEventListeners() {
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const managerBtn = document.getElementById('managerBtn');
+        const managerPanel = document.getElementById('managerPanel');
+        const closeManager = document.getElementById('closeManager');
+        const closePopup = document.getElementById('closePopup');
+        const disablePopupBtn = document.getElementById('disablePopup');
+        const remindLaterBtn = document.getElementById('remindLater');
+        
+        // คลิกพื้นที่อัพโหลด
+        uploadArea.addEventListener('click', () => {
+          fileInput.click();
+        });
+        
+        // ลากและวางไฟล์
+        uploadArea.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          uploadArea.style.borderColor = 'var(--ai-blue)';
+          uploadArea.style.background = 'rgba(51, 204, 255, 0.05)';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+          uploadArea.style.borderColor = 'var(--line)';
+          uploadArea.style.background = 'transparent';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+          e.preventDefault();
+          uploadArea.style.borderColor = 'var(--line)';
+          uploadArea.style.background = 'transparent';
+          
+          const files = e.dataTransfer.files;
+          if (files.length > 0 && files[0].type.startsWith('image/')) {
+            this.addPromotion(files[0]);
+          }
+        });
+        
+        // เลือกไฟล์จาก input
+        fileInput.addEventListener('change', (e) => {
+          const files = e.target.files;
+          if (files.length > 0) {
+            this.addPromotion(files[0]);
+            fileInput.value = ''; // รีเซ็ต input
+          }
+        });
+        
+        // เปิด/ปิดแผงจัดการ
+        managerBtn.addEventListener('click', () => {
+          managerPanel.classList.toggle('active');
+        });
+        
+        closeManager.addEventListener('click', () => {
+          managerPanel.classList.remove('active');
+        });
+        
+        // ปิดแผงเมื่อคลิกนอกพื้นที่
+        managerPanel.addEventListener('click', (e) => {
+          if (e.target === managerPanel) {
+            managerPanel.classList.remove('active');
+          }
+        });
+        
+        // ปิดป๊อปอัพ
+        closePopup.addEventListener('click', () => {
+          document.getElementById('promotionPopup').classList.remove('active');
+        });
+        
+        // ปิดการแสดงป๊อปอัพ
+        disablePopupBtn.addEventListener('click', () => {
+          this.disablePopup();
+          document.getElementById('promotionPopup').classList.remove('active');
+        });
+        
+        // แสดงในครั้งต่อไป
+        remindLaterBtn.addEventListener('click', () => {
+          document.getElementById('promotionPopup').classList.remove('active');
+        });
+      }
+      
+      // ตั้งค่าคีย์ลัดสำหรับแอดมินเท่านั้น
+      setupAdminShortcut() {
+        document.addEventListener('keydown', (e) => {
+          // คีย์ลัดลับสำหรับแอดมิน: Ctrl+Shift+Alt+P
+          if (e.ctrlKey && e.shiftKey && e.altKey && e.key === 'P') {
+            e.preventDefault();
+            const manager = document.getElementById('promotionManager');
+            const panel = document.getElementById('managerPanel');
+            
+            // สลับการแสดงผล
+            manager.classList.toggle('visible');
+            
+            // ถ้าเปิดแผงจัดการ ให้แสดงปุ่มด้วย
+            if (panel.classList.contains('active')) {
+              manager.classList.add('visible');
+            }
+          }
+          
+          // ESC เพื่อปิดแผงจัดการ
+          if (e.key === 'Escape') {
+            document.getElementById('managerPanel').classList.remove('active');
+            document.getElementById('promotionPopup').classList.remove('active');
+          }
+        });
+      }
     }
 
     // Initialize everything when DOM is loaded
@@ -1400,8 +1808,8 @@
       // Initialize smooth scrolling
       initSmoothScroll();
       
-      // Initialize promotion popup
-      initPromotionPopup();
+      // Initialize promotion manager
+      new PromotionManager();
       
       // Navbar background on scroll
       window.addEventListener('scroll', function() {
