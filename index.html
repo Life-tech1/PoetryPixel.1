@@ -1,0 +1,4081 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="dark">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Poetry Pixel — Creative Studio</title>
+  <meta name="description"
+    content="Poetry Pixel: pixels that speak like poetry — video editing, motion graphics, branding, AI-age visuals." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link rel="icon" href="favicon.jpg" type="image/jpeg">
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --text: #FFFFFF;
+      --muted: #94a3b8;
+      --line: rgba(56, 189, 248, 0.1);
+      --glass: rgba(10, 14, 26, 0.85);
+      --glass-strong: rgba(10, 14, 26, 0.95);
+      --radius: 20px;
+      --blur: 40px;
+      --ai-rainbow: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 50%, #38bdf8 100%);
+      --surface-grad: rgba(10, 14, 26, 0.95);
+      --nav-bg: rgba(10, 14, 26, 0.8);
+      --tiktok-pink: #38bdf8;
+      --tiktok-teal: #0ea5e9;
+      --ai-blue: #0ea5e9;
+      --accent-purple: #0ea5e9;
+      --accent-green: #10b981;
+      --accent-pink: #38bdf8;
+      --accent-cyan: #06b6d4;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f7f9ff;
+      --text: #0a0b0d;
+      --muted: #555b65;
+      --line: #d8deea;
+      --glass: rgba(255, 255, 255, .7);
+      --surface-grad: linear-gradient(160deg, rgba(255, 255, 255, .98), rgba(255, 255, 255, .82));
+      --nav-bg: rgba(255, 255, 255, .8);
+      --ai-blue: #0088cc;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      margin: 0;
+      font: 300 14px/1.6 'Inter', 'LINE Seed Sans TH', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      transition: background .25s ease, color .25s ease;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* CUSTOM PREMIUM SCROLLBAR */
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(10px);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 5px;
+      border: 2px solid transparent;
+      background-clip: content-box;
+      transition: all 0.3s ease;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border: 2px solid transparent;
+      /* Keeps border to maintain spacing */
+      background-clip: content-box;
+    }
+
+    ::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+
+    @keyframes borderflow {
+      0% {
+        background-position: 0% 50%
+      }
+
+      50% {
+        background-position: 100% 50%
+      }
+
+      100% {
+        background-position: 0% 50%
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: .7;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.05)
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-8px)
+      }
+    }
+
+    @keyframes tiktok-glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(255, 0, 80, 0.3)
+      }
+
+      50% {
+        box-shadow: 0 0 30px rgba(255, 0, 80, 0.6), 0 0 40px rgba(0, 242, 234, 0.3)
+      }
+    }
+
+    @keyframes blue-glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(51, 204, 255, 0.6), 0 0 40px rgba(51, 204, 255, 0.4), 0 0 60px rgba(51, 204, 255, 0.2)
+      }
+
+      50% {
+        box-shadow: 0 0 25px rgba(51, 204, 255, 0.8), 0 0 50px rgba(51, 204, 255, 0.6), 0 0 75px rgba(51, 204, 255, 0.3)
+      }
+    }
+
+    @keyframes text-glow {
+
+      0%,
+      100% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.4)
+      }
+
+      50% {
+        text-shadow: 0 0 25px rgba(255, 255, 255, 1), 0 0 50px rgba(255, 255, 255, 0.8), 0 0 75px rgba(255, 255, 255, 0.6)
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-100px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0)
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(100px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0)
+      }
+    }
+
+    @keyframes tiktok-shimmer {
+      0% {
+        background-position: -200% 0
+      }
+
+      100% {
+        background-position: 200% 0
+      }
+    }
+
+    @keyframes tiktok-vibrate {
+
+      0%,
+      100% {
+        transform: translateX(0)
+      }
+
+      25% {
+        transform: translateX(-1px)
+      }
+
+      75% {
+        transform: translateX(1px)
+      }
+    }
+
+    /* NEW ANIMATIONS FOR APPLE-STYLE PREMIUM TITLE */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -1000px 0;
+      }
+
+      100% {
+        background-position: 1000px 0;
+      }
+    }
+
+    @keyframes floatStars {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(180deg);
+      }
+    }
+
+    /* APPLE-STYLE MINIMALIST ANIMATIONS */
+    @keyframes appleReveal {
+      0% {
+        clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+        opacity: 0;
+      }
+
+      100% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        opacity: 1;
+      }
+    }
+
+    @keyframes subtleGlow {
+
+      0%,
+      100% {
+        filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.1));
+      }
+
+      50% {
+        filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.2));
+      }
+    }
+
+    @keyframes precisionPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        letter-spacing: -0.03em;
+      }
+
+      50% {
+        transform: scale(1.001);
+        letter-spacing: -0.029em;
+      }
+    }
+
+    @keyframes chromaticShift {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    /* NEURAL NAV PILL */
+    .neural-nav-container {
+      position: fixed;
+      top: 32px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .neural-nav {
+      background: rgba(10, 14, 26, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(14, 165, 233, 0.2);
+      border-radius: 40px;
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 4px 30px rgba(14, 165, 233, 0.2);
+    }
+    .brand-link {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.75rem;
+    }
+    .nav-divider {
+      width: 1px;
+      height: 16px;
+      background: rgba(255,255,255,0.1);
+    }
+    .navlinks {
+      display: flex;
+      gap: 20px;
+    }
+    .navlinks a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      text-transform: capitalize;
+      transition: color 0.3s;
+    }
+    .navlinks a:hover {
+      color: #fff;
+    }
+    .glowing-dot {
+      width: 6px;
+      height: 6px;
+      background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(14, 165, 233, 0.8);
+      margin-left: 8px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* UPDATED HERO SECTION - APPLE-STYLE MINIMALIST */
+    .hero-section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(14, 165, 233, 0.08) 0%, transparent 70%),
+        radial-gradient(ellipse at 20% 20%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(56, 189, 248, 0.04) 0%, transparent 50%);
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        linear-gradient(135deg, #0a0e1a 0%, #0f172a 50%, #1e293b 100%);
+      z-index: -1;
+    }
+
+    /* Hero background animation */
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.01), transparent);
+      animation: shimmer 15s infinite linear;
+      z-index: -1;
+    }
+
+    /* Floating stars effect - more subtle */
+    .star {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: floatStars 15s infinite ease-in-out;
+    }
+
+    .star:nth-child(1) {
+      width: 1px;
+      height: 1px;
+      top: 15%;
+      left: 15%;
+      animation-delay: 0s;
+    }
+
+    .star:nth-child(2) {
+      width: 1px;
+      height: 1px;
+      top: 65%;
+      left: 75%;
+      animation-delay: 2s;
+    }
+
+    .star:nth-child(3) {
+      width: 2px;
+      height: 2px;
+      top: 35%;
+      left: 25%;
+      animation-delay: 4s;
+    }
+
+    .star:nth-child(4) {
+      width: 1px;
+      height: 1px;
+      top: 85%;
+      left: 55%;
+      animation-delay: 6s;
+    }
+
+    .star:nth-child(5) {
+      width: 1px;
+      height: 1px;
+      top: 25%;
+      left: 85%;
+      animation-delay: 8s;
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 900px;
+      padding: 0 20px;
+      animation: fadeIn 1.5s ease-out;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* APPLE-STYLE PREMIUM TITLE */
+    .hero-title-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 30px;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 10vw, 128px);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      position: relative;
+      font-family: 'Inter', sans-serif;
+      color: #ffffff;
+      animation: appleReveal 1.8s cubic-bezier(0.23, 1, 0.32, 1) 0.2s both;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Ultra-minimalist underline effect */
+    .hero-title-container::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.3) 50%,
+          transparent 100%);
+      animation: subtleGlow 4s ease-in-out infinite;
+    }
+
+    /* Ultra-subtle background glow */
+    .hero-title-container::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -30%;
+      width: 160%;
+      height: 160%;
+      background: radial-gradient(ellipse at center,
+          rgba(255, 255, 255, 0.02) 0%,
+          rgba(255, 255, 255, 0.01) 30%,
+          transparent 70%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.6rem);
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 40px;
+      line-height: 1.4;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      font-family: 'Geist', sans-serif;
+      animation: fadeInUp 1.2s ease-out 0.6s both;
+      text-transform: uppercase;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 50px;
+      line-height: 1.6;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 300;
+      animation: fadeInUp 1.2s ease-out 0.8s both;
+      letter-spacing: 0.02em;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 1.2s ease-out 1s both;
+    }
+
+    /* APPLE-STYLE MINIMALIST BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(6, 182, 212, 0.2));
+      color: #fff;
+      font-weight: 500;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: 'Geist', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(14, 165, 233, 0.3);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+      transition: left 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.4), rgba(6, 182, 212, 0.4));
+      transform: translateY(-2px);
+      border-color: rgba(14, 165, 233, 0.6);
+      box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+      border: 1px solid rgba(14, 165, 233, 0.5);
+      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #38bdf8, #22d3ee);
+      border-color: rgba(14, 165, 233, 0.8);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(14, 165, 233, 0.5);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 0.7rem;
+      animation: float 3s ease-in-out infinite;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+    }
+
+    .scroll-indicator::after {
+      content: "";
+      width: 1px;
+      height: 30px;
+      background: rgba(255, 255, 255, 0.3);
+      margin-top: 8px;
+    }
+
+    /* PORTFOLIO SECTION */
+    .portfolio-showcase {
+      padding: 100px 0;
+      min-height: 100vh;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      font-family: 'Geist', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      background: var(--ai-rainbow);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Specific override for Creative Portfolio title per user request */
+    #portfolio .section-title {
+      background: none;
+      -webkit-text-fill-color: #ffffff;
+      color: #ffffff;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .portfolio-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      padding: 0 5%;
+    }
+
+    .category-section {
+      margin-bottom: 40px;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .category-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-title {
+      font-size: 2rem;
+      font-weight: 800;
+      font-family: 'Geist', sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    .category-description {
+      color: var(--muted);
+      margin-left: 65px;
+      margin-top: -10px;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .scroll-container {
+      position: relative;
+      margin: 0 -5%;
+      padding: 0 5%;
+    }
+
+    .scroll-content {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 20px 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--ai-blue) transparent;
+      scroll-behavior: smooth;
+    }
+
+    .scroll-content::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .scroll-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .scroll-content::-webkit-scrollbar-thumb {
+      background: var(--ai-blue);
+      border-radius: 10px;
+    }
+
+    .portfolio-card {
+      flex: 0 0 420px;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(14, 165, 233, 0.15);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 1px 1px rgba(14, 165, 233, 0.1);
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(14, 165, 233, 0.5);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(14, 165, 233, 0.3);
+    }
+
+    .card-tech-header {
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .tech-label {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tech-badge {
+      background: rgba(168, 85, 247, 0.1);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      color: var(--accent);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.6rem;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      letter-spacing: 0.05em;
+    }
+
+    .card-thumbnail {
+      position: relative;
+      width: calc(100% - 32px);
+      height: 180px;
+      margin: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .card-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.6s ease;
+      transform: scale(1.02);
+    }
+
+    .card-thumbnail iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+    }
+
+    .portfolio-card:hover .card-thumbnail iframe {
+      opacity: 1;
+    }
+
+    .portfolio-card:hover .card-thumbnail img {
+      transform: scale(1.1);
+      opacity: 0.4;
+    }
+
+    .card-thumbnail::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      z-index: 2;
+    }
+
+    .portfolio-card:hover .card-thumbnail::after {
+      opacity: 1;
+    }
+
+    .card-link {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 500;
+      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      font-size: 0.95rem;
+      opacity: 0;
+      transform: translateY(20px);
+      z-index: 5;
+      font-family: 'Geist', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .portfolio-card:hover .card-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card-link:hover {
+      transform: translateY(-2px) scale(1.02) !important;
+      background: rgba(255, 255, 255, 1);
+      color: #000;
+      box-shadow: 0 15px 30px rgba(255, 255, 255, 0.3);
+      border-color: #fff;
+    }
+
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--glass);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .scroll-btn:hover {
+      background: #ffffff;
+      color: #000;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      border-color: transparent;
+    }
+
+    .scroll-btn.prev {
+      left: 10px;
+    }
+
+    .scroll-btn.next {
+      right: 10px;
+    }
+
+    /* GRAPHIC DESIGN PORTFOLIO SECTION */
+    .graphic-portfolio {
+      padding: 100px 0;
+      background: var(--surface-grad);
+    }
+
+    .graphic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      padding: 0 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .graphic-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .graphic-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .graphic-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* SERVICES SECTION */
+    .services-section {
+      padding: 100px 0;
+      background: var(--surface-grad);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 0 5%;
+    }
+
+    .service-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      font-family: 'Geist', sans-serif;
+    }
+
+    .service-desc {
+      color: var(--muted);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* CONTACT SECTION */
+    .contact-section {
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    .contact-title {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      font-family: 'Geist', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 50px;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      gap: 10px;
+      padding: 16px 32px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      color: white;
+      text-decoration: none;
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      animation: subtleGlow 3s ease-in-out infinite;
+      font-family: 'Geist', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      border: none;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-3px);
+      animation: subtleGlow 1.5s ease-in-out infinite;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* PROMOTION POPUP STYLES */
+    .promotion-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .promotion-popup.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .popup-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      animation: popup-appear 0.5s ease-out forwards;
+    }
+
+    @keyframes popup-appear {
+      0% {
+        transform: scale(0.8) translateY(20px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .popup-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 80vh;
+      object-fit: contain;
+    }
+
+    .close-popup {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    .close-popup:hover {
+      background: rgba(255, 0, 0, 0.7);
+      transform: scale(1.1);
+    }
+
+    /* PROMOTION MANAGEMENT SYSTEM - HIDDEN BY DEFAULT */
+    .promotion-manager {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .promotion-manager.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .manager-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .manager-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(51, 204, 255, 0.6);
+    }
+
+    .manager-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 500px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 30px;
+      z-index: 10001;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .manager-panel.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .manager-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .manager-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: 'Geist', sans-serif;
+    }
+
+    .close-manager {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .close-manager:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .upload-area {
+      border: 2px dashed var(--line);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .upload-area:hover {
+      border-color: var(--ai-blue);
+      background: rgba(51, 204, 255, 0.05);
+    }
+
+    .upload-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .upload-text {
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .upload-btn {
+      background: var(--ai-blue);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .upload-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(51, 204, 255, 0.4);
+    }
+
+    .promotion-list {
+      margin-top: 20px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .promotion-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      .btn-primary {
+      background: rgba(255, 255, 255, 1);
+      color: #000;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: rgba(255, 255, 255, 0.8);
+      color: #000;
+    }
+    background: var(--glass-strong);
+    }
+
+    .promotion-item.active {
+      border: 1px solid var(--ai-blue);
+      background: rgba(51, 204, 255, 0.1);
+    }
+
+    .promotion-thumb {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+
+    .promotion-name {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .promotion-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .action-btn.delete:hover {
+      color: #ff4d4d;
+    }
+
+    .action-btn.use:hover {
+      color: var(--ai-blue);
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    /* POPUP CONTROLS */
+    .popup-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .popup-control-btn {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Geist', sans-serif;
+    }
+
+    .popup-control-btn:hover {
+      background: rgba(51, 204, 255, 0.7);
+    }
+
+    /* LOADING INDICATOR */
+    .loading-indicator {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px 30px;
+      color: var(--text);
+      font-family: 'Geist';
+      z-index: 10002;
+      display: none;
+    }
+
+    .loading-indicator.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .loading-spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--ai-blue);
+      border-top: 2px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ANALYTICS DASHBOARD */
+    .analytics-dashboard {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95%;
+      max-width: 1200px;
+      height: 90vh;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      z-index: 10003;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .analytics-dashboard.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .analytics-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .analytics-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      font-family: 'Geist', sans-serif;
+      background: var(--ai-rainbow);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .analytics-close {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .analytics-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .analytics-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .analytics-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .analytics-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .analytics-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: var(--ai-blue);
+      font-family: 'Geist', sans-serif;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+      background: var(--ai-rainbow);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .chart-container {
+      height: 200px;
+      margin-top: 15px;
+    }
+
+    .analytics-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .analytics-table th,
+    .analytics-table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .analytics-table th {
+      color: var(--ai-blue);
+      font-weight: 600;
+    }
+
+    .analytics-actions {
+      padding: 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .export-btn {
+      background: var(--accent-green);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .export-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 255, 102, 0.4);
+    }
+
+    .clear-btn {
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .clear-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
+    }
+
+    /* ANALYTICS BUTTON */
+    .analytics-btn {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      color: white;
+      font-size: 1.2rem;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .analytics-btn.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .analytics-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(153, 102, 255, 0.6);
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 768px) {
+      .navlinks {
+        display: none;
+      }
+
+      .portfolio-categories {
+        padding: 0 20px;
+      }
+
+      .scroll-container {
+        margin: 0 -20px;
+        padding: 0 20px;
+        position: relative;
+      }
+
+      .portfolio-card {
+        flex: 0 0 280px;
+      }
+
+      .category-title {
+        font-size: 1.5rem;
+      }
+
+      /* ปรับปรุงปุ่ม scroll สำหรับมือถือ */
+      .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--glass);
+        border: 1px solid var(--line);
+        color: var(--text);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+        display: flex !important;
+        /* บังคับให้แสดง */
+        align-items: center;
+        justify-content: center;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .scroll-btn:hover {
+        background: var(--ai-blue);
+        color: #000;
+      }
+
+      .scroll-btn.prev {
+        left: 5px;
+      }
+
+      .scroll-btn.next {
+        right: 5px;
+      }
+
+      .graphic-grid {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+      }
+
+      .graphic-image {
+        height: 250px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .btn,
+      .contact-btn {
+        width: 280px;
+        justify-content: center;
+        padding: 18px 24px;
+        font-size: 1rem;
+      }
+
+      .hero-description {
+        font-size: 1.1rem;
+        padding: 0 15px;
+      }
+
+      .popup-content {
+        max-width: 95%;
+      }
+
+      .close-popup {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+      }
+
+      .manager-panel {
+        width: 95%;
+        padding: 20px;
+      }
+
+      .manager-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+      }
+
+      .popup-controls {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* ปรับปรุงการแสดงผลบนมือถือให้ดีขึ้น */
+      .hero-section {
+        height: 100vh;
+        padding: 0 15px;
+      }
+
+      .hero-content {
+        padding: 0 10px;
+      }
+
+      .scroll-content {
+        padding: 15px 0;
+        gap: 15px;
+      }
+
+      .portfolio-card {
+        flex: 0 0 85vw;
+        /* ปรับขนาดการ์ดให้เหมาะสมกับมือถือ */
+      }
+
+      .card-thumbnail {
+        height: 200px;
+      }
+
+      .category-description {
+        margin-left: 0;
+        margin-top: 0;
+        padding: 0 10px;
+      }
+
+      .category-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .service-card {
+        padding: 30px 20px;
+      }
+
+      .graphic-card {
+        margin: 0 10px;
+      }
+
+      /* Analytics Dashboard Mobile */
+      .analytics-dashboard {
+        width: 98%;
+        height: 95vh;
+      }
+
+      .analytics-content {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .analytics-card {
+        padding: 15px;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      .btn,
+      .contact-btn {
+        width: 260px;
+        padding: 16px 20px;
+        font-size: 0.95rem;
+      }
+
+      .hero-title {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1rem, 4vw, 1.4rem);
+      }
+
+      .graphic-image {
+        height: 200px;
+      }
+
+      .portfolio-card {
+        flex: 0 0 90vw;
+        /* ขยายขนาดการ์ดให้ใหญ่ขึ้นบนหน้าจอเล็ก */
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .section-subtitle {
+        font-size: 1rem;
+        padding: 0 15px;
+      }
+
+      .category-title {
+        font-size: 1.3rem;
+      }
+
+      .service-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+
+      .service-title {
+        font-size: 1.3rem;
+      }
+
+      .contact-title {
+        font-size: 2.2rem;
+      }
+
+      .contact-subtitle {
+        font-size: 1rem;
+        padding: 0 15px;
+      }
+
+      /* ปรับปรุงปุ่ม scroll สำหรับหน้าจอเล็กมาก */
+      .scroll-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+      }
+
+      .scroll-btn.prev {
+        left: 2px;
+      }
+
+      .scroll-btn.next {
+        right: 2px;
+      }
+
+      /* ปรับปรุงการ scroll บนมือถือ */
+      .scroll-content {
+        -webkit-overflow-scrolling: touch;
+        /* การ scroll ที่ลื่นบน iOS */
+        scroll-snap-type: x mandatory;
+      }
+
+      .portfolio-card {
+        scroll-snap-align: start;
+      }
+
+      /* ปรับปรุงการแสดงป๊อปอัพบนมือถือ */
+      .popup-content {
+        max-width: 98%;
+        max-height: 95%;
+      }
+
+      .popup-image {
+        max-height: 75vh;
+      }
+
+      .close-popup {
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+      }
+
+      /* ปรับปรุงการจัดการโปรโมชั่นบนมือถือ */
+      .manager-panel {
+        width: 98%;
+        padding: 15px;
+      }
+
+      .upload-area {
+        padding: 20px 15px;
+      }
+
+      .upload-icon {
+        font-size: 2.5rem;
+      }
+
+      .promotion-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+
+      .promotion-thumb {
+        margin-right: 0;
+      }
+
+      .promotion-actions {
+        justify-content: center;
+      }
+    }
+
+    /* Touch device enhancements */
+    .touch-device .btn,
+    .touch-device .card-link,
+    .touch-device .scroll-btn {
+      min-height: 44px !important;
+      min-width: 44px !important;
+    }
+
+    .touch-device .portfolio-card {
+      cursor: pointer;
+    }
+
+    .touch-device .navlinks a {
+      padding: 12px 20px !important;
+    }
+
+    /* =========================================
+       NEW DESIGN ENHANCEMENTS (Scroll, Cursor, Tilt)
+       ========================================= */
+
+    /* 1. SCROLL REVEAL ANIMATION */
+    .reveal-element {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .reveal-element.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered delays for child elements if needed */
+    .reveal-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    /* 2. CUSTOM INTERACTIVE CURSOR */
+    @media (pointer: fine) {
+      body {
+        cursor: none;
+        /* Hide default cursor */
+      }
+
+      .custom-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99999;
+        transform: translate(-50%, -50%);
+        transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+        mix-blend-mode: difference;
+      }
+
+      .custom-cursor.hovered {
+        width: 50px;
+        height: 50px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: transparent;
+        mix-blend-mode: normal;
+        backdrop-filter: blur(2px);
+      }
+
+      .custom-cursor-dot {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 4px;
+        background-color: white;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 100000;
+        transform: translate(-50%, -50%);
+      }
+
+      /* Make sure links/buttons still show pointer cursor as fallback or visual cue if JS fails */
+      a,
+      button,
+      .portfolio-card {
+        cursor: none;
+      }
+    }
+
+    /* 3. 3D TILT EFFECT */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transform: perspective(1000px);
+    }
+
+    .tilt-content {
+      transform: translateZ(20px);
+    }
+  </style>
+  <link rel="stylesheet" href="glass.css">
+</head>
+
+<body>
+  <!-- Layer 0: Neural Network WebGL System -->
+  <canvas id="webgl-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0.6;"></canvas>
+
+  <!-- CUSTOM CURSOR ELEMENTS -->
+  <div class="custom-cursor" id="customCursor"></div>
+  <div class="custom-cursor-dot" id="customCursorDot"></div>
+  <!-- PROMOTION POPUP -->
+  <div class="promotion-popup" id="promotionPopup">
+    <div class="popup-content">
+      <img src="https://drive.google.com/thumbnail?id=19roCjQBTvtKP7bxu0-3hsGRRUQgdJHO8&sz=w1000" alt="โปรโมชั่น"
+        class="popup-image" id="popupImage">
+      <button class="close-popup" id="closePopup">×</button>
+      <div class="popup-controls">
+        <!-- เอา 2 ปุ่มนี้ออกตามที่สั่ง -->
+        <!-- <button class="popup-control-btn" id="disablePopup">ไม่แสดงอีก</button> -->
+        <!-- <button class="popup-control-btn" id="remindLater">แสดงในครั้งต่อไป</button> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- PROMOTION MANAGEMENT SYSTEM - HIDDEN BY DEFAULT -->
+  <div class="promotion-manager" id="promotionManager">
+    <button class="manager-btn" id="managerBtn" title="จัดการโปรโมชั่น">⚙️</button>
+  </div>
+
+  <!-- ANALYTICS BUTTON -->
+  <button class="analytics-btn" id="analyticsBtn" title="ดูสถิติการใช้งาน">📊</button>
+
+  <!-- ANALYTICS DASHBOARD -->
+  <div class="analytics-dashboard" id="analyticsDashboard">
+    <div class="analytics-header">
+      <h2 class="analytics-title">📊 Poetry Pixel Analytics</h2>
+      <button class="analytics-close" id="analyticsClose">×</button>
+    </div>
+
+    <div class="analytics-content" id="analyticsContent">
+      <!-- ข้อมูลสถิติจะถูกเพิ่มโดย JavaScript -->
+    </div>
+
+    <div class="analytics-actions">
+      <button class="export-btn" id="exportAnalytics">📥 Export Data</button>
+      <button class="clear-btn" id="clearAnalytics">🗑️ Clear Data</button>
+    </div>
+  </div>
+
+  <div class="manager-panel" id="managerPanel">
+    <div class="manager-header">
+      <h3 class="manager-title">จัดการภาพโปรโมชั่น</h3>
+      <button class="close-manager" id="closeManager">×</button>
+    </div>
+
+    <div class="upload-area" id="uploadArea">
+      <span class="upload-icon">📁</span>
+      <p class="upload-text">ลากภาพมาวางที่นี่ หรือคลิกเพื่อเลือกไฟล์</p>
+      <button class="upload-btn">เลือกไฟล์ภาพ</button>
+      <input type="file" id="fileInput" class="file-input" accept="image/*">
+    </div>
+
+    <div class="promotion-list" id="promotionList">
+      <!-- รายการภาพโปรโมชั่นจะถูกเพิ่มโดย JavaScript -->
+    </div>
+  </div>
+
+  <!-- NAV PILL -->
+  <div class="neural-nav-container">
+    <div class="neural-nav">
+      <a href="#" class="brand-link">POETRY PIXEL</a>
+      <div class="nav-divider"></div>
+      <nav class="navlinks">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="glowing-dot"></div>
+    </div>
+  </div>
+
+  <!-- UPDATED HERO SECTION WITH APPLE-STYLE PREMIUM TITLE -->
+  <section class="hero-section">
+    <div class="hero-bg"></div>
+    <!-- Subtle floating stars -->
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+
+    <div class="hero-content">
+      <div class="hero-title-container">
+        <h1 class="hero-title">POETRY PIXEL</h1>
+      </div>
+      <div class="hero-subtitle">PIXELS THAT SPEAK LIKE POETRY</div>
+      <p class="hero-description">บริการครบวงจรด้านการผลิตสื่อครีเอทีฟ - จากแนวคิดสู่ผลงานคุณภาพ
+        ด้วยเทคนิคการเล่าเรื่องที่คมชัดและความคิดสร้างสรรค์แบบยุค AI</p>
+      <div class="cta-buttons">
+        <a href="#portfolio" class="btn btn-primary">
+          <span>▶</span>
+          <span>View Portfolio</span>
+        </a>
+        <a href="https://www.facebook.com/Poetry.Pixel1/" target="_blank" class="btn">
+          <span>✉️</span>
+          <span>Contact Us</span>
+        </a>
+      </div>
+    </div>
+    <div class="scroll-indicator">Scroll</div>
+  </section>
+
+  <!-- PORTFOLIO SHOWCASE -->
+  <section class="portfolio-showcase" id="portfolio">
+    <div class="section-header">
+      <h2 class="section-title">Creative Portfolio</h2>
+      <p class="section-subtitle">A collection showcasing diverse creativity and limitless innovation</p>
+    </div>
+
+    <!-- Netflix Featured Banner with Carousel -->
+    <div class="netflix-featured-container">
+      <div class="netflix-featured" id="netflixFeatured">
+        <div class="featured-backdrop" id="featuredBackdrop"></div>
+        <div class="featured-overlay"></div>
+        <div class="featured-info">
+          <span class="featured-badge">Featured</span>
+          <h2 class="featured-title" id="featuredTitle">Poetry Pixel Highlights</h2>
+          <p class="featured-desc" id="featuredDesc">Best creative works from our studio</p>
+          <div class="featured-actions">
+            <a href="#" class="btn btn-primary" id="featuredWatchBtn">&#9654; Watch Now</a>
+          </div>
+        </div>
+        <!-- Navigation Arrows -->
+        <button class="featured-nav featured-prev" id="featuredPrev">‹</button>
+        <button class="featured-nav featured-next" id="featuredNext">›</button>
+        <!-- Indicators -->
+        <div class="featured-indicators" id="featuredIndicators"></div>
+      </div>
+    </div>
+
+    <div class="portfolio-categories">
+      <!-- Clinic -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">🏥</div>
+          <h3 class="category-title">Clinic (คลินิกและความรู้สุขภาพ)</h3>
+        </div>
+        <p class="category-description">Healthcare and medical clinic presentations</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="clinic-works">
+            <!-- Clinic works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
+
+      <!-- Featured Works -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">✨</div>
+          <h3 class="category-title">Featured Works</h3>
+        </div>
+        <p class="category-description">Outstanding projects that represent our best creative achievements</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="featured-works">
+            <!-- Featured works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
+
+      <!-- Commercial -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">📦</div>
+          <h3 class="category-title">Commercial</h3>
+        </div>
+        <p class="category-description">Advertising campaigns that drive business results and brand awareness</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="advertising-works">
+            <!-- Advertising works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
+
+
+
+      <!-- Short-form Content -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">🎵</div>
+          <h3 class="category-title">Short-form Content</h3>
+        </div>
+        <p class="category-description">Viral content optimized for social media platforms and digital engagement</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="short-content-works">
+            <!-- Short content works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
+
+      <!-- Film & Documentary -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">🎬</div>
+          <h3 class="category-title">Film & Documentary</h3>
+        </div>
+        <p class="category-description">High-quality cinematic productions and documentary storytelling</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="film-works">
+            <!-- Film works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
+
+      <!-- Graphic & Motion -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">🎨</div>
+          <h3 class="category-title">Graphic & Motion</h3>
+        </div>
+        <p class="category-description">Creative graphic design and motion graphics solutions</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="graphic-works">
+            <!-- Graphic works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
+
+      <!-- Special Projects -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">✨</div>
+          <h3 class="category-title">Special Projects (โปรเจกต์พิเศษ)</h3>
+        </div>
+        <p class="category-description">Special projects and variety content</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="special-works">
+            <!-- Special works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
+
+      <!-- TikTok -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">📱</div>
+          <h3 class="category-title">TikTok</h3>
+        </div>
+        <p class="category-description">Creative and viral content optimized for TikTok platform</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="tiktok-works">
+            <!-- TikTok works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
+
+      <!-- TikTok Green & Organic -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-icon">🌿</div>
+          <h3 class="category-title">TikTok Green & Organic</h3>
+        </div>
+        <p class="category-description">Nature-focused content and healthy lifestyle inspiration</p>
+        <div class="scroll-container">
+          <button class="scroll-btn prev">‹</button>
+          <div class="scroll-content" id="tiktok-green-works">
+            <!-- TikTok Green works will be populated by JavaScript -->
+          </div>
+          <button class="scroll-btn next">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRAPHIC DESIGN PORTFOLIO SECTION -->
+  <section class="graphic-portfolio" id="graphic-design">
+    <div class="section-header">
+      <h2 class="section-title">Graphic Design Portfolio</h2>
+      <p class="section-subtitle">Creative visual solutions and brand identity designs</p>
+    </div>
+
+    <div class="graphic-grid">
+      <div class="graphic-card" style="animation-delay: 0.1s">
+        <img src="https://drive.google.com/thumbnail?id=1-syw9UzN8-CDTWC8YtcMUKIlPy7K3oMM&sz=w1000"
+          alt="Graphic Design Work" class="graphic-image">
+      </div>
+
+      <div class="graphic-card" style="animation-delay: 0.2s">
+        <img src="https://drive.google.com/thumbnail?id=1Cfbuv8hBu6X0q6XOt8MbtQLJe5mdYkH-&sz=w1000"
+          alt="Graphic Design Work" class="graphic-image">
+      </div>
+
+      <div class="graphic-card" style="animation-delay: 0.3s">
+        <img src="https://drive.google.com/thumbnail?id=1dDnTB8WPwaPsBfKmZEco3G8WR5NDas8H&sz=w1000"
+          alt="Graphic Design Work" class="graphic-image">
+      </div>
+
+      <div class="graphic-card" style="animation-delay: 0.4s">
+        <img src="https://drive.google.com/thumbnail?id=1JM1JPhJ6sqJ9NzE-QNWV0wdKPkoJozWX&sz=w1000"
+          alt="Graphic Design Work" class="graphic-image">
+      </div>
+
+      <div class="graphic-card" style="animation-delay: 0.5s">
+        <img src="https://drive.google.com/thumbnail?id=1ti_ZP2bNVDdTUQunnEO8uHa34QThvEjU&sz=w1000"
+          alt="Graphic Design Work" class="graphic-image">
+      </div>
+
+      <div class="graphic-card" style="animation-delay: 0.6s">
+        <img src="https://drive.google.com/thumbnail?id=10FryoDiNq2O7YstOaPsO_Tz8v-6FTjMi&sz=w1000"
+          alt="Graphic Design Work" class="graphic-image">
+      </div>
+
+      <div class="graphic-card" style="animation-delay: 0.7s">
+        <img src="https://drive.google.com/thumbnail?id=1VRMvFj5P8mVtqAhuemwd09u-RSENQHPL&sz=w1000"
+          alt="Graphic Design Work" class="graphic-image">
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section class="services-section" id="services">
+    <div class="section-header">
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-subtitle">Comprehensive creative solutions for all your media needs</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🎬</div>
+        <h3 class="service-title">Film & Documentary</h3>
+        <p class="service-desc">High-quality film production with powerful storytelling and professional techniques</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3 class="service-title">Digital Content</h3>
+        <p class="service-desc">Viral content creation for social media platforms with modern creative approaches</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📺</div>
+        <h3 class="service-title">Advertising & Branding</h3>
+        <p class="service-desc">Complete advertising campaigns and brand content that drive business results</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🎨</div>
+        <h3 class="service-title">Graphic & Animation</h3>
+        <p class="service-desc">Creative graphics and motion design that communicate effectively and memorably</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section" id="contact">
+    <h2 class="contact-title">Ready to Create Together?</h2>
+    <p class="contact-subtitle">Let's collaborate to create outstanding and inspiring work</p>
+    <a href="https://www.facebook.com/Poetry.Pixel1/" target="_blank" class="contact-btn">
+      <span>✉️</span>
+      <span>Contact Us</span>
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <p>© <span id="year">2024</span> Poetry Pixel - All rights reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    // Helper functions from the reference code
+    const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
+    function ytId(u) {
+      try {
+        const x = new URL(u);
+        if (x.hostname.includes('youtu.be')) return x.pathname.slice(1);
+        if (x.pathname.startsWith('/shorts/')) return x.pathname.split('/')[2] || x.pathname.split('/')[1];
+        return x.searchParams.get('v');
+      } catch (e) { return null; }
+    }
+
+    function extractDriveId(u) {
+      const m = (u || "").match(/[-\w]{25,}/);
+      return m ? m[0] : null;
+    }
+
+    // Video lists from the reference code
+    const HIGHLIGHT = [
+      "https://youtu.be/Znybs8YddeU",
+      "https://youtu.be/OpwSI3ov7NI",
+      "https://youtu.be/7pFDqp_cQQY",   // MV ใหม่
+      "https://youtu.be/a0-bkh5uixs"    // MV ใหม่
+    ];
+
+    // Shorts and vertical videos (not used in featured banner)
+    const HIGHLIGHT_SHORTS = [
+      "https://youtu.be/LPFEhuNYmIA",
+      "https://youtube.com/shorts/EKR1n6uQu1Q", // Shorts เด่น
+      "https://drive.google.com/file/d/131Ns-nw0yL0k8t_7MB0cqSvGSf79duiG/view?usp=sharing", // ผลงานใหม่
+      "https://drive.google.com/file/d/1UQ9C9ol97r3J1AoRrFqgLlr59R1Rrx57/view?usp=sharing"  // ผลงานใหม่
+    ];
+
+
+    const COMMERCIAL = [
+      "https://youtu.be/Znybs8YddeU", "https://youtu.be/BP-v3Qacqkk", "https://youtu.be/ZefDXXIjz8g", "https://youtu.be/AQETlaYZiIY", "https://youtu.be/Vic8NoGLrDA",
+      "https://youtu.be/1TR0l4mr0Rc", "https://youtu.be/3SmEJ2zJMV4", "https://youtu.be/7TEaiz9yt_Y", "https://youtu.be/awtQeg38xCE", "https://youtu.be/MElFZeqGNAY", "https://youtu.be/8Am5o_wBrFI"
+    ];
+
+    const SHORTFORM = [
+      // YouTube ก่อน
+      "https://youtu.be/LPFEhuNYmIA",
+      "https://youtube.com/shorts/TVIm8bYkTaE",
+      "https://youtube.com/shorts/71QC2dUJwO8",
+      "https://youtube.com/shorts/2PKldWa3a7c",
+      "https://youtube.com/shorts/5nyjcpFhVJ4",
+      "https://youtube.com/shorts/PVRuioNnGBA",
+      "https://youtube.com/shorts/qsnX7on2NoU",
+      "https://youtube.com/shorts/Xbj_gYgSJfA",
+      // แล้วค่อยตามด้วย Google Drive
+      "https://drive.google.com/file/d/1Bw9gd9U1zM5f-c_g8tiqC1L9_zlXVXl9/view",
+      "https://drive.google.com/file/d/1gcDRS4EGI56z3uCiiD6-5LjCbWvwPqXO/view",
+      "https://drive.google.com/file/d/1XlY2PiMiPRKv_PVI1CDz1E0K4j6ycoCk/view",
+      "https://drive.google.com/file/d/1JKrP8bd0MiVHuSbSISaR1BDA3OYELgH5/view",
+      "https://drive.google.com/file/d/1jBjAo907zXcIu2rib9q4pMpMV07uJ-WH/view",
+      "https://drive.google.com/file/d/1PFht0iLXpMPuewLjCOi-ZATK-BfVud1z/view",
+      "https://drive.google.com/file/d/1AEZfYjzOsAPP0QrvPPCSr1dPW45Yri29/view"
+    ];
+
+    const FILM = [
+      "https://youtu.be/BSN5My9DLbA", "https://youtu.be/b2jZQe3A8EI", "https://youtu.be/T9xEJFWqB6A", "https://youtu.be/H5ji14AhWX4",
+      "https://youtu.be/bn2VJz-cLYs", "https://youtu.be/FNoIhoD39zY", "https://youtu.be/zIb9URSqiFQ", "https://youtu.be/zOdS71eQBpY",
+      "https://youtu.be/7pFDqp_cQQY", "https://youtu.be/a0-bkh5uixs"
+    ];
+
+    const GRAPHIC = [
+      "https://www.youtube.com/shorts/DDCfIg6Vq7o", "https://youtu.be/b2jZQe3A8EI", "https://youtu.be/OpwSI3ov7NI",
+      "https://drive.google.com/file/d/1uxtuvcVw21pA2Jb395M7h3JHzDE9WD5Z/view"
+    ];
+
+    const SPECIAL = [
+      "https://drive.google.com/file/d/1t1YC_ZlV78O0xdD5S_bTcsvAb6do49Ez/view?usp=sharing",
+      "https://drive.google.com/file/d/1_zSKiJGp2Seh38Th-gh_DIIFMnyf-kVq/view?usp=sharing",
+      "https://drive.google.com/file/d/1Bs7b5zc_Ii2gD3k4W6KWqmXvbOWikvWu/view?usp=sharing"
+    ];
+
+    const CLINIC = [
+      "https://drive.google.com/file/d/1CplToRwLZYcD724TwQbyjJ4ys7QoiwVj/view?usp=sharing",
+      "https://drive.google.com/file/d/1TsHnDmqbshK9KKnLZTSya36K-tHz-wkQ/view?usp=sharing",
+      "https://drive.google.com/file/d/1GTgGaRLDQg98HfQmad1a0FR_oAE8MBpU/view?usp=sharing",
+      "https://drive.google.com/file/d/1XjLt-LB6GnsP1qUKKg3YpJukePidvGQU/view?usp=sharing",
+      "https://drive.google.com/file/d/1v6rxhWQBm-_LX_dEXEd9G4_Rcf2-p-6X/view?usp=sharing",
+      "https://drive.google.com/file/d/1h1KPW7PAJv4YMjN57UtV1UqThNvC5V9i/view?usp=sharing",
+      "https://drive.google.com/file/d/1bAEBWeIBZgYdcPsx0XkZ10h__CClWxvx/view?usp=sharing",
+      "https://drive.google.com/file/d/1Vo6z2Ds1irqGrdf5xSK5_SekhE3OhrNe/view?usp=sharing",
+      "https://drive.google.com/file/d/1gCiNURRGxi-glMbN-Js8xY-CpPOBv92_/view?usp=sharing",
+      "https://drive.google.com/file/d/1MBYTGe2EIt5mFpi-A6XbghzkoGye_0WA/view?usp=sharing",
+      "https://drive.google.com/file/d/1A8zTiVIQBjVCpV7GwFPSFmnPIxRXUYhq/view?usp=sharing",
+      "https://drive.google.com/file/d/1tUBF5uRZcQ8pjEu1Xbut4u7CGtPCrqo2/view?usp=sharing",
+      "https://drive.google.com/file/d/1lPpeQTXzTOpC-HzSjSEGy9F4ElJOr6LY/view?usp=sharing",
+      "https://drive.google.com/file/d/1uxtuvcVw21pA2Jb395M7h3JHzDE9WD5Z/view?usp=sharing",
+      "https://drive.google.com/file/d/1fKSk7K-lJE7T7F1uZCC3Kl7-L67Vjj22/view?usp=sharing"
+    ];
+
+    const TIKTOK = [
+      "https://vt.tiktok.com/ZS6qTRsKo/", "https://vt.tiktok.com/ZS6q3sE1F/", "https://vt.tiktok.com/ZS6q3bSBf/", "https://vt.tiktok.com/ZS6q3cDLu/", "https://vt.tiktok.com/ZS6q3wRUa/", "https://vt.tiktok.com/ZS6q3GG1r/"
+    ];
+
+    const TIKTOK_GREEN = [
+      "https://vt.tiktok.com/ZSDAGxWdh/", "https://vt.tiktok.com/ZSDAGnr21/", "https://vt.tiktok.com/ZSDAtdHYm/", "https://vt.tiktok.com/ZSDAtRPLb/", "https://vt.tiktok.com/ZSDAGTsLo/", "https://vt.tiktok.com/ZSDAtkUvR/"
+    ];
+
+    // Portfolio data organized by categories - FIXED VERSION
+    const PORTFOLIO_DATA = {
+      "featured-works": HIGHLIGHT.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "advertising-works": COMMERCIAL.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "short-content-works": SHORTFORM.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "film-works": FILM.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "graphic-works": GRAPHIC.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "tiktok-works": TIKTOK.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "tiktok-green-works": TIKTOK_GREEN.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "special-works": SPECIAL.map(link => ({ link, thumbnail: getThumbnail(link) })),
+      "clinic-works": CLINIC.map(link => ({ link, thumbnail: getThumbnail(link) }))
+    };
+
+    // Helper function to get thumbnail URL
+    function getThumbnail(link) {
+      if (link.includes('youtu.be') || link.includes('youtube.com')) {
+        const videoId = ytId(link);
+        return videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : 'https://www.tiktok.com/favicon.ico';
+      } else if (link.includes('drive.google.com')) {
+        const driveId = extractDriveId(link);
+        return driveId ? `https://drive.google.com/thumbnail?id=${driveId}&sz=w1280` : 'https://www.tiktok.com/favicon.ico';
+      } else if (link.includes('tiktok.com')) {
+        return 'https://www.tiktok.com/favicon.ico';
+      } else {
+        return 'https://www.tiktok.com/favicon.ico';
+      }
+    }
+
+    // ==============================================
+    // NEW DESIGN FEATURES IMPLEMENTATION
+    // ==============================================
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initCustomCursor();
+      initScrollReveal();
+      init3DTilt();
+    });
+
+    // 1. Custom Cursor
+    function initCustomCursor() {
+      // Only for desktop/fine pointer devices
+      if (window.matchMedia("(pointer: fine)").matches) {
+        const cursor = document.getElementById('customCursor');
+        const cursorDot = document.getElementById('customCursorDot');
+
+        document.addEventListener('mousemove', (e) => {
+          // Use requestAnimationFrame for smoother performance
+          requestAnimationFrame(() => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+          });
+        });
+
+        // Hover effect for interactive elements
+        const interactiveHeaders = ['a', 'button', '.portfolio-card', '.graphic-card', '.service-card'];
+        interactiveHeaders.forEach(selector => {
+          document.querySelectorAll(selector).forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+          });
+        });
+      }
+    }
+
+    // 2. Scroll Reveal
+    function initScrollReveal() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            // Optional: Unobserve after reveal if you want it only once
+            // observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+      });
+
+      // Targets to reveal
+      const targets = document.querySelectorAll('.section-title, .section-subtitle, .category-section, .service-card, .graphic-card');
+      targets.forEach(el => {
+        el.classList.add('reveal-element');
+        observer.observe(el);
+      });
+    }
+
+    // 3. 3D Tilt Effect
+    function init3DTilt() {
+      if (isMobile) return; // Disable on mobile
+
+      const cards = document.querySelectorAll('.portfolio-card, .graphic-card, .service-card');
+
+      cards.forEach(card => {
+        card.classList.add('tilt-card');
+
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+
+          const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
+          const rotateY = ((x - centerX) / centerX) * 10;
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        });
+      });
+    }
+
+    // Create portfolio card with thumbnail preview only
+    function createPortfolioCard(item, index) {
+      const card = document.createElement('div');
+      card.className = 'portfolio-card';
+      card.style.animationDelay = `${index * 0.1}s`;
+
+      // Determine platform and icon based on link
+      let platformIcon = "▶️";
+      let platformText = "View Project";
+      let cardClass = '';
+      let linkClass = '';
+      let badgeText = '';
+
+      if (item.link.includes('tiktok.com') || item.link.includes('vt.tiktok.com')) {
+        platformIcon = "🎵";
+        platformText = "View on TikTok";
+
+        // Different styling for regular TikTok vs TikTok Green
+        if (item.link.includes('ZSDAG') || item.link.includes('ZSDAt')) {
+          // TikTok Green
+          cardClass = 'tiktok-green-card';
+          linkClass = 'tiktok-green-link';
+          badgeText = '🌿 Organic';
+        } else {
+          // Regular TikTok
+          cardClass = 'tiktok-card';
+          linkClass = 'tiktok-link';
+          badgeText = '📱 TikTok';
+        }
+      } else if (item.link.includes('drive.google.com')) {
+        platformIcon = "📁";
+        platformText = "View on Drive";
+      } else if (item.link.includes('youtu.be') || item.link.includes('youtube.com')) {
+        platformIcon = "▶️";
+        platformText = "View on YouTube";
+      }
+
+      // Apply TikTok specific classes
+      if (cardClass) {
+        card.classList.add(cardClass);
+      }
+
+      // Create thumbnail with preview
+      const thumbnailDiv = document.createElement('div');
+      thumbnailDiv.className = `card-thumbnail ${cardClass ? 'tiktok-thumbnail' : ''}`;
+
+      const img = new Image();
+      img.loading = 'lazy';
+      img.alt = '';
+      img.src = item.thumbnail;
+      img.onerror = function () {
+        this.src = 'https://www.tiktok.com/favicon.ico';
+      };
+      thumbnailDiv.appendChild(img);
+
+      // Add TikTok badge
+      if (badgeText) {
+        const badge = document.createElement('div');
+        badge.className = cardClass.includes('green') ? 'tiktok-green-badge' : 'tiktok-badge';
+        badge.textContent = badgeText;
+        card.appendChild(badge);
+      }
+
+      // Add iframe for YouTube videos only (not for TikTok)
+      if (item.link.includes('youtu.be') || item.link.includes('youtube.com')) {
+        const videoId = ytId(item.link);
+        if (videoId) {
+          const iframe = document.createElement('iframe');
+          iframe.loading = 'lazy';
+          iframe.allow = 'autoplay; fullscreen';
+          iframe.setAttribute('playsinline', '');
+          iframe.setAttribute('muted', '');
+          iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+          iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}`;
+          thumbnailDiv.appendChild(iframe);
+
+          // Mobile click handling
+          if (isMobile) {
+            card.addEventListener('click', () => {
+              open(item.link, '_blank');
+              trackUserInteraction('portfolio_card_click', 'engagement', item.link);
+            }, { passive: true });
+          }
+        }
+      }
+
+      // Create link button
+      const linkButton = document.createElement('a');
+      linkButton.href = item.link;
+      linkButton.target = '_blank';
+      linkButton.className = `card-link ${linkClass}`;
+      linkButton.innerHTML = `
+        <span>${platformIcon}</span>
+        <span>${platformText}</span>
+      `;
+
+      // Track clicks on card links
+      linkButton.addEventListener('click', () => {
+        trackUserInteraction('portfolio_card_click', 'engagement', item.link);
+      });
+
+      card.appendChild(thumbnailDiv);
+      card.appendChild(linkButton);
+
+      return card;
+    }
+
+    // Fill portfolio categories
+    function fillPortfolioCategories() {
+      Object.keys(PORTFOLIO_DATA).forEach(categoryId => {
+        const container = document.getElementById(categoryId);
+        if (container) {
+          PORTFOLIO_DATA[categoryId].forEach((item, index) => {
+            const card = createPortfolioCard(item, index);
+            container.appendChild(card);
+          });
+        }
+      });
+    }
+
+    // Initialize scroll buttons
+    function initScrollButtons() {
+      document.querySelectorAll('.scroll-btn').forEach(button => {
+        button.addEventListener('click', function () {
+          const isNext = this.classList.contains('next');
+          const scrollContainer = this.parentElement.querySelector('.scroll-content');
+          const scrollAmount = 440;
+
+          scrollContainer.scrollBy({
+            left: isNext ? scrollAmount : -scrollAmount,
+            behavior: 'smooth'
+          });
+        });
+      });
+    }
+
+    // เพิ่มฟังก์ชันสำหรับจัดการ touch scroll บนมือถือ
+    function initMobileScroll() {
+      if (!isMobile) return;
+
+      const scrollContainers = document.querySelectorAll('.scroll-content');
+
+      scrollContainers.forEach(container => {
+        let isScrolling = false;
+        let startX;
+        let scrollLeft;
+
+        container.addEventListener('touchstart', (e) => {
+          isScrolling = true;
+          startX = e.touches[0].pageX - container.offsetLeft;
+          scrollLeft = container.scrollLeft;
+        }, { passive: true });
+
+        container.addEventListener('touchmove', (e) => {
+          if (!isScrolling) return;
+          e.preventDefault();
+          const x = e.touches[0].pageX - container.offsetLeft;
+          const walk = (x - startX) * 2;
+          container.scrollLeft = scrollLeft - walk;
+        }, { passive: false });
+
+        container.addEventListener('touchend', () => {
+          isScrolling = false;
+        }, { passive: true });
+      });
+    }
+
+    // Smooth scrolling for anchor links
+    function initSmoothScroll() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    }
+
+    // ==============================================
+    // NETFLIX FEATURED BANNER WITH CAROUSEL
+    // ==============================================
+    function initNetflixBanner() {
+      const backdrop = document.getElementById('featuredBackdrop');
+      const title = document.getElementById('featuredTitle');
+      const desc = document.getElementById('featuredDesc');
+      const watchBtn = document.getElementById('featuredWatchBtn');
+      const indicators = document.getElementById('featuredIndicators');
+      const prevBtn = document.getElementById('featuredPrev');
+      const nextBtn = document.getElementById('featuredNext');
+      
+      if (!backdrop || !HIGHLIGHT || HIGHLIGHT.length === 0) return;
+
+      let currentIndex = 0;
+      
+      // Custom featured items with beautiful backgrounds and titles
+      const featuredData = [
+        {
+          title: 'Pixels That Speak Like Poetry',
+          desc: 'Where creativity meets innovation — crafting visual stories that inspire and captivate',
+          bg: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1920&q=80' // Cinema/Film production
+        },
+        {
+          title: 'Visual Storytelling Redefined',
+          desc: 'Transforming ideas into cinematic experiences through the art of motion',
+          bg: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=1920&q=80' // Creative studio
+        },
+        {
+          title: 'Cinematic Excellence',
+          desc: 'Award-winning production that brings your vision to life with precision and passion',
+          bg: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=1920&q=80' // Beautiful cinema lights
+        },
+        {
+          title: 'Creative Innovation',
+          desc: 'Pushing boundaries with cutting-edge content for the digital age',
+          bg: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1920&q=80' // Film production set
+        }
+      ];
+      
+      const featuredItems = HIGHLIGHT.map((link, index) => {
+        const videoId = ytId(link);
+        const driveId = extractDriveId(link);
+        const customData = featuredData[index] || featuredData[0];
+        
+        return {
+          link: link,
+          thumbnail: customData.bg, // Use custom background instead of video thumbnail
+          title: customData.title,
+          desc: customData.desc
+        };
+      });
+
+      // Create indicators
+      featuredItems.forEach((item, index) => {
+        const indicator = document.createElement('div');
+        indicator.className = 'featured-indicator' + (index === 0 ? ' active' : '');
+        indicator.addEventListener('click', () => goToSlide(index));
+        indicators.appendChild(indicator);
+      });
+
+      function updateBanner(index) {
+        const item = featuredItems[index];
+        
+        // Update backdrop with fade effect
+        backdrop.style.opacity = '0';
+        setTimeout(() => {
+          backdrop.style.backgroundImage = `url(${item.thumbnail})`;
+          backdrop.style.opacity = '1';
+        }, 300);
+        
+        // Update text content
+        title.textContent = item.title;
+        desc.textContent = item.desc;
+        watchBtn.href = item.link;
+        
+        // Update indicators
+        document.querySelectorAll('.featured-indicator').forEach((ind, i) => {
+          ind.classList.toggle('active', i === index);
+        });
+      }
+
+      function goToSlide(index) {
+        currentIndex = index;
+        updateBanner(currentIndex);
+      }
+
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % featuredItems.length;
+        updateBanner(currentIndex);
+      }
+
+      function prevSlide() {
+        currentIndex = (currentIndex - 1 + featuredItems.length) % featuredItems.length;
+        updateBanner(currentIndex);
+      }
+
+      // Event listeners
+      if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+      if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+      // Auto-play carousel
+      let autoPlayInterval = setInterval(nextSlide, 5000);
+
+      // Pause on hover
+      const container = document.querySelector('.netflix-featured-container');
+      if (container) {
+        container.addEventListener('mouseenter', () => {
+          clearInterval(autoPlayInterval);
+        });
+        container.addEventListener('mouseleave', () => {
+          autoPlayInterval = setInterval(nextSlide, 5000);
+        });
+      }
+
+      // Initialize first slide
+      updateBanner(0);
+      
+      // Add transition to backdrop
+      backdrop.style.transition = 'opacity 0.5s ease, transform 0.8s ease';
+    }
+    initNetflixBanner();
+
+    // ==============================================
+    // ENHANCED FEATURES (2-13)
+    // ==============================================
+
+    // 2. Debounce Function (ลดการทำงานซ้ำ)
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    // 3. Contact Form (ฟอร์มติดต่อ)
+    function initContactForm() {
+      const contactSection = document.querySelector('.contact-section');
+      if (!contactSection) return;
+
+      const contactFormHTML = `
+        <div class="contact-form" style="max-width: 500px; margin: 0 auto; padding: 0 20px;">
+          <div style="display: grid; gap: 15px; margin-top: 30px;">
+            <input type="text" placeholder="ชื่อของคุณ" id="contactName" 
+                   style="padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line); 
+                          background: var(--glass); color: var(--text); font-family: 'Geist';">
+            <input type="email" placeholder="อีเมล" id="contactEmail" 
+                   style="padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line); 
+                          background: var(--glass); color: var(--text); font-family: 'Geist';">
+            <textarea placeholder="ข้อความของคุณ" id="contactMessage" rows="4"
+                      style="padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line); 
+                             background: var(--glass); color: var(--text); font-family: 'Geist'; 
+                             resize: vertical;"></textarea>
+            <button class="btn" id="submitContact" 
+                    style="margin-top: 10px; justify-self: center;">
+              <span>📨</span>
+              <span>ส่งข้อความ</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      const contactBtn = contactSection.querySelector('.contact-btn');
+      contactBtn.insertAdjacentHTML('afterend', contactFormHTML);
+
+      // Event handler สำหรับฟอร์ม
+      document.getElementById('submitContact').addEventListener('click', handleContactSubmit);
+    }
+
+    function handleContactSubmit() {
+      const name = document.getElementById('contactName').value;
+      const email = document.getElementById('contactEmail').value;
+      const message = document.getElementById('contactMessage').value;
+
+      if (!name || !email || !message) {
+        alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+        return;
+      }
+
+      // ส่งข้อมูล (ในที่นี้แค่แสดง alert, สามารถปรับเป็นส่งไป server จริงได้)
+      alert(`ขอบคุณสำหรับข้อความของคุณ ${name}! เราจะติดต่อกลับไปที่ ${email} ในเร็วๆนี้`);
+
+      // เคลียร์ฟอร์ม
+      document.getElementById('contactName').value = '';
+      document.getElementById('contactEmail').value = '';
+      document.getElementById('contactMessage').value = '';
+
+      // Track event
+      trackUserInteraction('contact_form_submit', 'contact');
+    }
+
+    // 4. Analytics Tracking (ติดตามพฤติกรรม)
+    function trackUserInteraction(action, category, label = '') {
+      // Google Analytics (ถ้ามี)
+      if (typeof gtag !== 'undefined') {
+        gtag('event', action, {
+          'event_category': category,
+          'event_label': label || 'Poetry Pixel'
+        });
+      }
+
+      // Custom tracking
+      console.log(`📊 User Action: ${action} - ${category}${label ? ' - ' + label : ''}`);
+
+      // บันทึกใน localStorage สำหรับ analytics เบื้องต้น
+      const analyticsData = JSON.parse(localStorage.getItem('poetryPixelAnalytics') || '[]');
+      analyticsData.push({
+        action,
+        category,
+        label,
+        timestamp: new Date().toISOString(),
+        page: window.location.href,
+        userAgent: navigator.userAgent
+      });
+      localStorage.setItem('poetryPixelAnalytics', JSON.stringify(analyticsData));
+    }
+
+    // 5. Error Handling (จัดการข้อผิดพลาด)
+    function initErrorHandling() {
+      // Global error handler
+      window.addEventListener('error', function (e) {
+        console.error('🚨 Global Error:', e.error);
+        trackUserInteraction('javascript_error', 'error', e.message);
+      });
+
+      // Promise rejection handler
+      window.addEventListener('unhandledrejection', function (e) {
+        console.error('🚨 Unhandled Promise Rejection:', e.reason);
+        trackUserInteraction('promise_rejection', 'error', e.reason);
+      });
+
+      // Image error handler
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('img').forEach(img => {
+          img.addEventListener('error', function () {
+            console.warn('🖼️ Image failed to load:', this.src);
+            this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzMzMzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+';
+            trackUserInteraction('image_load_error', 'error', this.src);
+          });
+        });
+      });
+    }
+
+    // 6. SEO Optimization (ปรับแต่ง SEO)
+    function initSEOManagement() {
+      // Dynamic meta tags update
+      function updateMetaTags(title, description, image) {
+        // Open Graph
+        let ogTitle = document.querySelector('meta[property="og:title"]');
+        let ogDesc = document.querySelector('meta[property="og:description"]');
+        let ogImage = document.querySelector('meta[property="og:image"]');
+
+        if (!ogTitle) {
+          ogTitle = document.createElement('meta');
+          ogTitle.setAttribute('property', 'og:title');
+          document.head.appendChild(ogTitle);
+        }
+        if (!ogDesc) {
+          ogDesc = document.createElement('meta');
+          ogDesc.setAttribute('property', 'og:description');
+          document.head.appendChild(ogDesc);
+        }
+        if (!ogImage) {
+          ogImage = document.createElement('meta');
+          ogImage.setAttribute('property', 'og:image');
+          document.head.appendChild(ogImage);
+        }
+
+        ogTitle.setAttribute('content', title);
+        ogDesc.setAttribute('content', description);
+        ogImage.setAttribute('content', image);
+      }
+
+      // Initial meta tags
+      updateMetaTags(
+        'Poetry Pixel — Creative Studio',
+        'Poetry Pixel: pixels that speak like poetry — video editing, motion graphics, branding, AI-age visuals.',
+        'https://drive.google.com/thumbnail?id=1NIUOIFecbiyyueQtpGq4pdoBLGgE-YYX&sz=w1000'
+      );
+    }
+
+    // 7. Loading States (สถานะกำลังโหลด)
+    function initLoadingStates() {
+      const loader = document.createElement('div');
+      loader.className = 'loading-indicator';
+      loader.innerHTML = '<div class="loading-spinner"></div>กำลังโหลด...';
+      document.body.appendChild(loader);
+    }
+
+    function showLoadingState() {
+      const loader = document.querySelector('.loading-indicator');
+      if (loader) loader.classList.add('active');
+    }
+
+    function hideLoadingState() {
+      const loader = document.querySelector('.loading-indicator');
+      if (loader) loader.classList.remove('active');
+    }
+
+    // 8. Keyboard Navigation (ควบคุมด้วยคีย์บอร์ด)
+    function initKeyboardNavigation() {
+      document.addEventListener('keydown', function (e) {
+        // ESC to close all modals
+        if (e.key === 'Escape') {
+          document.querySelectorAll('.promotion-popup.active, .manager-panel.active, .analytics-dashboard.active').forEach(modal => {
+            modal.classList.remove('active');
+          });
+        }
+
+        // Close promotion manager with ESC
+        if (e.key === 'Escape' && document.querySelector('.manager-panel.active')) {
+          document.getElementById('managerPanel').classList.remove('active');
+        }
+
+        // Tab navigation for portfolio cards
+        if (e.key === 'Tab' && document.activeElement.classList.contains('portfolio-card')) {
+          setTimeout(() => {
+            const focusedCard = document.activeElement;
+            if (focusedCard && focusedCard.classList.contains('portfolio-card')) {
+              focusedCard.style.transform = 'translateY(-5px)';
+              focusedCard.style.boxShadow = '0 15px 30px rgba(0,0,0,0.3)';
+            }
+          }, 10);
+        }
+      });
+
+      // Add tabindex for better keyboard navigation
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.portfolio-card, .btn, .scroll-btn').forEach(el => {
+          el.setAttribute('tabindex', '0');
+        });
+      });
+    }
+
+    // 9. Service Worker (ตัวช่วยเก็บข้อมูล)
+    function initServiceWorker() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then(function (registration) {
+          console.log('✅ Service Worker registered with scope:', registration.scope);
+          trackUserInteraction('service_worker_registered', 'performance');
+        }).catch(function (error) {
+          console.log('❌ Service Worker registration failed:', error);
+          trackUserInteraction('service_worker_failed', 'error');
+        });
+      }
+    }
+
+    // 10. Performance Monitoring (วัดประสิทธิภาพ)
+    function initPerformanceMonitoring() {
+      // Core Web Vitals monitoring
+      function getPerformanceMetrics() {
+        const metrics = {
+          loadTime: performance.timing.loadEventEnd - performance.timing.navigationStart,
+          domReady: performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart,
+          readyStart: performance.timing.fetchStart - performance.timing.navigationStart,
+          redirectTime: performance.timing.redirectEnd - performance.timing.redirectStart,
+          appcacheTime: performance.timing.domainLookupStart - performance.timing.fetchStart,
+          unloadEventTime: performance.timing.unloadEventEnd - performance.timing.unloadEventStart,
+          lookupDomainTime: performance.timing.domainLookupEnd - performance.timing.domainLookupStart,
+          connectTime: performance.timing.connectEnd - performance.timing.connectStart,
+          requestTime: performance.timing.responseEnd - performance.timing.requestStart,
+          initDomTreeTime: performance.timing.domInteractive - performance.timing.responseEnd,
+          loadEventTime: performance.timing.loadEventEnd - performance.timing.loadEventStart
+        };
+
+        console.log('📈 Performance Metrics:', metrics);
+        trackUserInteraction('performance_metrics', 'performance');
+
+        return metrics;
+      }
+
+      // Report when page is fully loaded
+      window.addEventListener('load', function () {
+        setTimeout(getPerformanceMetrics, 0);
+      });
+
+      // Monitor long tasks
+      if ('PerformanceObserver' in window) {
+        const observer = new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            if (entry.duration > 50) { // Tasks longer than 50ms
+              console.warn('🐢 Long task detected:', entry);
+              trackUserInteraction('long_task', 'performance');
+            }
+          }
+        });
+
+        observer.observe({ entryTypes: ['longtask'] });
+      }
+    }
+
+    // 11. Backup System (สำรองข้อมูล)
+    function initBackupSystem() {
+      // Extend PromotionManager with backup functionality
+      const originalPromotionManager = window.PromotionManager;
+
+      window.PromotionManager = class extends originalPromotionManager {
+        backupPromotions() {
+          const data = JSON.stringify(this.promotions);
+          const blob = new Blob([data], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `poetry-pixel-promotions-backup-${new Date().toISOString().split('T')[0]}.json`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+
+          trackUserInteraction('promotions_backup', 'backup');
+          alert('สำรองข้อมูลโปรโมชั่นเรียบร้อยแล้ว!');
+        }
+
+        restorePromotions(file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            try {
+              const promotions = JSON.parse(e.target.result);
+              if (Array.isArray(promotions)) {
+                this.promotions = promotions;
+                this.savePromotions();
+                this.renderPromotionList();
+                this.updatePopupImage();
+                trackUserInteraction('promotions_restore', 'backup');
+                alert('กู้คืนข้อมูลโปรโมชั่นเรียบร้อยแล้ว!');
+              } else {
+                throw new Error('Invalid backup file format');
+              }
+            } catch (error) {
+              alert('ไฟล์สำรองข้อมูลไม่ถูกต้อง: ' + error.message);
+              trackUserInteraction('backup_restore_failed', 'error');
+            }
+          };
+          reader.readAsText(file);
+        }
+      };
+
+      // Add backup button to manager panel
+      const managerPanel = document.getElementById('managerPanel');
+      if (managerPanel) {
+        const backupSection = document.createElement('div');
+        backupSection.style.marginTop = '20px';
+        backupSection.style.paddingTop = '20px';
+        backupSection.style.borderTop = '1px solid var(--line)';
+        backupSection.innerHTML = `
+          <h4 style="margin-bottom: 15px; font-family: 'Geist';">การสำรองข้อมูล</h4>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="upload-btn" id="backupPromotions" style="background: var(--accent-green);">
+              📥 สำรองข้อมูล
+            </button>
+            <button class="upload-btn" id="restorePromotions" style="background: var(--accent-purple);">
+              📤 กู้คืนข้อมูล
+            </button>
+            <input type="file" id="restoreFileInput" accept=".json" style="display: none;">
+          </div>
+        `;
+
+        managerPanel.querySelector('.promotion-list').insertAdjacentElement('afterend', backupSection);
+
+        // Event listeners for backup/restore
+        document.getElementById('backupPromotions').addEventListener('click', () => {
+          const pm = new PromotionManager();
+          pm.backupPromotions();
+        });
+
+        document.getElementById('restorePromotions').addEventListener('click', () => {
+          document.getElementById('restoreFileInput').click();
+        });
+
+        document.getElementById('restoreFileInput').addEventListener('change', (e) => {
+          if (e.target.files.length > 0) {
+            const pm = new PromotionManager();
+            pm.restorePromotions(e.target.files[0]);
+          }
+        });
+      }
+    }
+
+    // 12. Auto-save (บันทึกอัตโนมัติ)
+    function initAutoSave() {
+      const autoSaveData = JSON.parse(localStorage.getItem('poetryPixelAutoSave') || '{}');
+
+      // Auto-save for contact form
+      const contactForm = document.querySelector('.contact-form');
+      if (contactForm) {
+        const fields = ['contactName', 'contactEmail', 'contactMessage'];
+
+        fields.forEach(fieldId => {
+          const field = document.getElementById(fieldId);
+          if (field) {
+            // Restore saved data
+            if (autoSaveData[fieldId]) {
+              field.value = autoSaveData[fieldId];
+            }
+
+            // Auto-save on input
+            field.addEventListener('input', debounce(() => {
+              autoSaveData[fieldId] = field.value;
+              localStorage.setItem('poetryPixelAutoSave', JSON.stringify(autoSaveData));
+            }, 1000));
+          }
+        });
+      }
+
+      // Auto-save scroll positions
+      const scrollPositions = JSON.parse(localStorage.getItem('poetryPixelScrollPositions') || '{}');
+
+      window.addEventListener('scroll', debounce(() => {
+        scrollPositions[window.location.href] = window.scrollY;
+        localStorage.setItem('poetryPixelScrollPositions', JSON.stringify(scrollPositions));
+      }, 500));
+
+      // Restore scroll position
+      window.addEventListener('load', () => {
+        const savedPosition = scrollPositions[window.location.href];
+        if (savedPosition) {
+          setTimeout(() => {
+            window.scrollTo(0, savedPosition);
+          }, 100);
+        }
+      });
+    }
+
+    // 13. Touch Enhancement (ปรับปรุงสำหรับมือถือ)
+    function initTouchEnhancement() {
+      if (!isMobile) return;
+
+      // Add touch device class
+      document.body.classList.add('touch-device');
+
+      // Enhanced touch targets are handled by CSS
+
+      // Add touch feedback
+      document.addEventListener('touchstart', function () { }, { passive: true });
+
+      // Improved scrolling for mobile
+      document.querySelectorAll('.scroll-content').forEach(container => {
+        container.style.WebkitOverflowScrolling = 'touch';
+      });
+
+      // Touch gesture for quick actions
+      let touchStartX = 0;
+      document.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+
+      document.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
+
+        // Swipe left/right to navigate portfolio
+        if (Math.abs(diff) > 50) {
+          const scrollContainer = document.querySelector('.scroll-content');
+          if (scrollContainer) {
+            const scrollAmount = 300;
+            scrollContainer.scrollBy({
+              left: diff > 0 ? scrollAmount : -scrollAmount,
+              behavior: 'smooth'
+            });
+          }
+        }
+      }, { passive: true });
+    }
+
+    // ==============================================
+    // ADVANCED ANALYTICS DASHBOARD
+    // ==============================================
+
+    function initAnalyticsDashboard() {
+      const analyticsBtn = document.getElementById('analyticsBtn');
+      const analyticsDashboard = document.getElementById('analyticsDashboard');
+      const analyticsClose = document.getElementById('analyticsClose');
+      const analyticsContent = document.getElementById('analyticsContent');
+      const exportAnalytics = document.getElementById('exportAnalytics');
+      const clearAnalytics = document.getElementById('clearAnalytics');
+
+      // Show/hide dashboard
+      analyticsBtn.addEventListener('click', () => {
+        analyticsDashboard.classList.add('active');
+        updateAnalyticsDashboard();
+      });
+
+      analyticsClose.addEventListener('click', () => {
+        analyticsDashboard.classList.remove('active');
+      });
+
+      // Close when clicking outside
+      analyticsDashboard.addEventListener('click', (e) => {
+        if (e.target === analyticsDashboard) {
+          analyticsDashboard.classList.remove('active');
+        }
+      });
+
+      // Export data
+      exportAnalytics.addEventListener('click', () => {
+        const analyticsData = JSON.parse(localStorage.getItem('poetryPixelAnalytics') || '[]');
+        const dataStr = JSON.stringify(analyticsData, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `poetry-pixel-analytics-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        trackUserInteraction('analytics_export', 'analytics');
+        alert('ส่งออกข้อมูลสถิติเรียบร้อยแล้ว!');
+      });
+
+      // Clear data
+      clearAnalytics.addEventListener('click', () => {
+        if (confirm('คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลสถิติทั้งหมด? การกระทำนี้ไม่สามารถย้อนกลับได้')) {
+          localStorage.removeItem('poetryPixelAnalytics');
+          updateAnalyticsDashboard();
+          trackUserInteraction('analytics_cleared', 'analytics');
+          alert('ล้างข้อมูลสถิติเรียบร้อยแล้ว!');
+        }
+      });
+
+      // Admin shortcut to show analytics button
+      document.addEventListener('keydown', (e) => {
+        // Ctrl+Shift+Alt+A to show analytics
+        if (e.ctrlKey && e.shiftKey && e.altKey && e.key === 'A') {
+          e.preventDefault();
+          analyticsBtn.classList.toggle('visible');
+        }
+      });
+    }
+
+    function updateAnalyticsDashboard() {
+      const analyticsContent = document.getElementById('analyticsContent');
+      const analyticsData = JSON.parse(localStorage.getItem('poetryPixelAnalytics') || '[]');
+
+      if (analyticsData.length === 0) {
+        analyticsContent.innerHTML = `
+          <div class="analytics-card" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+            <h3>📊 ไม่มีข้อมูลสถิติ</h3>
+            <p style="color: var(--muted); margin-top: 10px;">ยังไม่มีข้อมูลการใช้งานที่บันทึกไว้</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Calculate statistics
+      const totalEvents = analyticsData.length;
+      const eventsByType = analyticsData.reduce((acc, event) => {
+        acc[event.action] = (acc[event.action] || 0) + 1;
+        return acc;
+      }, {});
+
+      const eventsByCategory = analyticsData.reduce((acc, event) => {
+        acc[event.category] = (acc[event.category] || 0) + 1;
+        return acc;
+      }, {});
+
+      const today = new Date().toISOString().split('T')[0];
+      const todayEvents = analyticsData.filter(event => event.timestamp.startsWith(today)).length;
+
+      const uniquePages = [...new Set(analyticsData.map(event => event.page))].length;
+
+      // Get recent events (last 10)
+      const recentEvents = analyticsData.slice(-10).reverse();
+
+      // Create dashboard content
+      analyticsContent.innerHTML = `
+        <!-- Summary Cards -->
+        <div class="analytics-card">
+          <h3>📈 สรุปทั้งหมด</h3>
+          <div class="stat-number">${totalEvents}</div>
+          <div class="stat-desc">เหตุการณ์ทั้งหมด</div>
+        </div>
+
+        <div class="analytics-card">
+          <h3>📅 วันนี้</h3>
+          <div class="stat-number">${todayEvents}</div>
+          <div class="stat-desc">เหตุการณ์วันนี้</div>
+        </div>
+
+        <div class="analytics-card">
+          <h3>🌐 หน้าเว็บ</h3>
+          <div class="stat-number">${uniquePages}</div>
+          <div class="stat-desc">จำนวนหน้าที่เข้าชม</div>
+        </div>
+
+        <div class="analytics-card">
+          <h3>👥 ผู้ใช้</h3>
+          <div class="stat-number">${new Set(analyticsData.map(e => e.userAgent)).size}</div>
+          <div class="stat-desc">อุปกรณ์ที่แตกต่าง</div>
+        </div>
+
+        <!-- Events by Type -->
+        <div class="analytics-card" style="grid-column: span 2;">
+          <h3>🎯 ประเภทเหตุการณ์</h3>
+          <table class="analytics-table">
+            <thead>
+              <tr>
+                <th>ประเภท</th>
+                <th>จำนวน</th>
+                <th>ร้อยละ</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${Object.entries(eventsByType).map(([type, count]) => `
+                <tr>
+                  <td>${type}</td>
+                  <td>${count}</td>
+                  <td>${((count / totalEvents) * 100).toFixed(1)}%</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Events by Category -->
+        <div class="analytics-card" style="grid-column: span 2;">
+          <h3>📊 หมวดหมู่เหตุการณ์</h3>
+          <table class="analytics-table">
+            <thead>
+              <tr>
+                <th>หมวดหมู่</th>
+                <th>จำนวน</th>
+                <th>ร้อยละ</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${Object.entries(eventsByCategory).map(([category, count]) => `
+                <tr>
+                  <td>${category}</td>
+                  <td>${count}</td>
+                  <td>${((count / totalEvents) * 100).toFixed(1)}%</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Recent Events -->
+        <div class="analytics-card" style="grid-column: 1 / -1;">
+          <h3>⏰ เหตุการณ์ล่าสุด</h3>
+          <table class="analytics-table">
+            <thead>
+              <tr>
+                <th>เวลา</th>
+                <th>การกระทำ</th>
+                <th>หมวดหมู่</th>
+                <th>หน้า</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${recentEvents.map(event => `
+                <tr>
+                  <td>${new Date(event.timestamp).toLocaleTimeString()}</td>
+                  <td>${event.action}</td>
+                  <td>${event.category}</td>
+                  <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${event.page}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    // PROMOTION MANAGEMENT SYSTEM - FOR ADMIN ONLY
+    class PromotionManager {
+      constructor() {
+        this.promotions = this.loadPromotions();
+        this.currentPromotion = this.loadCurrentPromotion();
+        this.popupDisabled = this.loadPopupDisabled();
+        this.init();
+      }
+
+      // โหลดรายการโปรโมชั่นจาก Local Storage
+      loadPromotions() {
+        const saved = localStorage.getItem('poetryPixelPromotions');
+        if (saved) {
+          return JSON.parse(saved);
+        }
+
+        // เริ่มต้นด้วยภาพจาก Google Drive
+        return [
+          {
+            id: 'default',
+            name: 'โปรโมชั่นเริ่มต้น',
+            url: 'https://drive.google.com/thumbnail?id=19roCjQBTvtKP7bxu0-3hsGRRUQgdJHO8&sz=w1000',
+            timestamp: Date.now()
+          }
+        ];
+      }
+
+      // โหลดโปรโมชั่นปัจจุบันจาก Local Storage
+      loadCurrentPromotion() {
+        return localStorage.getItem('poetryPixelCurrentPromotion') || 'default';
+      }
+
+      // โหลดสถานะการปิดป๊อปอัพ
+      loadPopupDisabled() {
+        return localStorage.getItem('poetryPixelPopupDisabled') === 'true';
+      }
+
+      // บันทึกรายการโปรโมชั่น
+      savePromotions() {
+        localStorage.setItem('poetryPixelPromotions', JSON.stringify(this.promotions));
+      }
+
+      // บันทึกโปรโมชั่นปัจจุบัน
+      saveCurrentPromotion() {
+        localStorage.setItem('poetryPixelCurrentPromotion', this.currentPromotion);
+      }
+
+      // บันทึกสถานะป๊อปอัพ
+      savePopupDisabled() {
+        localStorage.setItem('poetryPixelPopupDisabled', this.popupDisabled.toString());
+      }
+
+      // เพิ่มโปรโมชั่นใหม่
+      addPromotion(file) {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const promotion = {
+              id: 'promo_' + Date.now(),
+              name: file.name,
+              url: e.target.result,
+              timestamp: Date.now()
+            };
+
+            this.promotions.push(promotion);
+            this.savePromotions();
+            this.renderPromotionList();
+            resolve(promotion);
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      // ลบโปรโมชั่น
+      removePromotion(id) {
+        this.promotions = this.promotions.filter(p => p.id !== id);
+        if (this.currentPromotion === id) {
+          this.currentPromotion = this.promotions.length > 0 ? this.promotions[0].id : 'default';
+          this.saveCurrentPromotion();
+          this.updatePopupImage();
+        }
+        this.savePromotions();
+        this.renderPromotionList();
+      }
+
+      // ตั้งค่าโปรโมชั่นปัจจุบัน
+      setCurrentPromotion(id) {
+        this.currentPromotion = id;
+        this.saveCurrentPromotion();
+        this.updatePopupImage();
+        this.renderPromotionList();
+      }
+
+      // ปิดการแสดงป๊อปอัพ
+      disablePopup() {
+        this.popupDisabled = true;
+        this.savePopupDisabled();
+      }
+
+      // เปิดการแสดงป๊อปอัพ
+      enablePopup() {
+        this.popupDisabled = false;
+        this.savePopupDisabled();
+      }
+
+      // อัพเดทภาพในป๊อปอัพ
+      updatePopupImage() {
+        const popupImage = document.getElementById('popupImage');
+        const promotion = this.promotions.find(p => p.id === this.currentPromotion) || this.promotions[0];
+
+        if (promotion && popupImage) {
+          popupImage.src = promotion.url;
+        }
+      }
+
+      // เรนเดอร์รายการโปรโมชั่น
+      renderPromotionList() {
+        const list = document.getElementById('promotionList');
+        if (!list) return;
+
+        list.innerHTML = '';
+
+        this.promotions.forEach(promotion => {
+          const item = document.createElement('div');
+          item.className = `promotion-item ${promotion.id === this.currentPromotion ? 'active' : ''}`;
+
+          item.innerHTML = `
+            <img src="${promotion.url}" alt="${promotion.name}" class="promotion-thumb">
+            <div class="promotion-name">${promotion.name}</div>
+            <div class="promotion-actions">
+              <button class="action-btn use" title="ใช้ภาพนี้">✅</button>
+              <button class="action-btn delete" title="ลบ">🗑️</button>
+            </div>
+          `;
+
+          // ปุ่มใช้ภาพ
+          item.querySelector('.action-btn.use').addEventListener('click', () => {
+            this.setCurrentPromotion(promotion.id);
+          });
+
+          // ปุ่มลบ
+          item.querySelector('.action-btn.delete').addEventListener('click', () => {
+            if (confirm('ต้องการลบภาพนี้ใช่หรือไม่?')) {
+              this.removePromotion(promotion.id);
+            }
+          });
+
+          list.appendChild(item);
+        });
+      }
+
+      // เริ่มต้นระบบ
+      init() {
+        this.setupEventListeners();
+        this.renderPromotionList();
+        this.updatePopupImage();
+        this.setupAdminShortcut();
+        this.showPopupIfNeeded();
+      }
+
+      // แสดงป๊อปอัพถ้าจำเป็น
+      showPopupIfNeeded() {
+        if (!this.popupDisabled) {
+          setTimeout(() => {
+            const popup = document.getElementById('promotionPopup');
+            if (popup) {
+              popup.classList.add('active');
+            }
+          }, 500); // แสดงเร็วขึ้นเหลือ 0.5 วินาที
+        }
+      }
+
+      // ตั้งค่า Event Listeners
+      setupEventListeners() {
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const managerBtn = document.getElementById('managerBtn');
+        const managerPanel = document.getElementById('managerPanel');
+        const closeManager = document.getElementById('closeManager');
+        const closePopup = document.getElementById('closePopup');
+
+        // คลิกพื้นที่อัพโหลด
+        uploadArea.addEventListener('click', () => {
+          fileInput.click();
+        });
+
+        // ลากและวางไฟล์
+        uploadArea.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          uploadArea.style.borderColor = 'var(--ai-blue)';
+          uploadArea.style.background = 'rgba(51, 204, 255, 0.05)';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+          uploadArea.style.borderColor = 'var(--line)';
+          uploadArea.style.background = 'transparent';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+          e.preventDefault();
+          uploadArea.style.borderColor = 'var(--line)';
+          uploadArea.style.background = 'transparent';
+
+          const files = e.dataTransfer.files;
+          if (files.length > 0 && files[0].type.startsWith('image/')) {
+            this.addPromotion(files[0]);
+          }
+        });
+
+        // เลือกไฟล์จาก input
+        fileInput.addEventListener('change', (e) => {
+          const files = e.target.files;
+          if (files.length > 0) {
+            this.addPromotion(files[0]);
+            fileInput.value = ''; // รีเซ็ต input
+          }
+        });
+
+        // เปิด/ปิดแผงจัดการ
+        managerBtn.addEventListener('click', () => {
+          managerPanel.classList.toggle('active');
+        });
+
+        closeManager.addEventListener('click', () => {
+          managerPanel.classList.remove('active');
+        });
+
+        // ปิดแผงเมื่อคลิกนอกพื้นที่
+        managerPanel.addEventListener('click', (e) => {
+          if (e.target === managerPanel) {
+            managerPanel.classList.remove('active');
+          }
+        });
+
+        // ปิดป๊อปอัพ
+        closePopup.addEventListener('click', () => {
+          document.getElementById('promotionPopup').classList.remove('active');
+        });
+      }
+
+      // ตั้งค่าคีย์ลัดสำหรับแอดมินเท่านั้น
+      setupAdminShortcut() {
+        document.addEventListener('keydown', (e) => {
+          // คีย์ลัดลับสำหรับแอดมิน: Ctrl+Shift+Alt+P
+          if (e.ctrlKey && e.shiftKey && e.altKey && e.key === 'P') {
+            e.preventDefault();
+            const manager = document.getElementById('promotionManager');
+            const panel = document.getElementById('managerPanel');
+
+            // สลับการแสดงผล
+            manager.classList.toggle('visible');
+
+            // ถ้าเปิดแผงจัดการ ให้แสดงปุ่มด้วย
+            if (panel.classList.contains('active')) {
+              manager.classList.add('visible');
+            }
+          }
+
+          // ESC เพื่อปิดแผงจัดการ
+          if (e.key === 'Escape') {
+            document.getElementById('managerPanel').classList.remove('active');
+            document.getElementById('promotionPopup').classList.remove('active');
+            document.getElementById('analyticsDashboard').classList.remove('active');
+          }
+        });
+      }
+    }
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function () {
+      // Set current year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Fill portfolio categories
+      fillPortfolioCategories();
+
+      // Initialize scroll buttons
+      initScrollButtons();
+
+      // Initialize mobile scroll
+      initMobileScroll();
+
+      // Initialize smooth scrolling
+      initSmoothScroll();
+
+      // Initialize promotion manager
+      new PromotionManager();
+
+      // Initialize analytics dashboard
+      initAnalyticsDashboard();
+
+      // Navbar background on scroll
+      window.addEventListener('scroll', function () {
+        const nav = document.querySelector('.nav');
+        if (window.scrollY > 50) {
+          nav.style.background = 'var(--nav-bg)';
+          nav.style.backdropFilter = 'blur(14px)';
+        } else {
+          nav.style.background = 'transparent';
+          nav.style.backdropFilter = 'none';
+        }
+      });
+
+      // ==============================================
+      // INITIALIZE ENHANCED FEATURES
+      // ==============================================
+
+      // เรียกใช้ฟังก์ชันทั้งหมด
+      initContactForm();
+      initErrorHandling();
+      initSEOManagement();
+      initLoadingStates();
+      initKeyboardNavigation();
+      initServiceWorker();
+      initPerformanceMonitoring();
+      initBackupSystem();
+      initAutoSave();
+      initTouchEnhancement();
+
+      // Track page view
+      trackUserInteraction('page_view', 'navigation');
+
+      console.log('🚀 All enhanced features loaded!');
+    });
+
+    // เพิ่มการใช้งาน debounce ใน scroll event ที่มีอยู่
+    const originalScrollHandler = window.onscroll;
+    window.onscroll = debounce(function () {
+      if (originalScrollHandler) originalScrollHandler();
+
+      // Track scroll depth
+      const scrollDepth = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      if (scrollDepth > 25 && !window.scroll25Tracked) {
+        trackUserInteraction('scroll_25_percent', 'engagement');
+        window.scroll25Tracked = true;
+      }
+      if (scrollDepth > 50 && !window.scroll50Tracked) {
+        trackUserInteraction('scroll_50_percent', 'engagement');
+        window.scroll50Tracked = true;
+      }
+      if (scrollDepth > 75 && !window.scroll75Tracked) {
+        trackUserInteraction('scroll_75_percent', 'engagement');
+        window.scroll75Tracked = true;
+      }
+    }, 100);
+
+    // --- 1. Aura Isometric Visualization System ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('webgl-canvas');
+      if(canvas && typeof THREE !== 'undefined') {
+        const scene = new THREE.Scene();
+        let d = 16;
+        let aspect = window.innerWidth / window.innerHeight;
+        const camera = new THREE.OrthographicCamera(-d * aspect, d * aspect, d, -d, 1, 1000);
+        camera.position.set(20, 20, 20);
+        camera.lookAt(0, 0, 0);
+
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const group = new THREE.Group();
+        scene.add(group);
+
+        const geo = new THREE.BoxGeometry(0.3, 0.3, 0.3);
+        const mat = new THREE.MeshStandardMaterial({
+          color: 0x0ea5e9,
+          emissive: 0x0ea5e9,
+          emissiveIntensity: 0.4,
+          transparent: true,
+          opacity: 0.6,
+          roughness: 0.2,
+          metalness: 0.8
+        });
+
+        for(let i=0; i<200; i++) {
+          const mesh = new THREE.Mesh(geo, mat);
+          mesh.position.set(
+            (Math.random() - 0.5) * 40,
+            (Math.random() - 0.5) * 40,
+            (Math.random() - 0.5) * 40
+          );
+          mesh.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, 0);
+          mesh.scale.setScalar(Math.random() * 0.8 + 0.2);
+          group.add(mesh);
+        }
+
+        const ambient = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambient);
+
+        const point = new THREE.PointLight(0x38bdf8, 2, 60);
+        point.position.set(15, 15, 15);
+        scene.add(point);
+        
+        const point2 = new THREE.PointLight(0x06b6d4, 2, 60);
+        point2.position.set(-15, -15, -15);
+        scene.add(point2);
+
+        function animate() {
+          requestAnimationFrame(animate);
+          group.rotation.y += 0.0005;
+          group.rotation.x += 0.0002;
+          renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+          aspect = window.innerWidth / window.innerHeight;
+          camera.left = -d * aspect;
+          camera.right = d * aspect;
+          camera.top = d;
+          camera.bottom = -d;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
